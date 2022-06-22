@@ -1,5 +1,6 @@
 import 'package:academybw/initial_page.dart';
 import 'package:academybw/providers/auth_provider.dart';
+import 'package:academybw/providers/menu_provider.dart';
 import 'package:academybw/services/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,6 +23,7 @@ class AppState extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(lazy: false,create: ( _ ) => AuthProvider()),
+        ChangeNotifierProvider(lazy: false,create: ( _ ) => MenuProvider()),
       ],
       child: const MyApp(),
     );

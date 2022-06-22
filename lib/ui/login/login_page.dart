@@ -1,6 +1,7 @@
 import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
+import 'package:academybw/ui/home/home_page.dart';
 import 'package:academybw/ui/register/register_page.dart';
 import 'package:academybw/widgets_shared/button_general.dart';
 import 'package:academybw/widgets_shared/textfield_general.dart';
@@ -80,13 +81,16 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(height: sizeH * 0.025,),
               ButtonGeneral(
                 title: 'Continue',
-                onPressed: (){},
                 margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
                 width: sizeW,
                 height: sizeH * 0.07,
                 backgroundColor: AcademyColors.primary,
                 textStyle: styleButtonText,
                 radius: 5,
+                onPressed: (){
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder:
+                      (BuildContext context) => const HomePage()));
+                },
               ),
               SizedBox(height: sizeH * 0.03,),
               goToRegister(),
