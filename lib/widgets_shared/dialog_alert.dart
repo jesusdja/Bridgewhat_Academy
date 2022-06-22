@@ -11,11 +11,11 @@ Future<bool> alert(BuildContext context) async{
         return AlertDialog(
           title: const Text(''),
           content: Text('',textAlign: TextAlign.center,
-            style: AcademyStyles().stylePrimary(size: size.height * 0.025,fontWeight: FontWeight.w500, color: AcademyColors.primary),),
+            style: AcademyStyles().styleLato(size: size.height * 0.025,fontWeight: FontWeight.w500, color: AcademyColors.primary),),
           actions: <Widget>[
             CupertinoButton(
               child: Text('Ok',
-                style: AcademyStyles().stylePrimary(size: size.height * 0.02, color: AcademyColors.primary,fontWeight: FontWeight.bold),),
+                style: AcademyStyles().styleLato(size: size.height * 0.02, color: AcademyColors.primary,fontWeight: FontWeight.bold),),
               onPressed: ()  {
                 Navigator.of(context).pop(true);
               },
@@ -23,7 +23,7 @@ Future<bool> alert(BuildContext context) async{
             SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
             CupertinoButton(
               child: Text('Cancel',
-                style: AcademyStyles().stylePrimary(size: size.height * 0.02, color: AcademyColors.primary,fontWeight: FontWeight.bold),),
+                style: AcademyStyles().styleLato(size: size.height * 0.02, color: AcademyColors.primary,fontWeight: FontWeight.bold),),
               onPressed: (){
                 Navigator.of(context).pop(false);
               },

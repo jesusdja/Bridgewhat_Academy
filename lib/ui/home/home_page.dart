@@ -2,6 +2,10 @@ import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
 import 'package:academybw/providers/menu_provider.dart';
+import 'package:academybw/ui/menu/cartoons/cartoons_page.dart';
+import 'package:academybw/ui/menu/demo/demo_page.dart';
+import 'package:academybw/ui/menu/post/post_page.dart';
+import 'package:academybw/ui/menu/videos/videos_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -32,16 +36,16 @@ class _HomePageState extends State<HomePage> {
     Widget option = optionMenu();
 
     if(menuProvider.status == MenuStatus.post){
-      option = Container();
+      option = const PostPage();
     }
     if(menuProvider.status == MenuStatus.videos){
-      option = Container();
+      option = const VideosPage();
     }
     if(menuProvider.status == MenuStatus.cartoons){
-      option = Container();
+      option = const CartoonsPage();
     }
     if(menuProvider.status == MenuStatus.demo){
-      option = Container();
+      option = const DemoPage();
     }
 
     return SafeArea(
@@ -51,7 +55,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             SizedBox(height: sizeH * 0.01,),
             headerContainer(),
-            SizedBox(height: sizeH * 0.03,),
+            SizedBox(height: sizeH * 0.02,),
             Expanded(
               child: option,
             )

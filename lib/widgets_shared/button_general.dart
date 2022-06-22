@@ -61,7 +61,7 @@ class ButtonGeneral extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    TextStyle textStyleLocal = textStyle ?? AcademyStyles().stylePrimary();
+    TextStyle textStyleLocal = textStyle ?? AcademyStyles().styleLato();
 
     return Container(
       margin: margin,

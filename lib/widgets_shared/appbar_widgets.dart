@@ -16,7 +16,7 @@ AppBar appBarWidget({
   List<Widget> actions = const [],
   }){
 
-  styleTitle = styleTitle ?? AcademyStyles().stylePrimary(size: sizeH * 0.023,color: Colors.white,fontWeight: FontWeight.bold);
+  styleTitle = styleTitle ?? AcademyStyles().styleLato(size: sizeH * 0.023,color: Colors.white,fontWeight: FontWeight.bold);
 
   return AppBar(
     backgroundColor: backgroundColor,

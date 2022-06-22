@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AcademyStyles {
-  TextStyle stylePrimary({
+  TextStyle styleLato({
     double size = 10,
     Color color = Colors.black,
     FontWeight fontWeight = FontWeight.normal,

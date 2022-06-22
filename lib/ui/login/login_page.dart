@@ -24,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
 
-    TextStyle styleTextField = AcademyStyles().stylePrimary(size: sizeH * 0.02,color: AcademyColors.primaryGreyApp,fontWeight: FontWeight.bold);
+    TextStyle styleTextField = AcademyStyles().styleLato(size: sizeH * 0.02,color: AcademyColors.primaryGreyApp,fontWeight: FontWeight.bold);
     TextStyle styleButtonText = AcademyStyles().stylePoppins(size: sizeH * 0.02,color: Colors.white,fontWeight: FontWeight.bold);
 
     return GestureDetector(
@@ -73,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                 width: sizeW,
                 margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
                 child: Text('Fort your password?',
-                  style: AcademyStyles().stylePrimary(
+                  style: AcademyStyles().styleLato(
                       color: AcademyColors.primary,size: sizeH * 0.02
                   ),textAlign: TextAlign.left),
               ),
@@ -133,7 +133,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           Text('remember password',
-            style: AcademyStyles().stylePrimary(
+            style: AcademyStyles().styleLato(
               color: AcademyColors.primaryGreyApp,
               size: sizeH * 0.02
             ),
@@ -151,14 +151,14 @@ class _LoginPageState extends State<LoginPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text('You don´t have an account?',
-              style: AcademyStyles().stylePrimary(
+              style: AcademyStyles().styleLato(
                   color: AcademyColors.primaryGreyApp,
                   size: sizeH * 0.02
               ),
           ),
           InkWell(
             child: Text(' Sign up',
-                style: AcademyStyles().stylePrimary(
+                style: AcademyStyles().styleLato(
                     color: AcademyColors.primary,
                     size: sizeH * 0.02
                 ),
