@@ -8,4 +8,6 @@ class AcademyColors {
 
   static const Color colors_787878 = Color(0xF0787878);
 
+  static const Color colors_737373 = Color(0xF0737373);
+
 }
