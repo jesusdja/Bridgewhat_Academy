@@ -263,6 +263,8 @@ class _CardPostContainerState extends State<CardPostContainer> {
     String likeSt = '${numberFormat(double.parse('${post['like']}')).split(',')[0]} likes';
     String sharedSt = '${numberFormat(double.parse('${post['shared']}')).split(',')[0]} times shared';
 
+
+
     TextStyle style = AcademyStyles().styleLato(size: 12,color: Colors.black);
     TextStyle style2 = AcademyStyles().styleLato(size: 10,color: Colors.white);
 
@@ -301,7 +303,9 @@ class _CardPostContainerState extends State<CardPostContainer> {
                 ),
               ],
             ),
-          )
+          ),
+          SizedBox(width: sizeW * 0.1,),
+          textDescription(),
         ],
       ),
     );
@@ -418,6 +422,47 @@ class _CardPostContainerState extends State<CardPostContainer> {
         ),
       ),
     );
+  }
+
+  Widget textDescription(){
+
+    String description = post['description'];
+
+    Widget textMore = Container();
+
+    if(description.length > 150){
+      bool isMoreActive = postProvider.postViewMoreDescription[post['id']!]!;
+      if(isMoreActive){
+        textMore = Text(description,style: AcademyStyles().styleLato(size: 12,color: AcademyColors.colors_787878),);
+      }else{
+        textMore =  InkWell(
+          onTap: (){
+            postProvider.viewContainerMoreDescriptionPost(idPost: post['id']);
+          },
+          child: SizedBox(
+            child: RichText(
+              text: TextSpan(
+                text: description.substring(0,150), // _snapshot.data['username']
+                style: AcademyStyles().styleLato(size: 12,color: AcademyColors.colors_787878),
+                children: <TextSpan>[
+                  TextSpan(
+                    text: '. . .  More',
+                    style: AcademyStyles().styleLato(size: 12,color: AcademyColors.primary),
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
+      }
+    }else{
+      textMore = Text(description,style: AcademyStyles().styleLato(size: 12,color: AcademyColors.colors_787878),);
+    }
+
+
+
+
+    return textMore;
   }
 }
 

@@ -6,6 +6,7 @@ class PostProvider extends ChangeNotifier {
   List<Map<String, dynamic>> listPost = [];
   Map<int,bool> postLikes = {};
   Map<int,bool> postShared = {};
+  Map<int,bool> postViewMoreDescription = {};
 
   PostProvider(){
     getPosts();
@@ -18,7 +19,7 @@ class PostProvider extends ChangeNotifier {
         'id': x,
         'user': 'Acenture',
         'title': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut amet, volutpat risus aliquam malesuada quis. Eu, adipiscing egestas volutpat quis platea tempus vitae, fermentum tincidunt...',
+        'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut amet, volutpat risus aliquam malesuada quis. Eu, adipiscing egestas volutpat quis platea tempus vitae, fermentum tincidunt Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut amet, volutpat risus aliquam malesuada quis. Eu, adipiscing egestas volutpat quis platea tempus vitae, fermentum tincidunt',
         'like': rng.nextInt(100),
         'shared': rng.nextInt(100),
         'followers': rng.nextInt(10000),
@@ -28,6 +29,7 @@ class PostProvider extends ChangeNotifier {
       listPost.add(post);
       postLikes[post['id']] = false;
       postShared[post['id']] = false;
+      postViewMoreDescription[post['id']] = false;
     }
     notifyListeners();
   }
@@ -53,6 +55,11 @@ class PostProvider extends ChangeNotifier {
         postShared[key] = !oldValue;
       }
     });
+    notifyListeners();
+  }
+
+  void viewContainerMoreDescriptionPost({required int idPost}){
+    postViewMoreDescription[idPost] = true;
     notifyListeners();
   }
 }
