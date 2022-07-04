@@ -26,8 +26,10 @@ class _PostPageState extends State<PostPage> {
   }
 
   initialData(){
-    Future.delayed(const Duration(milliseconds: 100)).then((value) =>
-        postProvider.viewContainerLikePost(idPost: 0));
+    Future.delayed(const Duration(milliseconds: 100)).then((value){
+      postProvider.viewContainerLikePost(idPost: 0);
+      postProvider.viewContainerSharedPost(idPost: 0);
+    });
   }
 
   @override
@@ -38,6 +40,7 @@ class _PostPageState extends State<PostPage> {
     return GestureDetector(
       onTap: (){
         postProvider.viewContainerLikePost(idPost: 0);
+        postProvider.viewContainerSharedPost(idPost: 0);
       },
       child: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -86,6 +89,7 @@ class _CardPostContainerState extends State<CardPostContainer> {
   Map<String,dynamic> post = {};
   late PostProvider postProvider;
   List<String> listTitleLikes = ['','Like','Love','Wow','Clap','Curious','Insightful'];
+  List<String> listTitleShared = ['','Linkedin','Instagram','Twitter','Facebook'];
 
   @override
   void initState() {
@@ -99,6 +103,7 @@ class _CardPostContainerState extends State<CardPostContainer> {
     postProvider = Provider.of<PostProvider>(context);
 
     bool postSelectLike = postProvider.postLikes[post['id']] ?? false;
+    bool postSelectShared = postProvider.postShared[post['id']] ?? false;
 
     return Stack(
       children: [
@@ -116,6 +121,20 @@ class _CardPostContainerState extends State<CardPostContainer> {
           Container(
             margin: EdgeInsets.only(top: sizeH * 0.3,right: sizeW * 0.05,left: sizeW * 0.25),
             child: selectLike(),
+          )
+        ],
+
+        if(postSelectShared)...[
+          Container(
+            margin: EdgeInsets.only(top: sizeH * 0.3),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(),
+                ),
+                selectShared()
+              ],
+            ),
           )
         ],
 
@@ -216,15 +235,20 @@ class _CardPostContainerState extends State<CardPostContainer> {
           ),
           Align(
             alignment: Alignment.bottomRight,
-            child: Container(
-              margin: EdgeInsets.only(bottom: sizeH * 0.015,right: sizeW * 0.025),
-              height: sizeH * 0.03,
-              width: sizeH * 0.03,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: Image.asset('assets/image/button_shared.png').image,
-                      fit: BoxFit.fitWidth
-                  )
+            child: InkWell(
+              onTap: (){
+                postProvider.viewContainerSharedPost(idPost: post['id']);
+              },
+              child: Container(
+                margin: EdgeInsets.only(bottom: sizeH * 0.015,right: sizeW * 0.025),
+                height: sizeH * 0.03,
+                width: sizeH * 0.03,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: Image.asset('assets/image/button_shared.png').image,
+                        fit: BoxFit.fitWidth
+                    )
+                ),
               ),
             ),
           )
@@ -324,6 +348,72 @@ class _CardPostContainerState extends State<CardPostContainer> {
       child: FittedBox(
         fit:BoxFit.contain,
         child: Row(
+          children: listW,
+        ),
+      ),
+    );
+  }
+
+  Widget selectShared(){
+
+    List<Widget> listW = [];
+    for(int x = 1; x < 5; x++){
+      listW.add(
+        Container(
+          width: sizeW * 0.2,
+          margin: EdgeInsets.symmetric(horizontal: sizeW * 0.02),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                height: sizeH * 0.03,
+                width: sizeH * 0.03,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: Image.asset('assets/image/shared$x.png').image,
+                        fit: BoxFit.fitWidth
+                    )
+                ),
+              ),
+              SizedBox(width: sizeW * 0.02,),
+              Expanded(
+                child: Text(listTitleShared[x],style: AcademyStyles().styleLato(size: 10,color: AcademyColors.primary)),
+              ),
+            ],
+          ),
+        ),
+      );
+      if(x < 4) {
+        listW.add(
+          Container(
+            margin: EdgeInsets.symmetric(vertical: sizeH * 0.01),
+            height: 0.5,
+            width: sizeW * 0.2,
+            color: AcademyColors.colors_C4C4C4,
+          ),
+        );
+      }
+    }
+
+
+    return Container(
+      padding: const EdgeInsets.all(10.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: const BorderRadius.only(
+          topRight: Radius.circular(0),
+          topLeft: Radius.circular(10),
+          bottomRight: Radius.circular(0),
+          bottomLeft: Radius.circular(10),
+        ),
+        border: Border.all(
+          width: 0.0,
+          color: AcademyColors.primary,
+        ),
+      ),
+      child: FittedBox(
+        fit:BoxFit.contain,
+        child: Column(
           children: listW,
         ),
       ),

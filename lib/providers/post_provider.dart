@@ -5,6 +5,7 @@ class PostProvider extends ChangeNotifier {
 
   List<Map<String, dynamic>> listPost = [];
   Map<int,bool> postLikes = {};
+  Map<int,bool> postShared = {};
 
   PostProvider(){
     getPosts();
@@ -26,6 +27,7 @@ class PostProvider extends ChangeNotifier {
       };
       listPost.add(post);
       postLikes[post['id']] = false;
+      postShared[post['id']] = false;
     }
     notifyListeners();
   }
@@ -37,6 +39,18 @@ class PostProvider extends ChangeNotifier {
         postLikes[key] = false;
       }else{
         postLikes[key] = !oldValue;
+      }
+    });
+    notifyListeners();
+  }
+
+  void viewContainerSharedPost({required int idPost}){
+    bool oldValue = postShared[idPost] ?? false;
+    postShared.forEach((key, value) {
+      if(key != idPost){
+        postShared[key] = false;
+      }else{
+        postShared[key] = !oldValue;
       }
     });
     notifyListeners();
