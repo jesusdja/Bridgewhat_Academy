@@ -1,10 +1,12 @@
-import 'dart:math' as math;
+
 import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
+import 'package:academybw/providers/post_provider.dart';
 import 'package:academybw/utils/get_data.dart';
 import 'package:academybw/widgets_shared/widgets_shared.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class PostPage extends StatefulWidget {
   const PostPage({Key? key}) : super(key: key);
@@ -15,41 +17,40 @@ class PostPage extends StatefulWidget {
 
 class _PostPageState extends State<PostPage> {
 
-  List<Map<String,dynamic>> listPost = [];
+  late PostProvider postProvider;
 
   @override
   void initState() {
     super.initState();
-    var rng = math.Random();
-    for(int x = 0; x < 10; x++){
-      Map<String,dynamic> post = {
-        'id' : x,
-        'user' : 'Acenture',
-        'title' : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        'description' : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut amet, volutpat risus aliquam malesuada quis. Eu, adipiscing egestas volutpat quis platea tempus vitae, fermentum tincidunt...',
-        'like' : rng.nextInt(100),
-        'shared' : rng.nextInt(100),
-        'followers' : rng.nextInt(10000),
-        'lecture' : '${rng.nextInt(30).round()}',
-        'date' : 'March 30 2022, 13:21',
-      };
-      listPost.add(post);
-    }
+    initialData();
+  }
+
+  initialData(){
+    Future.delayed(const Duration(milliseconds: 100)).then((value) =>
+        postProvider.viewContainerLikePost(idPost: 0));
   }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      child: Container(
-        width: sizeW,
-        margin: EdgeInsets.symmetric(horizontal: sizeW * 0.06),
-        child: Column(
-          children: [
-            bannerTitle(type: 0),
-            SizedBox(height: sizeH * 0.04),
-            cardContainer(),
-          ],
+
+    postProvider = Provider.of<PostProvider>(context);
+
+    return GestureDetector(
+      onTap: (){
+        postProvider.viewContainerLikePost(idPost: 0);
+      },
+      child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Container(
+          width: sizeW,
+          margin: EdgeInsets.symmetric(horizontal: sizeW * 0.06),
+          child: Column(
+            children: [
+              bannerTitle(type: 0),
+              SizedBox(height: sizeH * 0.04),
+              cardContainer(),
+            ],
+          ),
         ),
       ),
     );
@@ -58,7 +59,7 @@ class _PostPageState extends State<PostPage> {
   Widget cardContainer(){
 
     List<Widget> listW = [];
-    for (var element in listPost) {
+    for (var element in postProvider.listPost) {
       listW.add(CardPostContainer(post: element));
     }
 
@@ -83,6 +84,8 @@ class CardPostContainer extends StatefulWidget {
 class _CardPostContainerState extends State<CardPostContainer> {
 
   Map<String,dynamic> post = {};
+  late PostProvider postProvider;
+  List<String> listTitleLikes = ['','Like','Love','Wow','Clap','Curious','Insightful'];
 
   @override
   void initState() {
@@ -92,15 +95,31 @@ class _CardPostContainerState extends State<CardPostContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: sizeW,
-      child: Column(
-        children: [
-          cardPostTop(),
-          cardPostImg(),
-          cardBottom(),
+
+    postProvider = Provider.of<PostProvider>(context);
+
+    bool postSelectLike = postProvider.postLikes[post['id']] ?? false;
+
+    return Stack(
+      children: [
+        SizedBox(
+          width: sizeW,
+          child: Column(
+            children: [
+              cardPostTop(),
+              cardPostImg(),
+              cardBottom(),
+            ],
+          ),
+        ),
+        if(postSelectLike)...[
+          Container(
+            margin: EdgeInsets.only(top: sizeH * 0.3,right: sizeW * 0.05,left: sizeW * 0.25),
+            child: selectLike(),
+          )
         ],
-      ),
+
+      ],
     );
   }
 
@@ -178,15 +197,20 @@ class _CardPostContainerState extends State<CardPostContainer> {
         children: [
           Align(
             alignment: Alignment.bottomRight,
-            child: Container(
-              margin: EdgeInsets.only(bottom: sizeH * 0.015,right: sizeW * 0.1),
-              height: sizeH * 0.03,
-              width: sizeH * 0.03,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: Image.asset('assets/image/button_like.png').image,
-                      fit: BoxFit.fitWidth
-                  )
+            child: InkWell(
+              onTap: (){
+                postProvider.viewContainerLikePost(idPost: post['id']);
+              },
+              child: Container(
+                height: sizeH * 0.03,
+                width: sizeH * 0.03,
+                margin: EdgeInsets.only(bottom: sizeH * 0.015,right: sizeW * 0.1),
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: Image.asset('assets/image/button_like.png').image,
+                        fit: BoxFit.fitWidth
+                    )
+                ),
               ),
             ),
           ),
@@ -226,6 +250,7 @@ class _CardPostContainerState extends State<CardPostContainer> {
           SizedBox(
             width: sizeW,
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   child: Text(title,style: style),
@@ -233,17 +258,20 @@ class _CardPostContainerState extends State<CardPostContainer> {
                 SizedBox(width: sizeW * 0.1,),
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: sizeW * 0.015,vertical: sizeH * 0.01),
+                    padding: EdgeInsets.symmetric(horizontal: sizeW * 0.03,vertical: sizeH * 0.005),
                     decoration: const BoxDecoration(
                       color: AcademyColors.colors_787878,
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
-                    child: Row(
-                      children: [
-                        Expanded(child: Text(likeSt,style: style2),),
-                        Container(width: 5),
-                        Expanded(child: Text(sharedSt,style: style2)),
-                      ],
+                    child: FittedBox(
+                      fit:BoxFit.contain,
+                      child: Row(
+                        children: [
+                          Text(likeSt,style: style2),
+                          Container(width: 10),
+                          Text(sharedSt,style: style2),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -251,6 +279,53 @@ class _CardPostContainerState extends State<CardPostContainer> {
             ),
           )
         ],
+      ),
+    );
+  }
+
+  Widget selectLike(){
+
+    List<Widget> listW = [];
+    for(int x = 1; x < 7; x++){
+      listW.add(
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: sizeW * 0.02),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                height: sizeH * 0.03,
+                width: sizeH * 0.03,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: Image.asset('assets/image/like$x.png').image,
+                        fit: BoxFit.fitHeight
+                    )
+                ),
+              ),
+              Text(listTitleLikes[x],style: AcademyStyles().styleLato(size: 12,color: AcademyColors.primary),)
+            ],
+          ),
+        ),
+      );
+    }
+
+
+    return Container(
+      padding: const EdgeInsets.all(10.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
+        border: Border.all(
+          width: 1.0,
+          color: AcademyColors.primary,
+        ),
+      ),
+      child: FittedBox(
+        fit:BoxFit.contain,
+        child: Row(
+          children: listW,
+        ),
       ),
     );
   }

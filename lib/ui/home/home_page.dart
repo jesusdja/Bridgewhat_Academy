@@ -2,6 +2,7 @@ import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
 import 'package:academybw/providers/menu_provider.dart';
+import 'package:academybw/providers/post_provider.dart';
 import 'package:academybw/ui/menu/cartoons/cartoons_page.dart';
 import 'package:academybw/ui/menu/demo/demo_page.dart';
 import 'package:academybw/ui/menu/post/post_page.dart';
@@ -49,17 +50,22 @@ class _HomePageState extends State<HomePage> {
     }
 
     return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: Column(
-          children: [
-            SizedBox(height: sizeH * 0.01,),
-            headerContainer(),
-            SizedBox(height: sizeH * 0.02,),
-            Expanded(
-              child: option,
-            )
-          ],
+      child: GestureDetector(
+        onTap: (){
+          Provider.of<PostProvider>(context).viewContainerLikePost(idPost: 0);
+        },
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          body: Column(
+            children: [
+              SizedBox(height: sizeH * 0.01,),
+              headerContainer(),
+              SizedBox(height: sizeH * 0.02,),
+              Expanded(
+                child: option,
+              )
+            ],
+          ),
         ),
       ),
     );
