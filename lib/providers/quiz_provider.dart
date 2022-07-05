@@ -7,10 +7,22 @@ class QuizProvider extends ChangeNotifier {
   List<Map<String,dynamic>> listQuestion = [];
   int posQuestion = 0;
 
+  late ScrollController scrollController;
+  late PageController controllerPageView;
+
   Future loadDataQuiz() async{
+
+    loadData = true;
+    scrollController = ScrollController();
+    controllerPageView = PageController(initialPage: 0);
+    posQuestion = 0;
+    notifyListeners();
+
     await Future.delayed(const Duration(seconds: 3));
+
+    listQuestion = [];
     Map<String,dynamic> question = {};
-    for(int x = 1; x <= 20; x = x + 2){
+    for(int x = 1; x <= 10; x = x + 2){
       question = {
         'id' : x,
         'header' : 'Information',
@@ -41,5 +53,44 @@ class QuizProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void disposeProvider() {
+    scrollController.dispose();
+    controllerPageView.dispose();
+  }
+
+  changePosCarruselNext(){
+    if(posQuestion >= 0 && posQuestion < listQuestion.length){
+      posQuestion++;
+      if(posQuestion > 2){
+        scrollController.animateTo(
+            ((posQuestion - 2) * 100),
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeOut);
+      }
+      notifyListeners();
+    }
+  }
+
+  changePosCarruselPreviu(){
+    if(posQuestion > 0){
+      posQuestion--;
+      if(posQuestion > 1){
+        scrollController.animateTo(
+            ((posQuestion - 2) * 100),
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeOut);
+      }
+      notifyListeners();
+    }
+  }
+
+  changePosPageViewPreviu({required int pos}){
+    controllerPageView.animateToPage(
+        pos - 1,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeOut
+    );
+    notifyListeners();
+  }
 
 }
