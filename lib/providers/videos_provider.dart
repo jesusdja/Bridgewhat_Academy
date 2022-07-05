@@ -13,7 +13,7 @@ class VideosProvider extends ChangeNotifier {
 
   Future getVideos() async {
     var rng = math.Random();
-    for (int x = 1; x < 11; x++) {
+    for (int x = 1; x < 3; x++) {
       Map<String, dynamic> post = {
         'id': x,
         'user': 'Acenture',

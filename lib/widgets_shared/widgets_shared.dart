@@ -4,13 +4,14 @@ import 'package:academybw/main.dart';
 import 'package:flutter/material.dart';
 
 
-Widget bannerTitle({required int type}){
+Widget bannerTitle({required int type, String? descrip}){
 
   String title = 'POST';
-  String description = 'Positioning & Targeting';
+  String description = descrip ?? 'Positioning & Targeting';
   if(type == 1){title = 'VIDEOS'; }
   if(type == 2){title = 'CARTOONS';}
   if(type == 3){title = 'DEMO';description = 'Bridewhat demos';}
+  if(type == 4){title = 'QUIZ LEVELS OF GROWTH';}
 
   return SizedBox(
     width: sizeW,

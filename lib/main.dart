@@ -2,6 +2,7 @@ import 'package:academybw/initial_page.dart';
 import 'package:academybw/providers/auth_provider.dart';
 import 'package:academybw/providers/menu_provider.dart';
 import 'package:academybw/providers/post_provider.dart';
+import 'package:academybw/providers/quiz_provider.dart';
 import 'package:academybw/providers/videos_provider.dart';
 import 'package:academybw/services/shared_preferences.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,7 @@ class AppState extends StatelessWidget {
         ChangeNotifierProvider(lazy: false,create: ( _ ) => MenuProvider()),
         ChangeNotifierProvider(lazy: false,create: ( _ ) => PostProvider()),
         ChangeNotifierProvider(lazy: false,create: ( _ ) => VideosProvider()),
+        ChangeNotifierProvider(lazy: false,create: ( _ ) => QuizProvider()),
       ],
       child: const MyApp(),
     );
