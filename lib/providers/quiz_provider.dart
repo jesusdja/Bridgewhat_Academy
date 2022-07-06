@@ -93,4 +93,21 @@ class QuizProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  onTapQuestion({required String answered, required int idQuestion}){
+    int? pos;
+    for(int x = 0; x < listQuestion.length; x++){
+      if(listQuestion[x]['id'] == idQuestion){
+        pos = x;
+      }
+    }
+     if(pos != null){
+       if(listQuestion[pos]['multi']){
+         listQuestion[pos]['answered'] = '${listQuestion[pos]['answered']}$answered|';
+       }else{
+         listQuestion[pos]['answered'] = answered;
+       }
+       notifyListeners();
+     }
+  }
+
 }

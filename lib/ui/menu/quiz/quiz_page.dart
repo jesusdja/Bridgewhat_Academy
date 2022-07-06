@@ -1,8 +1,8 @@
 import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
-import 'package:academybw/providers/menu_provider.dart';
 import 'package:academybw/providers/quiz_provider.dart';
+import 'package:academybw/ui/menu/quiz/widgets/card_question.dart';
 import 'package:academybw/ui/menu/quiz/widgets/roulette_widget.dart';
 import 'package:academybw/widgets_shared/circular_progress_colors.dart';
 import 'package:academybw/widgets_shared/widgets_shared.dart';
@@ -100,10 +100,6 @@ class _QuizPageState extends State<QuizPage> {
           SizedBox(height: sizeH * 0.02),
           const Roulette(),
           SizedBox(height: sizeH * 0.04,),
-          // Expanded(child: Container(color: Colors.red),)
-          //Expanded(child: cardContainer()),
-          // Flexible(child: cardContainer()),
-          // cardContainer(),
         ],
       ),
     );
@@ -140,14 +136,8 @@ class _QuizPageState extends State<QuizPage> {
     List<Widget> listW = [];
 
     for(int x = 0; x < quizProvider.listQuestion.length; x++){
-      bool isSelected = x == quizProvider.posQuestion;
       listW.add(
-          Container(
-            color: isSelected ? AcademyColors.primary : AcademyColors.colors_787878,
-            child: Center(
-              child: Text('Page ${quizProvider.posQuestion}'),
-            ),
-          )
+          CardQuestion(question: quizProvider.listQuestion[x],)
       );
     }
 
