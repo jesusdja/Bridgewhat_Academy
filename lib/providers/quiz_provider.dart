@@ -22,7 +22,7 @@ class QuizProvider extends ChangeNotifier {
 
     listQuestion = [];
     Map<String,dynamic> question = {};
-    for(int x = 1; x <= 10; x = x + 2){
+    for(int x = 1; x <= 20; x = x + 2){
       question = {
         'id' : x,
         'header' : 'Information',
@@ -63,7 +63,7 @@ class QuizProvider extends ChangeNotifier {
       posQuestion++;
       if(posQuestion > 2){
         scrollController.animateTo(
-            ((posQuestion - 2) * 100),
+            ((posQuestion - 2) * 50),
             duration: const Duration(milliseconds: 500),
             curve: Curves.easeOut);
       }
@@ -76,7 +76,7 @@ class QuizProvider extends ChangeNotifier {
       posQuestion--;
       if(posQuestion > 1){
         scrollController.animateTo(
-            ((posQuestion - 2) * 100),
+            ((posQuestion - 2) * 50),
             duration: const Duration(milliseconds: 500),
             curve: Curves.easeOut);
       }

@@ -32,12 +32,12 @@ class _RouletteState extends State<Roulette> {
       bool isSelected = x == quizProvider.posQuestion;
       listW.add(
         Container(
-          width: sizeW * 0.2,
+          width: sizeW * 0.1,
           height: sizeH * 0.01,
-          color: isSelected ? AcademyColors.primary : AcademyColors.colors_787878,
           margin: const EdgeInsets.only(right: 20),
           decoration: BoxDecoration(
-
+            color: isSelected ? AcademyColors.primary : AcademyColors.colors_787878,
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
           ),
         )
       );
