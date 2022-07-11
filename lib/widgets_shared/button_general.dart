@@ -27,6 +27,7 @@ class ButtonGeneral extends StatelessWidget {
   final Color colorCircular;
   final Widget? widgetLatIzq;
   final Widget? widgetLatDer;
+  final TextAlign textAlign;
 
   const ButtonGeneral({
     Key? key,
@@ -54,6 +55,7 @@ class ButtonGeneral extends StatelessWidget {
     this.colorCircular = AcademyColors.primary,
     this.widgetLatIzq,
     this.widgetLatDer,
+    this.textAlign = TextAlign.center,
   }) : super(key: key);
 
 
@@ -111,7 +113,7 @@ class ButtonGeneral extends StatelessWidget {
                       title ?? '',
                       maxLines: maxLines,
                       style: textStyleLocal,
-                      textAlign: TextAlign.center,
+                      textAlign: textAlign,
                     ),
                   ),
                   widgetLatIzq ?? Container()
