@@ -3,6 +3,7 @@ import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
 import 'package:academybw/ui/menu/demo/demo_selected_calendar.dart';
 import 'package:academybw/ui/menu/demo/demo_selected_email.dart';
+import 'package:academybw/ui/menu/demo/demo_selected_video.dart';
 import 'package:academybw/widgets_shared/button_general.dart';
 import 'package:academybw/widgets_shared/widgets_shared.dart';
 import 'package:flutter/material.dart';
@@ -100,21 +101,26 @@ class _DemoSelectedState extends State<DemoSelected> {
   }
 
   Widget titleCard(){
-    return Container(
-      width: sizeW,
-      margin: EdgeInsets.symmetric(horizontal: sizeW * 0.05, vertical: sizeH * 0.02),
-      padding: EdgeInsets.all(sizeH * 0.005),
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(5)),
-        border: Border.all(
-          width: 2.0,
-          color: AcademyColors.colors_95C4E9,
+    return InkWell(
+      onTap: (){
+        Navigator.push(context,MaterialPageRoute<void>( builder: (context) => DemoSelectedVideo(type: widget.type,)),);
+      },
+      child: Container(
+        width: sizeW,
+        margin: EdgeInsets.symmetric(horizontal: sizeW * 0.05, vertical: sizeH * 0.02),
+        padding: EdgeInsets.all(sizeH * 0.005),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(5)),
+          border: Border.all(
+            width: 2.0,
+            color: AcademyColors.colors_95C4E9,
+          ),
         ),
-      ),
-      child: Center(
-        child: Text('Demo ${title[widget.type]} Bridgewhat',style: AcademyStyles().stylePoppins(
-          size: sizeH * 0.025,color: AcademyColors.colors_95C4E9,fontWeight: FontWeight.bold
-        )),
+        child: Center(
+          child: Text('Demo ${title[widget.type]} Bridgewhat',style: AcademyStyles().stylePoppins(
+            size: sizeH * 0.025,color: AcademyColors.colors_95C4E9,fontWeight: FontWeight.bold
+          )),
+        ),
       ),
     );
   }

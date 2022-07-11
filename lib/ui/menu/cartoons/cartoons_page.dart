@@ -222,7 +222,7 @@ class _CardCartoonsContainerState extends State<CardCartoonsContainer> {
       children: [
         Container(
           width: sizeW,
-          height: sizeH * 0.22,
+          height: sizeH * 0.2,
           margin: EdgeInsets.only(bottom: sizeH * 0.02),
           decoration: BoxDecoration(
             color: Colors.grey[100],
