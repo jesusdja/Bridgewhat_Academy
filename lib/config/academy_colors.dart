@@ -23,4 +23,6 @@ class AcademyColors {
   static const Color colors_B2BEC6 = Color(0xF0B2BEC6);
 
   static const Color colors_A40000 = Color(0xF0A40000);
+
+  static const Color colors_E1E1E = Color(0xF0E1E1E);
 }

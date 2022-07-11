@@ -1,6 +1,8 @@
 import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
+import 'package:academybw/ui/menu/demo/demo_selected_email.dart';
+import 'package:academybw/widgets_shared/button_general.dart';
 import 'package:academybw/widgets_shared/widgets_shared.dart';
 import 'package:flutter/material.dart';
 
@@ -51,6 +53,7 @@ class _DemoSelectedState extends State<DemoSelected> {
                         cardPostImg(),
                         selectedAccessPublish(),
                         contentsCardSelected(),
+                        buttonBottom(),
                       ],
                     ),
                   ),
@@ -345,6 +348,39 @@ class _DemoSelectedState extends State<DemoSelected> {
           color: Colors.white,
           size: 14
         )),
+      ),
+    );
+  }
+
+  Widget buttonBottom(){
+    return Container(
+      width: sizeW,
+      margin: EdgeInsets.symmetric(horizontal: sizeW * 0.05,vertical: sizeW * 0.02),
+      child: Column(
+        children: [
+          ButtonGeneral(
+            title: 'Request info via e-mail',
+            backgroundColor: AcademyColors.primary,
+            textStyle: AcademyStyles().stylePoppins(size: 16,color: Colors.white),
+            width: sizeW,
+            height: sizeH * 0.05,
+            radius: 5,
+            onPressed: (){
+              Navigator.push(context,MaterialPageRoute<void>( builder: (context) => DemoSelectedEmail(type: widget.type,)),);
+            },
+          ),
+          SizedBox(height: sizeH * 0.02,),
+          ButtonGeneral(
+            title: 'Make an appointment',
+            backgroundColor: AcademyColors.primary,
+            textStyle: AcademyStyles().stylePoppins(size: 16,color: Colors.white),
+            width: sizeW,
+            height: sizeH * 0.05,
+            radius: 5,
+            onPressed: (){},
+          ),
+          SizedBox(height: sizeH * 0.02,),
+        ],
       ),
     );
   }
