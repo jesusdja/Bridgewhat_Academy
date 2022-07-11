@@ -1,6 +1,7 @@
 import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
+import 'package:academybw/ui/menu/demo/demo_selected.dart';
 import 'package:academybw/widgets_shared/widgets_shared.dart';
 import 'package:flutter/material.dart';
 
@@ -86,39 +87,44 @@ class _DemoPageState extends State<DemoPage> {
       );
     }
 
-    return Container(
-      width: sizeW,
-      margin: EdgeInsets.only(top: sizeH * 0.02),
-      height: sizeH * 0.16,
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        color: AcademyColors.colors_E8E8E8,
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: sizeW * 0.3,
-            height: sizeH * 0.05,
-            margin: EdgeInsets.symmetric(horizontal: sizeW * 0.05),
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(5)),
-              color: color,
+    return InkWell(
+      onTap: (){
+        Navigator.push(context,MaterialPageRoute<void>( builder: (context) => DemoSelected(type: type,)),);
+      },
+      child: Container(
+        width: sizeW,
+        margin: EdgeInsets.only(top: sizeH * 0.02),
+        height: sizeH * 0.16,
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color: AcademyColors.colors_E8E8E8,
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: sizeW * 0.3,
+              height: sizeH * 0.05,
+              margin: EdgeInsets.symmetric(horizontal: sizeW * 0.05),
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(5)),
+                color: color,
+              ),
+              child: Center(
+                child: Text(title,style: AcademyStyles().stylePoppins(
+                  size: sizeH * 0.02,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold
+                )),
+              ),
             ),
-            child: Center(
-              child: Text(title,style: AcademyStyles().stylePoppins(
-                size: sizeH * 0.02,
-                color: Colors.white,
-                fontWeight: FontWeight.bold
-              )),
-            ),
-          ),
-          Expanded(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: listW,
-            ),
-          )
-        ],
+            Expanded(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: listW,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
