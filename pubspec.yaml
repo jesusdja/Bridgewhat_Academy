@@ -11,6 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
   #STATE
   provider: ^5.0.0
@@ -25,6 +27,7 @@ dependencies:
 
   #UTILS
   fluttertoast: ^8.0.7
+  table_calendar: ^3.0.6
 
 dev_dependencies:
   flutter_test:
@@ -36,3 +39,5 @@ flutter:
   uses-material-design: true
   assets:
     - assets/image/
+    - i18n/es.json
+    - i18n/en.json

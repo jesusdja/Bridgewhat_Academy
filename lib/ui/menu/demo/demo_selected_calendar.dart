@@ -5,20 +5,23 @@ import 'package:academybw/widgets_shared/button_general.dart';
 import 'package:academybw/widgets_shared/textfield_general.dart';
 import 'package:academybw/widgets_shared/widgets_shared.dart';
 import 'package:flutter/material.dart';
+import 'package:table_calendar/table_calendar.dart';
 
-class DemoSelectedEmail extends StatefulWidget {
-  const DemoSelectedEmail({Key? key, required this.type}) : super(key: key);
+class DemoSelectedCalendar extends StatefulWidget {
+  const DemoSelectedCalendar({Key? key, required this.type}) : super(key: key);
   final int type;
   @override
-  State<DemoSelectedEmail> createState() => _DemoSelectedEmailState();
+  State<DemoSelectedCalendar> createState() => _DemoSelectedCalendarState();
 }
 
-class _DemoSelectedEmailState extends State<DemoSelectedEmail> {
+class _DemoSelectedCalendarState extends State<DemoSelectedCalendar> {
 
   List<String> title = ['CRYSTAL','SILVER','GOLD','PLATINUM'];
   int cardSelectedType = 0;
   int selectedTypePlans = 4;
   TextEditingController controllerEmail = TextEditingController();
+  DateTime _focusedDay = DateTime.now();
+  TimeOfDay? hourSelected;
 
   @override
   void initState() {
@@ -96,51 +99,12 @@ class _DemoSelectedEmailState extends State<DemoSelectedEmail> {
         children: [
           SizedBox(
             width: sizeW,
-            child: Text('Select the plans you are interested in',style: style,textAlign: TextAlign.left,),
+            child: Text('Select the date and hour',style: style,textAlign: TextAlign.left,),
           ),
           SizedBox(height: sizeH * 0.02),
-          SizedBox(
-            width: sizeW,
-            child: Row(
-              children: [
-                Expanded(
-                  child: containerBodyRow1(type: 0),
-                ),
-                SizedBox(width: sizeW * 0.05),
-                Expanded(
-                  child: containerBodyRow1(type: 1),
-                ),
-              ],
-            ),
-          ),
+          calendarSelect(),
           SizedBox(height: sizeH * 0.02),
-          SizedBox(
-            width: sizeW,
-            child: Row(
-              children: [
-                Expanded(
-                  child: containerBodyRow1(type: 2),
-                ),
-                SizedBox(width: sizeW * 0.05),
-                Expanded(
-                  child: containerBodyRow1(type: 3),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: sizeH * 0.04),
-          SizedBox(
-            width: sizeW,
-            child: Text('Coments or questions',style: style,textAlign: TextAlign.left,),
-          ),
-          SizedBox(height: sizeH * 0.02),
-          SizedBox(
-            width: sizeW,
-            child: TextFieldGeneral(
-              maxLines: 5,
-              padding: EdgeInsets.symmetric(vertical: sizeH * 0.01),
-            ),
-          ),
+          selectedHour(),
           SizedBox(height: sizeH * 0.02),
           SizedBox(
             width: sizeW,
@@ -158,7 +122,7 @@ class _DemoSelectedEmailState extends State<DemoSelectedEmail> {
           ),
           SizedBox(height: sizeH * 0.02),
           ButtonGeneral(
-            title: 'Send resquest',
+            title: 'Confirm',
             backgroundColor: AcademyColors.primary,
             textStyle: AcademyStyles().stylePoppins(size: 16,color: Colors.white),
             width: sizeW,
@@ -174,29 +138,66 @@ class _DemoSelectedEmailState extends State<DemoSelectedEmail> {
     );
   }
 
-  Widget containerBodyRow1({required int type}){
+  Widget calendarSelect(){
 
-    String title = 'Crystal';
-    if(type == 1){ title = 'Silver'; }
-    if(type == 2){ title = 'Gold'; }
-    if(type == 3){ title = 'Platinium'; }
+    TextStyle style = AcademyStyles().stylePoppins(color: Colors.black,size: 14,fontWeight: FontWeight.w600);
 
-    return InkWell(
-      onTap: (){
-        selectedTypePlans = type;
-        setState(() {});
-      },
-      child: Container(
-        width: sizeW,
-        decoration:  BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
-          color: selectedTypePlans == type ? AcademyColors.primary : Colors.white,
+    return Container(
+      width: sizeW,
+      margin: EdgeInsets.symmetric(horizontal: sizeW * 0.02,vertical: sizeH * 0.02),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
+      child: TableCalendar(
+        currentDay: _focusedDay,
+        firstDay: DateTime.now(),
+        lastDay: DateTime.utc(2030, 12, 31),
+        focusedDay: _focusedDay,
+        locale: "es_ES",
+        onDaySelected: (selectedDay, focusedDay) {
+          _focusedDay = focusedDay;
+          setState(() {});
+        },
+        calendarFormat: CalendarFormat.month,
+        calendarStyle: CalendarStyle(
+          defaultTextStyle: style,
+          weekendTextStyle: style,
         ),
-        padding: EdgeInsets.all(sizeH * 0.02),
-        child: Center(
-          child: Text(title,style: AcademyStyles().stylePoppins(size: 12, color: selectedTypePlans == type ? Colors.white : Colors.black)),
+        headerStyle: const HeaderStyle(
+          titleCentered: true,
+          formatButtonVisible: false,
         ),
       ),
+    );
+  }
+
+  Widget selectedHour(){
+    return InkWell(
+      child: Container(
+        width: sizeW,
+        padding: EdgeInsets.all(sizeH * 0.02),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
+        child: Center(
+          child: Text(hourSelected == null ? 'Seleccionar hora' : '${hourSelected!.hour.toString()} : ${hourSelected!.minute.toString()}',
+          style: AcademyStyles().styleLato(size: 14, color: Colors.black)),
+        ),
+      ),
+      onTap: (){
+        showTimePicker(
+          context: context,
+          initialTime: hourSelected ?? TimeOfDay(hour: DateTime.now().hour, minute: DateTime.now().minute),
+        ).then((value) {
+          if(value != null){
+            hourSelected = value;
+            setState(() {});
+          }
+          setState(() {});
+        });
+      },
     );
   }
 
@@ -224,7 +225,7 @@ class _DemoSelectedEmailState extends State<DemoSelectedEmail> {
               Container(
                 width: sizeW,
                 margin: EdgeInsets.symmetric(horizontal: sizeW * 0.05),
-                child: Text('Your request have been send to',style: style1,textAlign: TextAlign.center),
+                child: Text('We are going to contact you through',style: style1,textAlign: TextAlign.center),
               ),
               Container(
                 width: sizeW,
@@ -234,7 +235,7 @@ class _DemoSelectedEmailState extends State<DemoSelectedEmail> {
               Container(
                 width: sizeW,
                 margin: EdgeInsets.symmetric(horizontal: sizeW * 0.05),
-                child: Text('we are going to contact you soon through your email',style: style1,textAlign: TextAlign.center),
+                child: Text('with the confirmation of your appoinment',style: style1,textAlign: TextAlign.center),
               ),
             ],
           );
