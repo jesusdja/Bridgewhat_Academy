@@ -1,5 +1,6 @@
 import 'package:academybw/initial_page.dart';
 import 'package:academybw/providers/auth_provider.dart';
+import 'package:academybw/providers/cartoons_provider.dart';
 import 'package:academybw/providers/menu_provider.dart';
 import 'package:academybw/providers/post_provider.dart';
 import 'package:academybw/providers/quiz_provider.dart';
@@ -30,6 +31,7 @@ class AppState extends StatelessWidget {
         ChangeNotifierProvider(lazy: false,create: ( _ ) => PostProvider()),
         ChangeNotifierProvider(lazy: false,create: ( _ ) => VideosProvider()),
         ChangeNotifierProvider(lazy: false,create: ( _ ) => QuizProvider()),
+        ChangeNotifierProvider(lazy: false,create: ( _ ) => CartoonsProvider()),
       ],
       child: const MyApp(),
     );
