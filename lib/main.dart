@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:academybw/initial_page.dart';
 import 'package:academybw/providers/auth_provider.dart';
 import 'package:academybw/providers/cartoons_provider.dart';

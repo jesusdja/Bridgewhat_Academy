@@ -3,20 +3,19 @@ import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
 import 'package:academybw/ui/home/home_page.dart';
 import 'package:academybw/ui/login/login_page.dart';
-import 'package:academybw/ui/register/register_page1.dart';
 import 'package:academybw/widgets_shared/button_general.dart';
 import 'package:academybw/widgets_shared/dropdown_button_generic.dart';
 import 'package:academybw/widgets_shared/textfield_general.dart';
 import 'package:flutter/material.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+class RegisterPage1 extends StatefulWidget {
+  const RegisterPage1({Key? key}) : super(key: key);
 
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
+  State<RegisterPage1> createState() => _RegisterPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _RegisterPageState extends State<RegisterPage1> {
 
   bool obscurePass = true;
   bool checkPrivacy = false;
@@ -109,16 +108,16 @@ class _RegisterPageState extends State<RegisterPage> {
               receiveInformationCheck(),
               SizedBox(height: sizeH * 0.025,),
               ButtonGeneral(
-                title: 'Continue',
+                title: 'Next',
                 margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
                 width: sizeW,
                 height: sizeH * 0.07,
-                backgroundColor: AcademyColors.primary,
+                backgroundColor: AcademyColors.primaryGreyApp,
                 textStyle: styleButtonText,
-                radius: 5,
+                radius: 15,
                 onPressed: (){
                   Navigator.pushReplacement(context, MaterialPageRoute(builder:
-                      (BuildContext context) => const RegisterPage1()));
+                      (BuildContext context) => const HomePage()));
                 },
               ),
               SizedBox(height: sizeH * 0.03,),
