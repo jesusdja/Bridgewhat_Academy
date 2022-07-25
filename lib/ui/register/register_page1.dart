@@ -112,7 +112,7 @@ class _RegisterPageState extends State<RegisterPage1> {
                 margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
                 width: sizeW,
                 height: sizeH * 0.07,
-                backgroundColor: AcademyColors.primaryGreyApp,
+                backgroundColor: AcademyColors.primary,
                 textStyle: styleButtonText,
                 radius: 15,
                 onPressed: (){
