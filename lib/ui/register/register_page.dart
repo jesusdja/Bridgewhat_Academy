@@ -6,6 +6,7 @@ import 'package:academybw/ui/login/login_page.dart';
 import 'package:academybw/widgets_shared/button_general.dart';
 import 'package:academybw/widgets_shared/dropdown_button_generic.dart';
 import 'package:academybw/widgets_shared/textfield_general.dart';
+import 'package:academybw/widgets_shared/toast_widget.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -116,8 +117,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 textStyle: styleButtonText,
                 radius: 5,
                 onPressed: (){
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder:
-                      (BuildContext context) => const HomePage()));
+                  showAlert(text: 'No registre',isError: true);
+                  // Navigator.pushReplacement(context, MaterialPageRoute(builder:
+                  //     (BuildContext context) => const HomePage()));
                 },
               ),
               SizedBox(height: sizeH * 0.03,),

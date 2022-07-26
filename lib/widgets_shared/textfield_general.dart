@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class TextFieldGeneral extends StatelessWidget {
+class TextFieldGeneral extends StatefulWidget {
   final int maxLines;
   final double radius;
   final double sizeHeight;
@@ -14,6 +14,7 @@ class TextFieldGeneral extends StatelessWidget {
   final bool autoValidate;
   final bool enable;
   final bool autofocus;
+  final bool activeErrorText;
   final IconData? icon;
   final Color borderColor;
   final TextEditingController? textEditingController;
@@ -37,14 +38,14 @@ class TextFieldGeneral extends StatelessWidget {
 
   const TextFieldGeneral({
     Key? key,
-    this.initialValue = '',
+    this.initialValue,
     this.placeHolder,
     this.icon,
     this.borderColor = Colors.grey,
     this.textEditingController,
     this.onChanged,
     this.textInputType = TextInputType.name,
-    this.autoCorrect = false,
+    this.autoCorrect = true,
     this.obscure = false,
     this.autoValidate = false,
     this.maxLines = 1,
@@ -69,70 +70,146 @@ class TextFieldGeneral extends StatelessWidget {
     this.radius = 10.0,
     this.inputFormatters = const [],
     this.contentPadding = const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+    this.activeErrorText = true,
   }) : super(key: key);
 
+  @override
+  State<TextFieldGeneral> createState() => _TextFieldGeneralState();
+}
 
-
+class _TextFieldGeneralState extends State<TextFieldGeneral> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: padding,
-      constraints: constraints,
+      padding: widget.padding,
+      constraints: widget.constraints,
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
-        color: colorBack,
-        borderRadius: BorderRadius.all(Radius.circular(radius)),
+        color: widget.colorBack,
+        borderRadius: BorderRadius.all(Radius.circular(widget.radius)),
         border: Border.all(
-          width: sizeBorder,
-          color: borderColor,
+          width: widget.sizeBorder,
+          color: widget.borderColor,
         ),
-        boxShadow: boxShadow,
+        boxShadow: widget.boxShadow,
       ),
       child: TextFormField(
-        onFieldSubmitted: onFieldSubmitted,
-        onTap: onTap,
-        style: labelStyle,
-        textAlign: textAlign,
-        initialValue: initialValue,
-        maxLines: maxLines,
-        obscureText: obscure,
-        enabled: enable,
-        controller: textEditingController,
-        onChanged: onChanged,
-        autocorrect: autoCorrect,
-        keyboardType: textInputType,
-        focusNode: focusNode,
-        textCapitalization: textCapitalization,
-        autofocus: autofocus,
-        textInputAction: textInputAction,
-        inputFormatters: inputFormatters,
+        controller: widget.textEditingController,
+        initialValue: widget.initialValue,
+        onFieldSubmitted: widget.onFieldSubmitted,
+        onTap: widget.onTap,
+        style: widget.labelStyle,
+        textAlign: widget.textAlign,
+        maxLines: widget.maxLines,
+        obscureText: widget.obscure,
+        enabled: widget.enable,
+        onChanged: widget.onChanged,
+        autocorrect: widget.autoCorrect,
+        keyboardType: widget.textInputType,
+        focusNode: widget.focusNode,
+        textCapitalization: widget.textCapitalization,
+        autofocus: widget.autofocus,
+        textInputAction: widget.textInputAction,
+        inputFormatters: widget.inputFormatters,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: InputDecoration(
           filled: true,
-          fillColor: colorBack,
+          fillColor: widget.colorBack,
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(radius)),
+            borderRadius: BorderRadius.all(Radius.circular(widget.radius)),
             borderSide: const BorderSide(
               width: 0.0,
               color: Colors.transparent,
             ),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(radius)),
+            borderRadius: BorderRadius.all(Radius.circular(widget.radius)),
             borderSide: const BorderSide(
               width: 0.0,
               color: Colors.transparent,
             ),
           ),
-          suffixIcon: suffixIcon,
-          labelText: placeHolder,
-          labelStyle: labelStyle,
-          errorStyle: labelStyle,
-          hintText: hintText,
-          hintStyle: labelStyle,
-          prefixIcon: prefixIcon,
-          contentPadding: contentPadding
+          suffixIcon: widget.suffixIcon,
+          labelText: widget.placeHolder,
+          labelStyle: widget.labelStyle,
+          errorStyle: widget.labelStyle,
+          hintText: widget.hintText,
+          hintStyle: widget.labelStyle,
+          prefixIcon: widget.prefixIcon,
+          contentPadding: widget.contentPadding
         ),
       ),
     );
   }
+}
+
+Map<String, dynamic> validateUserAddress({required String input}) {
+
+  Map<String, dynamic> result = {'valid' : false, 'sms' : 'No es valido.'};
+  const emailRegex = r"""^[a-zA-Z]+""";
+  const userRegex = ""r'^[a-zA-Z0-9]+$'"";
+  if (RegExp(emailRegex).hasMatch(input)) {
+    if (input.length > 4){
+      if(RegExp(userRegex).hasMatch(input)){
+        result['valid'] = true;
+        result['sms'] = 'valido';
+        return result;
+      }else{
+        result['valid'] = false;
+        result['sms'] = "Solo se permiten letras y numeros.";
+        return result;
+      }
+    }else{
+      result['valid'] = false;
+      result['sms'] = "Usuario debe contener mas de 5 caracteres.";
+      return result;
+    }
+  } else {
+    result['valid'] = false;
+    result['sms'] = 'Usuario invalido. Debe comenzar con una letra.';
+    return result;
+  }
+}
+
+Map<String, dynamic> validateEmailAddress({required String email}) {
+  Map<String, dynamic> result = {'valid' : false, 'sms' : 'No es valido.'};
+  const emailRegex =
+  r"""^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+\.[a-zA-Z]+""";
+  if (RegExp(emailRegex).hasMatch(email)) {
+    result['valid'] = true;
+    result['sms'] = 'Correo valido.';
+    return result;
+  } else {
+    result['valid'] = false;
+    result['sms'] = 'Correo no válido';
+    return result;
+  }
+}
+
+Map<String, dynamic> validatePassword({required String input}) {
+  Map<String, dynamic> result = {'valid' : false, 'sms' : 'No es valido.'};
+  // String pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$';
+  String oneNumber = r'^.*[0-9].*$';
+  String oneLowerCase = r'^.*[a-z].*$';
+  String oneUpperCase = r'^.*[A-Z].*$';
+  if (input.length < 8) {
+    result['valid'] = false;
+    result['sms'] = "Usá mínimo 8 caracteres";
+    return result;
+  } else if (!RegExp(oneNumber).hasMatch(input)) {
+    result['valid'] = false;
+    result['sms'] = "Debe contener al menos un número";
+    return result;
+  } else if (!RegExp(oneLowerCase).hasMatch(input)) {
+    result['valid'] = false;
+    result['sms'] = "Debe contener al menor una minúscula";
+    return result;
+  } else if (!RegExp(oneUpperCase).hasMatch(input)) {
+    result['valid'] = false;
+    result['sms'] = "Debe contener al menos una mayúscula";
+    return result;
+  }
+  result['valid'] = true;
+  result['sms'] = 'valido.';
+  return result;
 }

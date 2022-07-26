@@ -1,6 +1,8 @@
 import 'package:academybw/main.dart';
 import 'package:academybw/providers/auth_provider.dart';
+import 'package:academybw/ui/home/home_page.dart';
 import 'package:academybw/ui/home/splash_screen.dart';
+import 'package:academybw/ui/login/login_page.dart';
 import 'package:academybw/ui/register/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -36,9 +38,9 @@ class _InitialPageState extends State<InitialPage> {
       case AuthStatus.splash:
         return const BasicSplash();
       case AuthStatus.login:
-        return const RegisterPage();
+        return const LoginPage();
       case AuthStatus.home:
-        return const Scaffold(body: Center(child: Text('home'),),);
+        return const HomePage();
       default:
         return const BasicSplash();
     }

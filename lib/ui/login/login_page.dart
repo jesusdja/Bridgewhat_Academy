@@ -1,10 +1,14 @@
 import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
+import 'package:academybw/services/http_connection.dart';
+import 'package:academybw/services/shared_preferences.dart';
 import 'package:academybw/ui/home/home_page.dart';
 import 'package:academybw/ui/register/register_page.dart';
 import 'package:academybw/widgets_shared/button_general.dart';
+import 'package:academybw/widgets_shared/circular_progress_colors.dart';
 import 'package:academybw/widgets_shared/textfield_general.dart';
+import 'package:academybw/widgets_shared/toast_widget.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -18,8 +22,16 @@ class _LoginPageState extends State<LoginPage> {
 
   bool obscurePass = true;
   bool checkRemember = false;
+  bool loadData = false;
   TextEditingController controllerEmail = TextEditingController();
   TextEditingController controllerPass = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    // controllerEmail = TextEditingController(text: 'bridgewhat-frontend@wbotests.com');
+    // controllerPass = TextEditingController(text: "z9e;u3RyQWvr]H3'");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +52,6 @@ class _LoginPageState extends State<LoginPage> {
                 margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
                 child: TextFieldGeneral(
                   textEditingController: controllerEmail,
-                  initialValue: null,
                   radius: 5,
                   borderColor: AcademyColors.primaryGreyApp,
                   sizeBorder: 1.5,
@@ -54,7 +65,6 @@ class _LoginPageState extends State<LoginPage> {
                 margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
                 child: TextFieldGeneral(
                   textEditingController: controllerPass,
-                  initialValue: null,
                   radius: 5,
                   borderColor: AcademyColors.primaryGreyApp,
                   sizeBorder: 1.5,
@@ -79,6 +89,10 @@ class _LoginPageState extends State<LoginPage> {
               ),
               rememberPass(),
               SizedBox(height: sizeH * 0.025,),
+              loadData ?
+              Center(
+                child: circularProgressColors(widthContainer1: sizeW,widthContainer2: sizeH * 0.03,colorCircular: AcademyColors.primary),
+              ) :
               ButtonGeneral(
                 title: 'Continue',
                 margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
@@ -87,10 +101,7 @@ class _LoginPageState extends State<LoginPage> {
                 backgroundColor: AcademyColors.primary,
                 textStyle: styleButtonText,
                 radius: 5,
-                onPressed: (){
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder:
-                      (BuildContext context) => const HomePage()));
-                },
+                onPressed: ()=> loginOnTap(),
               ),
               SizedBox(height: sizeH * 0.03,),
               goToRegister(),
@@ -171,5 +182,38 @@ class _LoginPageState extends State<LoginPage> {
         ],
       ),
     );
+  }
+
+  Future loginOnTap() async{
+    loadData = true;
+    setState(() {});
+
+    String errorText = '';
+    if(errorText.isEmpty && !validateEmailAddress(email: controllerEmail.text)['valid']){
+      errorText = validateEmailAddress(email: controllerEmail.text)['sms'];
+    }
+    if(errorText.isEmpty && controllerPass.text.isEmpty){
+      errorText = 'Contraseña no puede estar vacia.';
+    }
+    if(errorText.isEmpty && controllerPass.text.isEmpty){
+      errorText = 'Contraseña no puede estar vacia.';
+    }
+    if(errorText.isEmpty){
+      bool res = await HttpConnection().login(email: controllerEmail.text, password: controllerPass.text);
+      if(res){
+        if(checkRemember){
+          SharedPreferencesLocal.prefs.setBool('AcademyLogin',false);
+        }else{
+          SharedPreferencesLocal.prefs.remove('AcademyToken');
+        }
+        Navigator.pushReplacement(context, MaterialPageRoute(builder:
+            (BuildContext context) => const HomePage()));
+      }
+    }else{
+      showAlert(text: errorText,isError: true);
+    }
+
+    loadData = false;
+    setState(() {});
   }
 }
