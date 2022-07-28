@@ -4,6 +4,7 @@ import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
 import 'package:academybw/providers/post_provider.dart';
 import 'package:academybw/utils/get_data.dart';
+import 'package:academybw/widgets_shared/circular_progress_colors.dart';
 import 'package:academybw/widgets_shared/widgets_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,15 +19,39 @@ class PostPage extends StatefulWidget {
 class _PostPageState extends State<PostPage> {
 
   late PostProvider postProvider;
+  final ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     initialData();
+    scrollController.addListener((){
+      getDataPost();
+    });
+  }
+
+  Future getDataPost() async {
+    if(scrollController.position.pixels == scrollController.position.maxScrollExtent){
+      if(!postProvider.isLoadData){
+        bool result = await postProvider.getPosts(isInit: false);
+        if(result){
+          if(scrollController.position.pixels >= (scrollController.position.maxScrollExtent - 300)){
+            scrollController.animateTo(
+                scrollController.position.pixels + 120,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.fastOutSlowIn
+            );
+          }
+        }
+      }
+    }
   }
 
   initialData(){
     Future.delayed(const Duration(milliseconds: 100)).then((value){
+      if(postProvider.dataAll.isEmpty){
+        postProvider.getPosts(isInit: true);
+      }
       postProvider.viewContainerLikePost(idPost: 0);
       postProvider.viewContainerSharedPost(idPost: 0);
     });
@@ -42,35 +67,57 @@ class _PostPageState extends State<PostPage> {
         postProvider.viewContainerLikePost(idPost: 0);
         postProvider.viewContainerSharedPost(idPost: 0);
       },
-      child: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Container(
-          width: sizeW,
-          margin: EdgeInsets.symmetric(horizontal: sizeW * 0.06),
-          child: Column(
-            children: [
-              bannerTitle(type: 0),
-              SizedBox(height: sizeH * 0.04),
-              cardContainer(),
-            ],
-          ),
+      child: Container(
+        width: sizeW,
+        margin: EdgeInsets.symmetric(horizontal: sizeW * 0.06),
+        child: Column(
+          children: [
+            bannerTitle(type: 0),
+            SizedBox(height: sizeH * 0.04),
+            Expanded(
+              child: cardContainer(),
+            ),
+          ],
         ),
       ),
     );
   }
 
   Widget cardContainer(){
-
     List<Widget> listW = [];
     for (var element in postProvider.listPost) {
       listW.add(CardPostContainer(post: element));
     }
 
-    return SizedBox(
-      width: sizeW,
-      child: Column(
-        children: listW,
-      ),
+    return Stack(
+      children: [
+        SizedBox(
+          width: sizeW,
+          child: ListView.builder(
+            controller: scrollController,
+            physics: const BouncingScrollPhysics(),
+            itemCount: listW.length,
+            itemBuilder: (context,index){
+              return listW[index];
+            },
+          ),
+        ),
+        if(postProvider.isLoadData)...[
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              margin: const EdgeInsets.only(bottom: 20),
+              height: 50,width: 50,
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.5),
+                shape: BoxShape.circle
+              ),
+              child: const CircularProgressIndicator(color: AcademyColors.primary),
+            ),
+          ),
+        ]
+      ],
     );
   }
 }
@@ -104,6 +151,8 @@ class _CardPostContainerState extends State<CardPostContainer> {
 
     bool postSelectLike = postProvider.postLikes[post['id']] ?? false;
     bool postSelectShared = postProvider.postShared[post['id']] ?? false;
+
+    if(post['headerImage'] == null || post['headerImage']['url'] == null) return Container();
 
     return Stack(
       children: [
@@ -144,10 +193,11 @@ class _CardPostContainerState extends State<CardPostContainer> {
 
   Widget cardPostTop(){
 
-    String nameUser = post['user'];
-    String cantFollowers = '${numberFormat(double.parse('${post['followers']}')).split(',')[0]} followers';
-    String lecture = '${post['lecture']} min lecture';
-    String dateSt = post['date'];
+    String nameUser = post['user']['name'] ?? '';
+    String cantFollowers = '0 followers'; //'${numberFormat(double.parse('${post['followers']}')).split(',')[0]} followers';
+    String lecture = '0 min lecture';// '${post['lecture']} min lecture';
+    DateTime dateDT = DateTime.parse(post['createdAt']);
+    String dateSt = '${dateDT.day.toString().padLeft(2,'0')}/${dateDT.month.toString().padLeft(2,'0')}/${dateDT.year}';
 
     return Container(
       width: sizeW,
@@ -208,8 +258,8 @@ class _CardPostContainerState extends State<CardPostContainer> {
         color: Colors.grey[100],
         borderRadius: const BorderRadius.all(Radius.circular(10)),
         image: DecorationImage(
-            image: Image.asset('assets/image/img_example.png').image,
-            fit: BoxFit.fill
+            image: Image.network(post['headerImage']['url']).image,
+            fit: BoxFit.cover
         ),
       ),
       child: Stack(
@@ -260,8 +310,8 @@ class _CardPostContainerState extends State<CardPostContainer> {
   Widget cardBottom(){
 
     String title = post['title'];
-    String likeSt = '${numberFormat(double.parse('${post['like']}')).split(',')[0]} likes';
-    String sharedSt = '${numberFormat(double.parse('${post['shared']}')).split(',')[0]} times shared';
+    String likeSt = '0  likes';// '${numberFormat(double.parse('${post['like']}')).split(',')[0]} likes';
+    String sharedSt ='0  times shared'; // '${numberFormat(double.parse('${post['shared']}')).split(',')[0]} times shared';
 
 
 

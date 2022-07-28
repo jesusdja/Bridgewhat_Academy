@@ -29,8 +29,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    // controllerEmail = TextEditingController(text: 'bridgewhat-frontend@wbotests.com');
-    // controllerPass = TextEditingController(text: "z9e;u3RyQWvr]H3'");
+    controllerEmail = TextEditingController(text: 'bridgewhat-frontend@wbotests.com');
+    controllerPass = TextEditingController(text: "z9e;u3RyQWvr]H3'");
   }
 
   @override
@@ -203,8 +203,6 @@ class _LoginPageState extends State<LoginPage> {
       if(res){
         if(checkRemember){
           SharedPreferencesLocal.prefs.setBool('AcademyLogin',false);
-        }else{
-          SharedPreferencesLocal.prefs.remove('AcademyToken');
         }
         Navigator.pushReplacement(context, MaterialPageRoute(builder:
             (BuildContext context) => const HomePage()));

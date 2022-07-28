@@ -1,4 +1,6 @@
 
+import 'package:academybw/services/shared_preferences.dart';
+
 String numberFormat(double x) {
   List<String> parts = x.toString().split('.');
   RegExp re = RegExp(r'\B(?=(\d{3})+(?!\d))');
@@ -41,3 +43,7 @@ Map<int,String> mapABC = {
   26 : 'Y',
   27 : 'Z',
 };
+
+String getToken(){
+  return 'Bearer ${SharedPreferencesLocal.prefs.getString('AcademyToken') ?? ''}';
+}

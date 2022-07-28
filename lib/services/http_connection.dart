@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:academybw/services/apirest.dart';
 import 'package:academybw/services/shared_preferences.dart';
+import 'package:academybw/utils/get_data.dart';
 import 'package:academybw/widgets_shared/toast_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -32,6 +33,20 @@ class HttpConnection{
       showAlert(text: 'Error de conexión con el servidor',isError: true);
     }
     return false;
+  }
+
+  Future<Map<String,dynamic>> getPostAll({required String pageNew}) async{
+    Map<String,dynamic> data = {};
+    headers['Authorization'] = getToken();
+    try{
+      final response = await _client.get(Uri.parse('appmobile/blogs?$pageNew'),headers: headers);
+      if (response.statusCode == 200) {
+        data = jsonDecode(response.body);
+      }
+    }catch(e){
+      debugPrint('HttpConnection-login ${e.toString()}');
+    }
+    return data;
   }
 
 }
