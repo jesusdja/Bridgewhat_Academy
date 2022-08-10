@@ -61,14 +61,15 @@ class MyApp extends StatelessWidget {
               )
           )
       ),
-      supportedLocales: [
+      supportedLocales: const [
         Locale('en', 'US'),
         Locale('es', 'ES'),
       ],
-      locale: Locale("es"),
-      localizationsDelegates: [
+      locale: const Locale("es"),
+      localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
     );
@@ -123,7 +124,7 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   @override
   Future<AppLocalizations> load(Locale locale) async {
     // AppLocalizations class is where the JSON loading actually runs
-    AppLocalizations localizations = new AppLocalizations(locale);
+    AppLocalizations localizations = AppLocalizations(locale);
     await localizations.load();
     return localizations;
   }

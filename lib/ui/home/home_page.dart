@@ -141,8 +141,8 @@ class _HomePageState extends State<HomePage> {
       },
       child: Container(
         width: sizeW,
-        margin: EdgeInsets.only(left: sizeW * 0.07,right: sizeW * 0.07,bottom: sizeH * 0.02),
-        padding: EdgeInsets.symmetric(vertical: sizeH * 0.04),
+        margin: EdgeInsets.only(left: sizeW * 0.05,right: sizeW * 0.05,bottom: sizeH * 0.02),
+        padding: EdgeInsets.symmetric(vertical: sizeH * 0.026),
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
           color: AcademyColors.primary
