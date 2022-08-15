@@ -3,13 +3,13 @@ import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
 import 'package:academybw/widgets_shared/button_general.dart';
 import 'package:academybw/widgets_shared/textfield_general.dart';
-import 'package:academybw/widgets_shared/widgets_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class DemoSelectedCalendar extends StatefulWidget {
-  const DemoSelectedCalendar({Key? key, required this.type}) : super(key: key);
+  const DemoSelectedCalendar({Key? key, required this.type, this.menu = false}) : super(key: key);
   final int type;
+  final bool menu;
   @override
   State<DemoSelectedCalendar> createState() => _DemoSelectedCalendarState();
 }
@@ -129,7 +129,7 @@ class _DemoSelectedCalendarState extends State<DemoSelectedCalendar> {
             height: sizeH * 0.05,
             radius: 5,
             onPressed: (){
-              dialogSendResquest();
+              dialogSendRequest();
             },
           ),
           SizedBox(height: sizeH * 0.02),
@@ -201,12 +201,12 @@ class _DemoSelectedCalendarState extends State<DemoSelectedCalendar> {
     );
   }
 
-  Future dialogSendResquest() async{
+  Future dialogSendRequest() async{
 
     TextStyle style1 = AcademyStyles().stylePoppins(size: 14, color: AcademyColors.colors_787878);
     TextStyle style2 = AcademyStyles().stylePoppins(size: 14, color: AcademyColors.primary);
 
-    bool? res = await showDialog(
+    await showDialog(
         context: context,
         builder: ( context ) {
           return SimpleDialog(
@@ -242,6 +242,8 @@ class _DemoSelectedCalendarState extends State<DemoSelectedCalendar> {
         }
     );
     Navigator.of(context).pop(true);
-    Navigator.of(context).pop(true);
+    if(!widget.menu){
+      Navigator.of(context).pop(true);
+    }
   }
 }

@@ -2,7 +2,10 @@ import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
 import 'package:academybw/ui/menu/demo/demo_selected.dart';
+import 'package:academybw/ui/menu/demo/demo_selected_calendar.dart';
+import 'package:academybw/ui/menu/demo/widgets/demo_page_more_info.dart';
 import 'package:academybw/widgets_shared/widgets_shared.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DemoPage extends StatefulWidget {
@@ -87,6 +90,54 @@ class _DemoPageState extends State<DemoPage> {
       );
     }
 
+    listW.add(
+      SizedBox(
+        width: sizeW,
+        child: Row(
+          children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: InkWell(
+                child: Container(
+                  padding: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(5)),
+                    color: color,
+                  ),
+                  child: Text('+ INFO',style: AcademyStyles().styleLato(size: 12,color: Colors.white,),),
+                ),
+                onTap: (){
+                  showCupertinoModalPopup(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return DemoPageMoreInfo(type: type,);
+                    },
+                  );
+                },
+              ),
+            ),
+            SizedBox(width: sizeW * 0.02,),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: InkWell(
+                child: Container(
+                  padding: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(5)),
+                    color: color,
+                  ),
+                  child: Text('GET STARTED',style: AcademyStyles().styleLato(size: 12,color: Colors.white,),),
+                ),
+                onTap: (){
+                  Navigator.push(context,MaterialPageRoute<void>( builder: (context) => DemoSelectedCalendar(type: type,menu: true,)),);
+                },
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+
     return InkWell(
       onTap: (){
         Navigator.push(context,MaterialPageRoute<void>( builder: (context) => DemoSelected(type: type,)),);
@@ -94,7 +145,7 @@ class _DemoPageState extends State<DemoPage> {
       child: Container(
         width: sizeW,
         margin: EdgeInsets.only(top: sizeH * 0.02),
-        height: sizeH * 0.16,
+        padding: EdgeInsets.symmetric(vertical: sizeH * 0.015),
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
           color: AcademyColors.colors_E8E8E8,
