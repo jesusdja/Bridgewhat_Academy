@@ -3,10 +3,13 @@ import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
 import 'package:academybw/providers/menu_provider.dart';
 import 'package:academybw/providers/post_provider.dart';
+import 'package:academybw/services/finish_app.dart';
 import 'package:academybw/ui/menu/cartoons/cartoons_page.dart';
 import 'package:academybw/ui/menu/demo/demo_page.dart';
+import 'package:academybw/ui/menu/levers/levers_page.dart';
 import 'package:academybw/ui/menu/post/post_page.dart';
 import 'package:academybw/ui/menu/videos/videos_page.dart';
+import 'package:academybw/widgets_shared/circular_progress_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +24,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   late MenuProvider menuProvider;
+  bool loadSignOut = false;
 
   @override
   void initState() {
@@ -47,6 +51,10 @@ class _HomePageState extends State<HomePage> {
     }
     if(menuProvider.status == MenuStatus.demo){
       option = const DemoPage();
+    }
+
+    if(menuProvider.status == MenuStatus.levers){
+      option = const LeversPage();
     }
 
     return SafeArea(
@@ -118,6 +126,16 @@ class _HomePageState extends State<HomePage> {
             cardMenu(type: 1),
             cardMenu(type: 2),
             cardMenu(type: 3),
+            cardMenuTitleCenter(type: 1),
+            loadSignOut ?
+            Container(
+              padding: EdgeInsets.symmetric(vertical: sizeH * 0.06),
+              child: Center(
+                child: circularProgressColors(),
+              ),
+            )
+                :
+            cardMenuTitleCenter(type: 0),
           ],
         ),
       ),
@@ -144,8 +162,8 @@ class _HomePageState extends State<HomePage> {
         margin: EdgeInsets.only(left: sizeW * 0.05,right: sizeW * 0.05,bottom: sizeH * 0.02),
         padding: EdgeInsets.symmetric(vertical: sizeH * 0.026),
         decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: AcademyColors.primary
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            color: AcademyColors.primary
         ),
         child: Row(
           children: [
@@ -171,7 +189,7 @@ class _HomePageState extends State<HomePage> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(title,textAlign: TextAlign.center,
-                    style: AcademyStyles().stylePoppins(size: sizeH * 0.023,color: Colors.white,fontWeight: FontWeight.bold)),
+                        style: AcademyStyles().stylePoppins(size: sizeH * 0.023,color: Colors.white,fontWeight: FontWeight.bold)),
                     Text(description,textAlign: TextAlign.center,
                         style: AcademyStyles().stylePoppins(size: sizeH * 0.018,color: Colors.white)),
                   ],
@@ -182,5 +200,42 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  Widget cardMenuTitleCenter({required int type}){
+    String title = 'SignOut';
+    if(type == 1){title = '20 LEVERS OF GROWTH'; }
+
+    return InkWell(
+      onTap: (){
+        if(type == 0){ signOut(); }
+        if(type == 1){ menuProvider.changeMenu(MenuStatus.levers); }
+      },
+      child: Container(
+        width: sizeW,
+        margin: EdgeInsets.only(left: sizeW * 0.05,right: sizeW * 0.05,bottom: sizeH * 0.02),
+        padding: EdgeInsets.symmetric(vertical: sizeH * 0.055),
+        decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            color: AcademyColors.primary
+        ),
+        child: Center(
+          child: Text(title,textAlign: TextAlign.center,
+              style: AcademyStyles().stylePoppins(size: sizeH * 0.023,color: Colors.white,fontWeight: FontWeight.bold)),
+        ),
+      ),
+    );
+  }
+
+  Future signOut() async{
+    loadSignOut = true;
+    setState(() {});
+
+    await finishApp();
+    Navigator.pushReplacement(context, MaterialPageRoute(builder:
+        (BuildContext context) => const AppState()));
+
+    loadSignOut = false;
+    setState(() {});
   }
 }

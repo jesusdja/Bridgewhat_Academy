@@ -4,6 +4,8 @@ class AcademyColors {
 
   static const Color primary = Color(0xF0A6061A);
 
+  static const Color primary_d00821 = Color(0xF0d00821);
+
   static const Color primaryGreyApp = Color(0xF051656E);
 
   static const Color colors_787878 = Color(0xF0787878);
@@ -15,6 +17,8 @@ class AcademyColors {
   static const Color colors_E8E8E8 = Color(0xF0E8E8E8);
 
   static const Color colors_95C4E9 = Color(0xF095C4E9);
+
+  static const Color colors_1B4570 = Color(0xF01B4570);
 
   static const Color colors_85939D = Color(0xF085939D);
 

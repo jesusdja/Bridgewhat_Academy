@@ -12,7 +12,8 @@ Widget bannerTitle({required int type, String? descrip, String? titleSt}){
   if(type == 2){title = 'CARTOONS';}
   if(type == 3){title = 'DEMO';description = 'Bridewhat demos';}
   if(type == 4){title = 'QUIZ LEVELS OF GROWTH';}
-  if(type == 5){;description = 'Advisors';}
+  if(type == 5){description = 'Advisors';}
+  if(type == 6){title = 'LEVERS';description = '20 LEVERS OF GROWTH';}
 
   title = titleSt ?? title;
 

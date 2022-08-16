@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum MenuStatus {post,videos,cartoons,demo,home}
+enum MenuStatus {post,videos,cartoons,demo,home,levers}
 
 class MenuProvider extends ChangeNotifier {
 
