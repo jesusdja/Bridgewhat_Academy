@@ -92,7 +92,7 @@ class _DemoSelectedCalendarState extends State<DemoSelectedCalendar> {
       padding: EdgeInsets.all(sizeH * 0.02),
       width: sizeW,
       decoration: const BoxDecoration(
-        color: AcademyColors.colors_E1E1E,
+        color: AcademyColors.colorsE1E1E,
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       child: Column(

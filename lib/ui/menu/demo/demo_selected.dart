@@ -246,7 +246,7 @@ class _DemoSelectedState extends State<DemoSelected> {
     List<Widget> listW = [];
     if(cardSelectedType == 0){
       listW.add(
-          Container(
+          SizedBox(
             width: sizeW,
             child: Row(
               children: [
@@ -265,7 +265,7 @@ class _DemoSelectedState extends State<DemoSelected> {
     }
 
     listW.add(
-        Container(
+        SizedBox(
           width: sizeW,
           child: Row(
             children: [
@@ -284,7 +284,7 @@ class _DemoSelectedState extends State<DemoSelected> {
 
     if(cardSelectedType == 0){
       listW.add(
-          Container(
+          SizedBox(
             width: sizeW,
             child: Row(
               children: [
@@ -304,7 +304,7 @@ class _DemoSelectedState extends State<DemoSelected> {
 
     if(cardSelectedType == 0){
       listW.add(
-          Container(
+          SizedBox(
             width: sizeW,
             child: Row(
               children: [
@@ -347,8 +347,8 @@ class _DemoSelectedState extends State<DemoSelected> {
       width: sizeW,
       padding: EdgeInsets.all(sizeH * 0.05),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: AcademyColors.colors_A40000.withOpacity(0.5)
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          color: AcademyColors.colorsA40000.withOpacity(0.5)
       ),
       child: Center(
         child: Text(title,style: AcademyStyles().styleLato(

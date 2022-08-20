@@ -4,6 +4,7 @@ import 'package:academybw/main.dart';
 import 'package:academybw/providers/videos_provider.dart';
 import 'package:academybw/ui/menu/quiz/quiz_page.dart';
 import 'package:academybw/utils/get_data.dart';
+import 'package:academybw/widgets_shared/appbar_widgets.dart';
 import 'package:academybw/widgets_shared/button_general.dart';
 import 'package:academybw/widgets_shared/circular_progress_colors.dart';
 import 'package:academybw/widgets_shared/widgets_shared.dart';
@@ -45,54 +46,65 @@ class _VideosPageState extends State<VideosPage> {
         videosProvider.viewContainerLikePost(idPost: 0);
         videosProvider.viewContainerSharedPost(idPost: 0);
       },
-      child: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Container(
-                width: sizeW,
-                margin: EdgeInsets.symmetric(horizontal: sizeW * 0.06),
-                child: Column(
-                  children: [
-                    bannerTitle(type: 1),
-                    SizedBox(height: sizeH * 0.04),
-                    cardContainer(),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Container(
-            width: sizeW,
-            height: sizeH * 0.08,
-            color: AcademyColors.primary,
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    margin: EdgeInsets.only(left: sizeW * 0.05),
-                    child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Est',style: AcademyStyles().stylePoppins(
-                        size: 12,color: Colors.white
-                    )),
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          body: Column(
+            children: [
+              headerShared(context: context),
+              Expanded(
+                child: Container(
+                  width: sizeW,
+                  margin: EdgeInsets.symmetric(horizontal: sizeW * 0.06),
+                  child: Column(
+                    children: [
+                      bannerTitle(type: 1),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          physics: const BouncingScrollPhysics(),
+                          child: Column(
+                            children: [
+                              SizedBox(height: sizeH * 0.04),
+                              cardContainer(),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                    ],
                   ),
                 ),
-                ButtonGeneral(
-                  margin: EdgeInsets.symmetric(horizontal: sizeW * 0.05),
-                  width: sizeW * 0.2,
-                  height: sizeH * 0.04,
-                  radius: 5,
-                  title: 'Quiz',
-                  textStyle: AcademyStyles().stylePoppins(size: 12,color: AcademyColors.primary,fontWeight: FontWeight.bold),
-                  onPressed: (){
-                    Navigator.push(context,MaterialPageRoute<void>( builder: (context) => const QuizPage()),);
-                  },
+              ),
+              Container(
+                width: sizeW,
+                height: sizeH * 0.08,
+                color: AcademyColors.primary,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        margin: EdgeInsets.only(left: sizeW * 0.05),
+                        child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Est',style: AcademyStyles().stylePoppins(
+                            size: 12,color: Colors.white
+                        )),
+                      ),
+                    ),
+                    ButtonGeneral(
+                      margin: EdgeInsets.symmetric(horizontal: sizeW * 0.05),
+                      width: sizeW * 0.2,
+                      height: sizeH * 0.04,
+                      radius: 5,
+                      title: 'Quiz',
+                      textStyle: AcademyStyles().stylePoppins(size: 12,color: AcademyColors.primary,fontWeight: FontWeight.bold),
+                      onPressed: (){
+                        Navigator.push(context,MaterialPageRoute<void>( builder: (context) => const QuizPage()),);
+                      },
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              )
+            ],
           )
-        ],
-      ),
+        ),
     );
   }
 
@@ -457,7 +469,7 @@ class _CardPostContainerState extends State<CardPostContainer> {
             margin: EdgeInsets.symmetric(vertical: sizeH * 0.01),
             height: 0.5,
             width: sizeW * 0.2,
-            color: AcademyColors.colors_C4C4C4,
+            color: AcademyColors.colorsC4C4C4,
           ),
         );
       }

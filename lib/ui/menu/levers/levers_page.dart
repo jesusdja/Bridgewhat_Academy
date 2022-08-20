@@ -2,13 +2,10 @@
 import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
-import 'package:academybw/providers/post_provider.dart';
-import 'package:academybw/utils/get_data.dart';
-import 'package:academybw/widgets_shared/circular_progress_colors.dart';
+import 'package:academybw/widgets_shared/appbar_widgets.dart';
 import 'package:academybw/widgets_shared/widgets_shared.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class LeversPage extends StatefulWidget {
   const LeversPage({Key? key}) : super(key: key);
@@ -68,21 +65,31 @@ class _LeversPageState extends State<LeversPage> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: SizedBox(
-        width: sizeW,
-        child: Column(
-          children: [
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: sizeW * 0.06),
-              child: bannerTitle(type: 6)
-            ),
-            SizedBox(height: sizeH * 0.04),
-            Expanded(
-              child: cardContainer(),
-            ),
-          ],
-        ),
-      ),
+      child: Scaffold(
+          backgroundColor: Colors.white,
+          body: Column(
+            children: [
+              headerShared(context: context),
+              Expanded(
+                child: SizedBox(
+                  width: sizeW,
+                  child: Column(
+                    children: [
+                      Container(
+                          margin: EdgeInsets.symmetric(horizontal: sizeW * 0.06),
+                          child: bannerTitle(type: 6)
+                      ),
+                      SizedBox(height: sizeH * 0.04),
+                      Expanded(
+                        child: cardContainer(),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          )
+      )
     );
   }
 
@@ -129,7 +136,7 @@ class _LeversPageState extends State<LeversPage> {
         title2: value.split('|')[0],
         subTitle: value.split('|')[1],
         subTitle2: value.split('|')[2],
-        color: isPar ? AcademyColors.primary : AcademyColors.primary_d00821,
+        color: isPar ? AcademyColors.primary : AcademyColors.primaryD00821,
       ));
       isPar = !isPar;
     });
@@ -190,7 +197,7 @@ class _LeversPageState extends State<LeversPage> {
         title2: value.split('|')[0],
         subTitle: value.split('|')[1],
         subTitle2: value.split('|')[2],
-        color: isPar ? AcademyColors.primary : AcademyColors.primary_d00821,
+        color: isPar ? AcademyColors.primary : AcademyColors.primaryD00821,
       ));
       isPar = !isPar;
     });

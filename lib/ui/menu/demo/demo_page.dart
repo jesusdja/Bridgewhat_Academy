@@ -4,6 +4,7 @@ import 'package:academybw/main.dart';
 import 'package:academybw/ui/menu/demo/demo_selected.dart';
 import 'package:academybw/ui/menu/demo/demo_selected_calendar.dart';
 import 'package:academybw/ui/menu/demo/widgets/demo_page_more_info.dart';
+import 'package:academybw/widgets_shared/appbar_widgets.dart';
 import 'package:academybw/widgets_shared/widgets_shared.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,35 +19,45 @@ class DemoPage extends StatefulWidget {
 class _DemoPageState extends State<DemoPage> {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      child: SizedBox(
-        width: sizeW,
-        child: Column(
+    return Scaffold(
+        backgroundColor: Colors.white,
+        body: Column(
           children: [
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: sizeW * 0.06),
-              child: bannerTitle(type: 3),
-            ),
-            Container(
-              width: sizeW,
-              margin: EdgeInsets.symmetric(horizontal: sizeW * 0.06),
-              child: Expanded(
-                child: SingleChildScrollView(
+            headerShared(context: context),
+            Expanded(
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: SizedBox(
+                  width: sizeW,
                   child: Column(
                     children: [
-                      card(type: 0),
-                      card(type: 1),
-                      card(type: 2),
-                      card(type: 3),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: sizeW * 0.06),
+                        child: bannerTitle(type: 3),
+                      ),
+                      Container(
+                        width: sizeW,
+                        margin: EdgeInsets.symmetric(horizontal: sizeW * 0.06),
+                        child: Expanded(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                card(type: 0),
+                                card(type: 1),
+                                card(type: 2),
+                                card(type: 3),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
               ),
-            ),
+            )
           ],
-        ),
-      ),
+        )
     );
   }
 
@@ -67,7 +78,7 @@ class _DemoPageState extends State<DemoPage> {
     }
     if(type == 3){
       title = 'PLATINUM';
-      color = AcademyColors.colors_B2BEC6;
+      color = AcademyColors.colorsB2BEC6;
       listTitle = ['All Gold features +','Advisory Services','Platinum content package',];
     }
 
@@ -148,7 +159,7 @@ class _DemoPageState extends State<DemoPage> {
         padding: EdgeInsets.symmetric(vertical: sizeH * 0.015),
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: AcademyColors.colors_E8E8E8,
+          color: AcademyColors.colorsE8E8E8,
         ),
         child: Row(
           children: [

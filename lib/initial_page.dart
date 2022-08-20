@@ -3,7 +3,6 @@ import 'package:academybw/providers/auth_provider.dart';
 import 'package:academybw/ui/home/home_page.dart';
 import 'package:academybw/ui/home/splash_screen.dart';
 import 'package:academybw/ui/login/login_page.dart';
-import 'package:academybw/ui/register/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';

@@ -1,5 +1,6 @@
 import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
+import 'package:academybw/main.dart';
 import 'package:flutter/material.dart';
 
 AppBar appBarWidget({
@@ -28,5 +29,32 @@ AppBar appBarWidget({
     centerTitle: centerTitle,
     title: Text(title,style: styleTitle,textAlign: alignTitle,),
     actions: actions,
+  );
+}
+
+Widget headerShared({required BuildContext context}){
+  return Container(
+    width: sizeW,
+    margin: EdgeInsets.only(left: sizeW * 0.02, right: sizeW * 0.03,top: sizeH * 0.02, bottom: sizeH * 0.02),
+    child: Row(
+      children: [
+        IconButton(
+          icon: Icon(Icons.arrow_back_ios,size: sizeH * 0.035,color: AcademyColors.primary),
+          onPressed: (){
+            Navigator.of(context).pop();
+          },
+        ),
+        Container(
+          height: sizeH * 0.1,
+          width: sizeW * 0.25,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: Image.asset('assets/image/logo_colores_fondo_transparente.png').image,
+                fit: BoxFit.fitWidth
+            ),
+          ),
+        ),
+      ],
+    ),
   );
 }

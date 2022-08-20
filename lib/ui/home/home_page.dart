@@ -25,6 +25,7 @@ class _HomePageState extends State<HomePage> {
 
   late MenuProvider menuProvider;
   bool loadSignOut = false;
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -40,22 +41,22 @@ class _HomePageState extends State<HomePage> {
 
     Widget option = optionMenu();
 
-    if(menuProvider.status == MenuStatus.post){
-      option = const PostPage();
-    }
-    if(menuProvider.status == MenuStatus.videos){
-      option = const VideosPage();
-    }
-    if(menuProvider.status == MenuStatus.cartoons){
-      option = const CartoonsPage();
-    }
-    if(menuProvider.status == MenuStatus.demo){
-      option = const DemoPage();
-    }
-
-    if(menuProvider.status == MenuStatus.levers){
-      option = const LeversPage();
-    }
+    // if(menuProvider.status == MenuStatus.post){
+    //   option = const PostPage();
+    // }
+    // if(menuProvider.status == MenuStatus.videos){
+    //   option = const VideosPage();
+    // }
+    // if(menuProvider.status == MenuStatus.cartoons){
+    //   option = const CartoonsPage();
+    // }
+    // if(menuProvider.status == MenuStatus.demo){
+    //   option = const DemoPage();
+    // }
+    //
+    // if(menuProvider.status == MenuStatus.levers){
+    //   option = const LeversPage();
+    // }
 
     return SafeArea(
       child: GestureDetector(
@@ -63,7 +64,9 @@ class _HomePageState extends State<HomePage> {
           Provider.of<PostProvider>(context).viewContainerLikePost(idPost: 0);
         },
         child: Scaffold(
+          key: _scaffoldKey,
           backgroundColor: Colors.white,
+          endDrawer: appDrawer(),
           body: Column(
             children: [
               SizedBox(height: sizeH * 0.01,),
@@ -92,9 +95,10 @@ class _HomePageState extends State<HomePage> {
             onPressed: (){},
           ),
           IconButton(
-            icon: Icon(Icons.menu,size: sizeH * 0.04,color: menuProvider.status == MenuStatus.home ? Colors.grey[300] : AcademyColors.primary),
+            icon: Icon(Icons.menu,size: sizeH * 0.04,color: AcademyColors.primary),
             onPressed: (){
-              menuProvider.changeMenu(MenuStatus.home);
+              _scaffoldKey.currentState!.openEndDrawer();
+              //menuProvider.changeMenu(MenuStatus.home);
             },
           ),
         ],
@@ -115,6 +119,80 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget appDrawer(){
+
+    Widget divide = const Divider();
+
+    return Container(
+      width: sizeW * 0.6,
+      color: Colors.white,
+      child: Column(
+        children: [
+          SizedBox(height: sizeH * 0.02,),
+          Container(
+            height: sizeH * 0.2,
+            width: sizeH * 0.2,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: Image.asset('assets/image/logo_colores_fondo_transparente_login.png').image,
+                  fit: BoxFit.fitWidth
+              ),
+            ),
+          ),
+          Expanded(child: Container()),
+          titleDrawer(type: 1),
+          divide,
+          titleDrawer(type: 2),
+          loadSignOut ?
+          Container(
+            padding: EdgeInsets.symmetric(vertical: sizeH * 0.06),
+            child: Center(
+              child: circularProgressColors(),
+            ),
+          ) : titleDrawer(type: 0),
+          divide,
+          SizedBox(height: sizeH * 0.02,),
+        ],
+      ),
+    );
+  }
+
+  Widget titleDrawer({required int type}){
+    String title = 'SignOut';
+    if(type == 1){title = '20 Levers of growth'; }
+    if(type == 2){title = 'Settings'; }
+
+    return InkWell(
+      onTap: (){
+        if(type == 0){ signOut(); }
+        if(type == 1){
+          Navigator.of(context).pop();
+          Navigator.push(context,MaterialPageRoute<void>(
+              builder: (context) => const LeversPage()),);
+
+        }
+      },
+      child: Container(
+        width: sizeW,
+        margin: EdgeInsets.only(left: sizeW * 0.05,right: sizeW * 0.05,bottom: sizeH * 0.01, top: sizeH * 0.01),
+        child: Text(title,textAlign: TextAlign.left,
+            style: AcademyStyles().stylePoppins(size: sizeH * 0.018,color: AcademyColors.primary,fontWeight: FontWeight.bold)),
+      ),
+    );
+  }
+
+  Future signOut() async{
+    loadSignOut = true;
+    setState(() {});
+
+    await finishApp();
+    Navigator.pushReplacement(context, MaterialPageRoute(builder:
+        (BuildContext context) => const AppState()));
+
+    loadSignOut = false;
+    setState(() {});
+  }
+
   Widget optionMenu(){
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
@@ -126,16 +204,6 @@ class _HomePageState extends State<HomePage> {
             cardMenu(type: 1),
             cardMenu(type: 2),
             cardMenu(type: 3),
-            cardMenuTitleCenter(type: 1),
-            loadSignOut ?
-            Container(
-              padding: EdgeInsets.symmetric(vertical: sizeH * 0.06),
-              child: Center(
-                child: circularProgressColors(),
-              ),
-            )
-                :
-            cardMenuTitleCenter(type: 0),
           ],
         ),
       ),
@@ -152,15 +220,22 @@ class _HomePageState extends State<HomePage> {
 
     return InkWell(
       onTap: (){
-        if(type == 0){ menuProvider.changeMenu(MenuStatus.post); }
-        if(type == 1){ menuProvider.changeMenu(MenuStatus.videos); }
-        if(type == 2){ menuProvider.changeMenu(MenuStatus.cartoons); }
-        if(type == 3){ menuProvider.changeMenu(MenuStatus.demo); }
+
+        Widget push = Container();
+
+        if(type == 0){ push = const PostPage(); }
+        if(type == 1){ push = const VideosPage(); }
+        if(type == 2){ push = const CartoonsPage(); }
+        if(type == 3){ push = const DemoPage(); }
+
+
+        Navigator.push(context,MaterialPageRoute<void>(
+            builder: (context) => push),);
       },
       child: Container(
         width: sizeW,
         margin: EdgeInsets.only(left: sizeW * 0.05,right: sizeW * 0.05,bottom: sizeH * 0.02),
-        padding: EdgeInsets.symmetric(vertical: sizeH * 0.026),
+        padding: EdgeInsets.symmetric(vertical: sizeH * 0.035),
         decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(10)),
             color: AcademyColors.primary
@@ -202,40 +277,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget cardMenuTitleCenter({required int type}){
-    String title = 'SignOut';
-    if(type == 1){title = '20 LEVERS OF GROWTH'; }
 
-    return InkWell(
-      onTap: (){
-        if(type == 0){ signOut(); }
-        if(type == 1){ menuProvider.changeMenu(MenuStatus.levers); }
-      },
-      child: Container(
-        width: sizeW,
-        margin: EdgeInsets.only(left: sizeW * 0.05,right: sizeW * 0.05,bottom: sizeH * 0.02),
-        padding: EdgeInsets.symmetric(vertical: sizeH * 0.055),
-        decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-            color: AcademyColors.primary
-        ),
-        child: Center(
-          child: Text(title,textAlign: TextAlign.center,
-              style: AcademyStyles().stylePoppins(size: sizeH * 0.023,color: Colors.white,fontWeight: FontWeight.bold)),
-        ),
-      ),
-    );
-  }
-
-  Future signOut() async{
-    loadSignOut = true;
-    setState(() {});
-
-    await finishApp();
-    Navigator.pushReplacement(context, MaterialPageRoute(builder:
-        (BuildContext context) => const AppState()));
-
-    loadSignOut = false;
-    setState(() {});
-  }
 }

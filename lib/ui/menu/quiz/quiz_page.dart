@@ -254,13 +254,13 @@ class _QuizPageState extends State<QuizPage> {
             ),
           ),
           SizedBox(height: sizeH * 0.025,),
-          Container(
+          SizedBox(
             width: sizeW,
             child: Text("There's work to do!",textAlign: TextAlign.center,
                 style: AcademyStyles().styleLato(size: 14,color: AcademyColors.primary)),
           ),
           SizedBox(height: sizeH * 0.02,),
-          Container(
+          SizedBox(
             height: sizeH * 0.35,
             width: sizeW,
             child: Expanded(

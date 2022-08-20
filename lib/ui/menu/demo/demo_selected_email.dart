@@ -3,7 +3,6 @@ import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
 import 'package:academybw/widgets_shared/button_general.dart';
 import 'package:academybw/widgets_shared/textfield_general.dart';
-import 'package:academybw/widgets_shared/widgets_shared.dart';
 import 'package:flutter/material.dart';
 
 class DemoSelectedEmail extends StatefulWidget {
@@ -89,7 +88,7 @@ class _DemoSelectedEmailState extends State<DemoSelectedEmail> {
       padding: EdgeInsets.all(sizeH * 0.02),
       width: sizeW,
       decoration: const BoxDecoration(
-        color: AcademyColors.colors_E1E1E,
+        color: AcademyColors.colorsE1E1E,
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       child: Column(
@@ -205,7 +204,7 @@ class _DemoSelectedEmailState extends State<DemoSelectedEmail> {
     TextStyle style1 = AcademyStyles().stylePoppins(size: 14, color: AcademyColors.colors_787878);
     TextStyle style2 = AcademyStyles().stylePoppins(size: 14, color: AcademyColors.primary);
 
-    bool? res = await showDialog(
+    await showDialog(
         context: context,
         builder: ( context ) {
           return SimpleDialog(

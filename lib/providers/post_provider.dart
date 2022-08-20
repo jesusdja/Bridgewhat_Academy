@@ -1,6 +1,5 @@
 import 'package:academybw/services/http_connection.dart';
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
 
 class PostProvider extends ChangeNotifier {
 
@@ -41,9 +40,6 @@ class PostProvider extends ChangeNotifier {
         }
         result = true;
       }
-
-
-      print('');
 
       // var rng = math.Random();
       // for (int x = 1; x < 11; x++) {

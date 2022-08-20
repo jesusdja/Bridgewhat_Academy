@@ -46,8 +46,9 @@ class _LoginPageState extends State<LoginPage> {
           physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
-              SizedBox(height: sizeH * 0.2,),
+              SizedBox(height: sizeH * 0.15,),
               iconApp(),
+              SizedBox(height: sizeH * 0.05,),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
                 child: TextFieldGeneral(
@@ -118,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
       margin: EdgeInsets.symmetric(horizontal: sizeW * 0.25),
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: Image.asset('assets/image/logo_colores_fondo_transparente.png').image,
+              image: Image.asset('assets/image/logo_colores_fondo_transparente_login.png').image,
               fit: BoxFit.fitWidth
           )
       ),

@@ -3,8 +3,7 @@ import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
 import 'package:academybw/providers/post_provider.dart';
-import 'package:academybw/utils/get_data.dart';
-import 'package:academybw/widgets_shared/circular_progress_colors.dart';
+import 'package:academybw/widgets_shared/appbar_widgets.dart';
 import 'package:academybw/widgets_shared/widgets_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -67,18 +66,28 @@ class _PostPageState extends State<PostPage> {
         postProvider.viewContainerLikePost(idPost: 0);
         postProvider.viewContainerSharedPost(idPost: 0);
       },
-      child: Container(
-        width: sizeW,
-        margin: EdgeInsets.symmetric(horizontal: sizeW * 0.06),
-        child: Column(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Column(
           children: [
-            bannerTitle(type: 0),
-            SizedBox(height: sizeH * 0.04),
+            headerShared(context: context),
             Expanded(
-              child: cardContainer(),
-            ),
+              child: Container(
+                width: sizeW,
+                margin: EdgeInsets.symmetric(horizontal: sizeW * 0.06),
+                child: Column(
+                  children: [
+                    bannerTitle(type: 0),
+                    SizedBox(height: sizeH * 0.02),
+                    Expanded(
+                      child: cardContainer(),
+                    ),
+                  ],
+                ),
+              ),
+            )
           ],
-        ),
+        )
       ),
     );
   }
@@ -443,7 +452,7 @@ class _CardPostContainerState extends State<CardPostContainer> {
             margin: EdgeInsets.symmetric(vertical: sizeH * 0.01),
             height: 0.5,
             width: sizeW * 0.2,
-            color: AcademyColors.colors_C4C4C4,
+            color: AcademyColors.colorsC4C4C4,
           ),
         );
       }
