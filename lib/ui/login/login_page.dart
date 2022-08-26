@@ -48,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               SizedBox(height: sizeH * 0.15,),
               iconApp(),
-              SizedBox(height: sizeH * 0.05,),
+              SizedBox(height: sizeH * 0.03,),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
                 child: TextFieldGeneral(
@@ -115,8 +115,9 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget iconApp(){
     return Container(
-      height: sizeH * 0.2,
-      margin: EdgeInsets.symmetric(horizontal: sizeW * 0.25),
+      height: sizeH * 0.25,
+      width: sizeH * 0.25,
+      margin: EdgeInsets.symmetric(horizontal: sizeW * 0.15),
       decoration: BoxDecoration(
           image: DecorationImage(
               image: Image.asset('assets/image/logo_colores_fondo_transparente_login.png').image,

@@ -37,26 +37,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     menuProvider = Provider.of<MenuProvider>(context);
-
-    Widget option = optionMenu();
-
-    // if(menuProvider.status == MenuStatus.post){
-    //   option = const PostPage();
-    // }
-    // if(menuProvider.status == MenuStatus.videos){
-    //   option = const VideosPage();
-    // }
-    // if(menuProvider.status == MenuStatus.cartoons){
-    //   option = const CartoonsPage();
-    // }
-    // if(menuProvider.status == MenuStatus.demo){
-    //   option = const DemoPage();
-    // }
-    //
-    // if(menuProvider.status == MenuStatus.levers){
-    //   option = const LeversPage();
-    // }
 
     return SafeArea(
       child: GestureDetector(
@@ -73,7 +55,7 @@ class _HomePageState extends State<HomePage> {
               headerContainer(),
               SizedBox(height: sizeH * 0.02,),
               Expanded(
-                child: option,
+                child: optionMenu(),
               )
             ],
           ),
@@ -194,18 +176,27 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget optionMenu(){
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      child: SizedBox(
-        width: sizeW,
-        child: Column(
-          children: [
-            cardMenu(type: 0),
-            cardMenu(type: 1),
-            cardMenu(type: 2),
-            cardMenu(type: 3),
-          ],
-        ),
+    return SizedBox(
+      width: sizeW,
+      child: Column(
+        children: [
+          Expanded(
+            child: cardMenu(type: 0),
+          ),
+          Expanded(
+            child: cardMenu(type: 1),
+          ),
+          Expanded(
+            child: cardMenu(type: 2),
+          ),
+          Expanded(
+            child: cardMenu(type: 3),
+          ),
+          // cardMenu(type: 0),
+          // cardMenu(type: 1),
+          // cardMenu(type: 2),
+          // cardMenu(type: 3),
+        ],
       ),
     );
   }
@@ -234,8 +225,8 @@ class _HomePageState extends State<HomePage> {
       },
       child: Container(
         width: sizeW,
-        margin: EdgeInsets.only(left: sizeW * 0.05,right: sizeW * 0.05,bottom: sizeH * 0.02),
-        padding: EdgeInsets.symmetric(vertical: sizeH * 0.035),
+        margin: EdgeInsets.only(left: sizeW * 0.07,right: sizeW * 0.07,bottom: sizeH * 0.02),
+        //padding: EdgeInsets.symmetric(vertical: sizeH * 0.035),
         decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(10)),
             color: AcademyColors.primary
@@ -243,11 +234,11 @@ class _HomePageState extends State<HomePage> {
         child: Row(
           children: [
             Container(
-              margin: EdgeInsets.symmetric(horizontal: sizeW * 0.15),
+              margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
               child: Center(
                 child: Container(
-                  width: sizeW * 0.12,
-                  height: sizeH * 0.1,
+                  width: sizeW * 0.11,
+                  height: sizeH * 0.08,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                         image: Image.asset('assets/image/Exclude_$type.png').image,
@@ -264,9 +255,9 @@ class _HomePageState extends State<HomePage> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(title,textAlign: TextAlign.center,
-                        style: AcademyStyles().stylePoppins(size: sizeH * 0.023,color: Colors.white,fontWeight: FontWeight.bold)),
+                        style: AcademyStyles().stylePoppins(size: sizeH * 0.022,color: Colors.white,fontWeight: FontWeight.bold)),
                     Text(description,textAlign: TextAlign.center,
-                        style: AcademyStyles().stylePoppins(size: sizeH * 0.018,color: Colors.white)),
+                        style: AcademyStyles().stylePoppins(size: sizeH * 0.016,color: Colors.white)),
                   ],
                 ),
               ),
