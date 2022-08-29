@@ -69,7 +69,7 @@ class _LeversPageState extends State<LeversPage> {
           backgroundColor: Colors.white,
           body: Column(
             children: [
-              headerShared(context: context),
+              headerShared(context: context,color: AcademyColors.colorsLeversObscure),
               Expanded(
                 child: SizedBox(
                   width: sizeW,
@@ -136,7 +136,7 @@ class _LeversPageState extends State<LeversPage> {
         title2: value.split('|')[0],
         subTitle: value.split('|')[1],
         subTitle2: value.split('|')[2],
-        color: isPar ? AcademyColors.primary : AcademyColors.primaryD00821,
+        color: isPar ? Colors.transparent : AcademyColors.colorsLeversCeleste,
       ));
       isPar = !isPar;
     });
@@ -145,7 +145,7 @@ class _LeversPageState extends State<LeversPage> {
     return Container(
       width: sizeW,
       padding: const EdgeInsets.all(20),
-      color: AcademyColors.primary,
+      color: AcademyColors.colorsLeversObscure,
       child: Column(
         children: [
           SizedBox(
@@ -159,7 +159,7 @@ class _LeversPageState extends State<LeversPage> {
                   backgroundColor: Colors.white,
                   child: Center(
                     child: Text(num,style: AcademyStyles().styleLato(
-                        color: AcademyColors.primary,size: sizeH * 0.025
+                        color: AcademyColors.colorsLeversObscure,size: sizeH * 0.025
                     )),
                   ),
                 ),
@@ -197,7 +197,7 @@ class _LeversPageState extends State<LeversPage> {
         title2: value.split('|')[0],
         subTitle: value.split('|')[1],
         subTitle2: value.split('|')[2],
-        color: isPar ? AcademyColors.primary : AcademyColors.primaryD00821,
+        color: isPar ? AcademyColors.colorsLeversObscure : AcademyColors.colorsLeversCeleste,
       ));
       isPar = !isPar;
     });
@@ -216,14 +216,14 @@ class _LeversPageState extends State<LeversPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CircleAvatar(
-                  backgroundColor: AcademyColors.primary,
+                  backgroundColor: AcademyColors.colorsLeversObscure,
                   radius: sizeH * 0.025,
                   child: CircleAvatar(
                     radius: sizeH * 0.02,
                     backgroundColor: Colors.white,
                     child: Center(
                       child: Text(num,style: AcademyStyles().styleLato(
-                          color: AcademyColors.primary,size: sizeH * 0.025
+                          color: AcademyColors.colorsLeversObscure,size: sizeH * 0.025
                       )),
                     ),
                   ),
@@ -234,7 +234,7 @@ class _LeversPageState extends State<LeversPage> {
                   child: Container(
                     constraints: BoxConstraints(minWidth: sizeW * 0.3, maxWidth: sizeW * 0.5),
                     child: Text(title,textAlign: TextAlign.center,style: AcademyStyles().stylePoppins(
-                        size: sizeH * 0.022,color: AcademyColors.primary,fontWeight: FontWeight.bold
+                        size: sizeH * 0.022,color: AcademyColors.colorsLeversObscure,fontWeight: FontWeight.bold
                     )),
                   ),
                 ),

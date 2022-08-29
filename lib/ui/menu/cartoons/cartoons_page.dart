@@ -116,6 +116,103 @@ class _CardCartoonsContainerState extends State<CardCartoonsContainer> {
 
     cartoonsProvider = Provider.of<CartoonsProvider>(context);
 
+    return SizedBox(
+      width: sizeW,
+      child: Column(
+        children: [
+          cardPostImg(),
+          textDescription(),
+          SizedBox(height: sizeH * 0.05),
+        ],
+      ),
+    );
+  }
+
+  Widget cardPostImg(){
+    return Column(
+      children: [
+        Container(
+          width: sizeW,
+          height: sizeH * 0.4,
+          margin: EdgeInsets.only(bottom: sizeH * 0.02),
+          decoration: BoxDecoration(
+            color: Colors.grey[100],
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+            image: DecorationImage(
+                image: Image.asset('assets/image/${cartoon['image']}').image,
+                fit: BoxFit.fill
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget textDescription(){
+
+    String description = cartoon['description'];
+
+    Widget textMore = Container();
+
+    if(description.length > 150){
+      bool isMoreActive = cartoonsProvider.cartoonsViewMoreDescription[cartoon['id']!]!;
+      if(isMoreActive){
+        textMore = Text(description,style: AcademyStyles().styleLato(size: 12,color: AcademyColors.colors_787878),);
+      }else{
+        textMore =  InkWell(
+          onTap: (){
+            cartoonsProvider.viewContainerMoreDescriptionPost(idPost: cartoon['id']);
+          },
+          child: SizedBox(
+            child: RichText(
+              text: TextSpan(
+                text: description.substring(0,150), // _snapshot.data['username']
+                style: AcademyStyles().styleLato(size: 12,color: AcademyColors.colors_787878),
+                children: <TextSpan>[
+                  TextSpan(
+                    text: '. . .  More',
+                    style: AcademyStyles().styleLato(size: 12,color: AcademyColors.primary),
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
+      }
+    }else{
+      textMore = Text(description,style: AcademyStyles().styleLato(size: 12,color: AcademyColors.colors_787878),);
+    }
+    return textMore;
+  }
+}
+
+class CardCartoonsContainer2 extends StatefulWidget {
+  const CardCartoonsContainer2({Key? key, required this.cartoon}) : super(key: key);
+
+  final Map<String,dynamic> cartoon;
+
+  @override
+  State<CardCartoonsContainer2> createState() => _CardCartoonsContainerState2();
+}
+
+class _CardCartoonsContainerState2 extends State<CardCartoonsContainer2> {
+
+  Map<String,dynamic> cartoon = {};
+  late CartoonsProvider cartoonsProvider;
+  List<String> listTitleLikes = ['','Like','Love','Wow','Clap','Curious','Insightful'];
+  List<String> listTitleShared = ['','Linkedin','Instagram','Twitter','Facebook'];
+
+  @override
+  void initState() {
+    super.initState();
+    cartoon = widget.cartoon;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    cartoonsProvider = Provider.of<CartoonsProvider>(context);
+
     bool postSelectLike = cartoonsProvider.cartoonsLikes[cartoon['id']] ?? false;
     bool postSelectShared = cartoonsProvider.cartoonsShared[cartoon['id']] ?? false;
 

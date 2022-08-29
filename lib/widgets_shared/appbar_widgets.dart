@@ -32,14 +32,14 @@ AppBar appBarWidget({
   );
 }
 
-Widget headerShared({required BuildContext context}){
+Widget headerShared({required BuildContext context, Color color = AcademyColors.primary}){
   return Container(
     width: sizeW,
     margin: EdgeInsets.only(left: sizeW * 0.02, right: sizeW * 0.03,top: sizeH * 0.02, bottom: sizeH * 0.02),
     child: Row(
       children: [
         IconButton(
-          icon: Icon(Icons.arrow_back_ios,size: sizeH * 0.035,color: AcademyColors.primary),
+          icon: Icon(Icons.arrow_back_ios,size: sizeH * 0.035,color: color),
           onPressed: (){
             Navigator.of(context).pop();
           },

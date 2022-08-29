@@ -116,7 +116,7 @@ class _HomePageState extends State<HomePage> {
             width: sizeH * 0.2,
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: Image.asset('assets/image/logo_colores_fondo_transparente_login.png').image,
+                  image: Image.asset('assets/image/icon_app_new.jpg').image,
                   fit: BoxFit.fitWidth
               ),
             ),
@@ -156,7 +156,7 @@ class _HomePageState extends State<HomePage> {
       },
       child: Container(
         width: sizeW,
-        margin: EdgeInsets.only(left: sizeW * 0.05,right: sizeW * 0.05,bottom: sizeH * 0.01, top: sizeH * 0.01),
+        margin: EdgeInsets.only(left: sizeW * 0.03,bottom: sizeH * 0.01, top: sizeH * 0.01),
         child: Text(title,textAlign: TextAlign.left,
             style: AcademyStyles().stylePoppins(size: sizeH * 0.018,color: AcademyColors.primary,fontWeight: FontWeight.bold)),
       ),
@@ -203,10 +203,10 @@ class _HomePageState extends State<HomePage> {
 
   Widget cardMenu({required int type}){
     String title = 'NEWS';
-    String description = 'View Bridgewhat participant´s posts';
-    if(type == 1){title = '20 LOG'; description = 'Learn about the Bridgewhat 20 Levers of Growth';}
-    if(type == 2){title = 'CARTOONS';description = 'Have fun with Bridgewhat Cartoons';}
-    if(type == 3){title = 'DEMO';description = 'Bridgewhat features at a glance';}
+    String description = 'View Bridgewhat\nparticipant´s posts';
+    if(type == 1){title = '20 LOG'; description = 'Learn about the Bridgewhat\n20 Levers of Growth';}
+    if(type == 2){title = 'CARTOONS';description = 'Have fun with\nBridgewhat Cartoons';}
+    if(type == 3){title = 'DEMO';description = 'Bridgewhat features\nat a glance';}
 
 
     return InkWell(
@@ -256,8 +256,11 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Text(title,textAlign: TextAlign.center,
                         style: AcademyStyles().stylePoppins(size: sizeH * 0.022,color: Colors.white,fontWeight: FontWeight.bold)),
-                    Text(description,textAlign: TextAlign.center,
-                        style: AcademyStyles().stylePoppins(size: sizeH * 0.016,color: Colors.white)),
+                    FittedBox(
+                      fit:BoxFit.contain,
+                      child: Text(description,textAlign: TextAlign.center,
+                          style: AcademyStyles().stylePoppins(size: sizeH * 0.016,color: Colors.white)),
+                    ),
                   ],
                 ),
               ),

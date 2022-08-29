@@ -27,6 +27,8 @@ Widget bannerTitle({required int type, String? descrip, String? titleSt}){
   String title = 'NEWS';
   double marginL = sizeW * 0.03;
   String description = descrip ?? 'Positioning & Targeting';
+  Color colorSuvTitle = AcademyColors.primary;
+
   if(type == 1){title = '20 LOG'; }
   if(type == 2){title = 'CARTOONS';}
   if(type == 3){title = 'DEMO';description = 'Bridewhat demos';}
@@ -36,6 +38,7 @@ Widget bannerTitle({required int type, String? descrip, String? titleSt}){
     title = 'LEVERS';
     description = '20 LEVERS OF GROWTH (20 LOG)';
     avatar = Container(); marginL = 0;
+    colorSuvTitle = AcademyColors.colorsLeversObscure;
   }
 
   title = titleSt ?? title;
@@ -53,7 +56,7 @@ Widget bannerTitle({required int type, String? descrip, String? titleSt}){
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(title,style: AcademyStyles().stylePoppins(fontWeight: FontWeight.bold,color: AcademyColors.colors_787878,size: sizeH * 0.022)),
-                Text(description,style: AcademyStyles().styleLato(size: sizeH * 0.018,color: AcademyColors.primary)),
+                Text(description,style: AcademyStyles().styleLato(size: sizeH * 0.018,color: colorSuvTitle)),
               ],
             ),
           ),

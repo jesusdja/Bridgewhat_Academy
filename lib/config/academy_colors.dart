@@ -29,4 +29,8 @@ class AcademyColors {
   static const Color colorsA40000 = Color(0xF0A40000);
 
   static const Color colorsE1E1E = Color(0xF0E1E1E1);
+
+  static const Color colorsLeversObscure = Color(0xF01B4570);
+
+  static const Color colorsLeversCeleste = Color(0xF095C4E9);
 }
