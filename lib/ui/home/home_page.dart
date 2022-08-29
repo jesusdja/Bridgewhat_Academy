@@ -141,7 +141,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget titleDrawer({required int type}){
     String title = 'SignOut';
-    if(type == 1){title = '20 Levers of growth'; }
+    if(type == 1){title = '20 Levers of growth (20 LOG)'; }
     if(type == 2){title = 'Settings'; }
 
     return InkWell(
@@ -202,9 +202,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget cardMenu({required int type}){
-    String title = 'POST';
+    String title = 'NEWS';
     String description = 'View Bridgewhat participant´s posts';
-    if(type == 1){title = 'VIDEOS'; description = 'Learn about the Bridgewhat 20 Levers of Growth';}
+    if(type == 1){title = '20 LOG'; description = 'Learn about the Bridgewhat 20 Levers of Growth';}
     if(type == 2){title = 'CARTOONS';description = 'Have fun with Bridgewhat Cartoons';}
     if(type == 3){title = 'DEMO';description = 'Bridgewhat features at a glance';}
 

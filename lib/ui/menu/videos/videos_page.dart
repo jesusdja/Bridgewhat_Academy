@@ -26,7 +26,7 @@ class _VideosPageState extends State<VideosPage> {
   @override
   void initState() {
     super.initState();
-    initialData();
+    //initialData();
   }
 
   initialData(){
@@ -43,8 +43,8 @@ class _VideosPageState extends State<VideosPage> {
 
     return GestureDetector(
       onTap: (){
-        videosProvider.viewContainerLikePost(idPost: 0);
-        videosProvider.viewContainerSharedPost(idPost: 0);
+        // videosProvider.viewContainerLikePost(idPost: 0);
+        // videosProvider.viewContainerSharedPost(idPost: 0);
       },
         child: Scaffold(
           backgroundColor: Colors.white,
@@ -54,10 +54,13 @@ class _VideosPageState extends State<VideosPage> {
               Expanded(
                 child: Container(
                   width: sizeW,
-                  margin: EdgeInsets.symmetric(horizontal: sizeW * 0.06),
+                  //margin: EdgeInsets.symmetric(horizontal: sizeW * 0.06),
                   child: Column(
                     children: [
-                      bannerTitle(type: 1),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: sizeW * 0.06),
+                        child: bannerTitle(type: 1),
+                      ),
                       Expanded(
                         child: SingleChildScrollView(
                           physics: const BouncingScrollPhysics(),
@@ -134,6 +137,165 @@ class CardPostContainer extends StatefulWidget {
 }
 
 class _CardPostContainerState extends State<CardPostContainer> {
+
+  Map<String,dynamic> video = {};
+  late VideosProvider videosProvider;
+  List<String> listTitleLikes = ['','Like','Love','Wow','Clap','Curious','Insightful'];
+  List<String> listTitleShared = ['','Linkedin','Instagram','Twitter','Facebook'];
+  late VideoPlayerController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    video = widget.videos;
+    _controller = VideoPlayerController.asset(video['url'])
+    ..initialize().then((_) {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    videosProvider = Provider.of<VideosProvider>(context);
+
+    return SizedBox(
+      width: sizeW,
+      child: Column(
+        children: [
+          cardVideo(),
+          cardBottom(),
+        ],
+      ),
+    );
+  }
+
+  Widget cardVideo(){
+    return Container(
+      width: sizeW,
+      height: sizeH * 0.25,
+      margin: EdgeInsets.only(bottom: sizeH * 0.02),
+      decoration: BoxDecoration(
+        color: Colors.grey[100],
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+      ),
+      child: Stack(
+        children: [
+          InkWell(
+            onTap: (){
+              setState(() {
+                _controller.value.isPlaying
+                    ? _controller.pause()
+                    : _controller.play();
+              });
+            },
+            child: SizedBox(
+              width: sizeW,
+              height: sizeH * 0.25,
+              child: Center(
+                child: _controller.value.isInitialized
+                    ? VideoPlayer(_controller) :
+                circularProgressColors(widthContainer1: sizeW, widthContainer2: sizeW * 0.06,colorCircular: AcademyColors.primary),
+              ),
+            ),
+          ),
+          if(_controller.value.isInitialized && !_controller.value.isPlaying)...[
+            Align(
+              alignment: Alignment.center,
+              child: InkWell(
+                onTap: (){
+                  videosProvider.viewContainerLikePost(idPost: video['id']);
+                },
+                child: IconButton(
+                  icon: Icon(Icons.play_circle_outline,color: Colors.grey[400],size: sizeH * 0.08),
+                  onPressed: (){
+                    _controller.play();
+                    setState(() {});
+                  },
+                ),
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget cardBottom(){
+
+    String title = video['title'];
+    String description = video['description'];
+
+    TextStyle style = AcademyStyles().styleLato(size: sizeH * 0.022,color: Colors.black);
+    TextStyle style2 = AcademyStyles().styleLato(size: sizeH * 0.02,color: AcademyColors.colors_787878);
+
+    Widget textMore = Container();
+
+    if(description.length > 150){
+      bool isMoreActive = videosProvider.openDescription[video['id']!]!;
+      if(isMoreActive){
+        textMore = Text(description,style: AcademyStyles().styleLato(size: 12,color: AcademyColors.colors_787878),);
+      }else{
+        textMore =  InkWell(
+          onTap: (){
+            videosProvider.viewContainerMoreDescriptionPost(idPost: video['id']);
+          },
+          child: SizedBox(
+            child: RichText(
+              text: TextSpan(
+                text: description.substring(0,150), // _snapshot.data['username']
+                style: style2,
+                children: <TextSpan>[
+                  TextSpan(
+                    text: '. . .  More',
+                    style: AcademyStyles().styleLato(size: 12,color: AcademyColors.primary),
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
+      }
+    }else{
+      textMore = Text(description,style: style2,);
+    }
+
+    return Container(
+      width: sizeW,
+      margin: EdgeInsets.only(bottom: sizeH * 0.02,left: sizeW * 0.06),
+      child: Column(
+        children: [
+          SizedBox(
+            width: sizeW,
+            child: Text(title,style: style),
+          ),
+          SizedBox(height: sizeW * 0.02,),
+          SizedBox(
+            width: sizeW,
+            child: textMore,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CardPostContainer2 extends StatefulWidget {
+  const CardPostContainer2({Key? key, required this.videos}) : super(key: key);
+
+  final Map<String,dynamic> videos;
+
+  @override
+  State<CardPostContainer2> createState() => _CardPostContainerState2();
+}
+
+class _CardPostContainerState2 extends State<CardPostContainer2> {
 
   Map<String,dynamic> video = {};
   late VideosProvider videosProvider;
