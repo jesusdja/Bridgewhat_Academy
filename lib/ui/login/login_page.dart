@@ -115,11 +115,11 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget iconApp(){
     return Container(
-      height: sizeH * 0.27,
-      width: sizeH * 0.27,
+      height: sizeH * 0.3,
+      width: sizeH * 0.3,
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: Image.asset('assets/image/icon_app_install.png').image,
+              image: Image.asset('assets/image/icon_app.png').image,
               fit: BoxFit.fitWidth
           )
       ),

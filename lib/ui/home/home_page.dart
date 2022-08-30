@@ -116,7 +116,7 @@ class _HomePageState extends State<HomePage> {
             width: sizeH * 0.2,
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: Image.asset('assets/image/icon_app_new.jpg').image,
+                  image: Image.asset('assets/image/icon_app.png').image,
                   fit: BoxFit.fitWidth
               ),
             ),

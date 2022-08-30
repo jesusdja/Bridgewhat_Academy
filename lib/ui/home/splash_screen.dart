@@ -29,7 +29,7 @@ class BasicSplash extends StatelessWidget {
                     margin: EdgeInsets.symmetric(horizontal: sizeW * 0.2),
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: Image.asset('assets/image/logo_fondo_transparente.png').image,
+                            image: Image.asset('assets/image/icon_app.png').image,
                             fit: BoxFit.fitWidth
                         )
                     ),

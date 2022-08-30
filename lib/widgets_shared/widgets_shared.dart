@@ -26,12 +26,12 @@ Widget bannerTitle({required int type, String? descrip, String? titleSt}){
 
   String title = 'NEWS';
   double marginL = sizeW * 0.03;
-  String description = descrip ?? 'Positioning & Targeting';
+  String description = descrip ?? 'View Bridgewhat participant´s posts';
   Color colorSuvTitle = AcademyColors.primary;
 
-  if(type == 1){title = '20 LOG'; }
-  if(type == 2){title = 'CARTOONS';}
-  if(type == 3){title = 'DEMO';description = 'Bridewhat demos';}
+  if(type == 1){title = '20 LOG'; description = 'Learn about the Bridgewhat 20 Levers of Growth';}
+  if(type == 2){title = 'CARTOONS'; description = 'Have fun with Bridgewhat Cartoons';}
+  if(type == 3){title = 'DEMO';description = 'Bridgewhat features at a glance';}
   if(type == 4){title = 'QUIZ LEVELS OF GROWTH';}
   if(type == 5){description = 'Advisors';}
   if(type == 6){
