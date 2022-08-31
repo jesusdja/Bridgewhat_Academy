@@ -1,5 +1,7 @@
 
+import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/services/shared_preferences.dart';
+import 'package:flutter/material.dart';
 
 String numberFormat(double x) {
   List<String> parts = x.toString().split('.');
@@ -47,3 +49,90 @@ Map<int,String> mapABC = {
 String getToken(){
   return 'Bearer ${SharedPreferencesLocal.prefs.getString('AcademyToken') ?? ''}';
 }
+
+List<Color> colorsListQuestionUnion = [
+  Color(0xF0A6061A),
+  Colors.cyan,
+  Color(0xF095C4E9),
+  Colors.amber,
+  Colors.teal,
+  Colors.green,
+  Color(0xF0958E6F),
+  Colors.deepPurpleAccent,
+  Colors.lightBlue,
+  Color(0xF0E1E1E1),
+  Color(0xF0958E6F),
+];
+
+enum TypeQuestion {simple,multi,union,order}
+
+List<Map<String,dynamic>> getListQuestionQuiz () => [
+  {
+    'id' : 1,
+    'header' : 'Introductory',
+    'title' : 'How many stages of client engagement are included in the Bridgewhat 20 Levers of Growth framework?',
+    'questions' : [
+      '4','5','10','20'
+    ],
+    'result' : '5',
+    'answered' : '',
+    'type' : TypeQuestion.simple,
+  },
+  {
+    'id' : 2,
+    'header' : 'Introductory',
+    'title' : 'How many stages of client engagement are included in the Bridgewhat 20 Levers of Growth framework?',
+    'questions' : [
+      '4','5','10','20'
+    ],
+    'result' : '5',
+    'answered' : '',
+    'type' : TypeQuestion.multi,
+  },
+  {
+    'id' : 3,
+    'header' : 'Introductory',
+    'title' : 'How many stages of client engagement are included in the Bridgewhat 20 Levers of Growth framework?',
+    'questions' : [
+      ['Attraction','Retention','Referrals','ARPU','Acquisition'],
+      ['Revenue','Advocacy','Attention','Loyalty','Activation'],
+    ],
+    'result' : {'Attraction' : 'Attention','Retention' : 'Loyalty','Referrals' : 'Advocacy','ARPU' : 'Revenue','Acquisition' : 'Activation', },
+    'answered' : {},
+    'type' : TypeQuestion.union,
+  },
+  {
+    'id' : 4,
+    'header' : 'Introductory',
+    'title' : 'How many stages of client engagement are included in the Bridgewhat 20 Levers of Growth framework?',
+    'questions' : [
+      '4','5','10','20'
+    ],
+    'result' : '5',
+    'answered' : '',
+    'type' : TypeQuestion.simple,
+  },
+  {
+    'id' : 5,
+    'header' : 'Introductory',
+    'title' : 'How many stages of client engagement are included in the Bridgewhat 20 Levers of Growth framework?',
+    'questions' : [
+      '4','5','10','20'
+    ],
+    'result' : '5',
+    'answered' : '',
+    'type' : TypeQuestion.simple,
+  },
+  {
+    'id' : 6,
+    'header' : 'Introductory',
+    'title' : 'How many stages of client engagement are included in the Bridgewhat 20 Levers of Growth framework?',
+    'questions' : [
+      '4','5','10','20'
+    ],
+    'result' : '5',
+    'answered' : '',
+    'type' : TypeQuestion.simple,
+  },
+];
+

@@ -4,6 +4,8 @@ import 'package:academybw/main.dart';
 import 'package:academybw/providers/quiz_provider.dart';
 import 'package:academybw/ui/menu/quiz/widgets/card_question.dart';
 import 'package:academybw/ui/menu/quiz/widgets/roulette_widget.dart';
+import 'package:academybw/ui/menu/quiz/widgets/union_question.dart';
+import 'package:academybw/utils/get_data.dart';
 import 'package:academybw/widgets_shared/button_general.dart';
 import 'package:academybw/widgets_shared/circular_progress_colors.dart';
 import 'package:academybw/widgets_shared/widgets_shared.dart';
@@ -148,9 +150,19 @@ class _QuizPageState extends State<QuizPage> {
     List<Widget> listW = [];
 
     for(int x = 0; x < quizProvider.listQuestion.length; x++){
-      listW.add(
-          CardQuestion(question: quizProvider.listQuestion[x],)
-      );
+
+      if(quizProvider.listQuestion[x]['type'] == TypeQuestion.simple){
+        listW.add(CardQuestion(question: quizProvider.listQuestion[x],));
+      }
+      if(quizProvider.listQuestion[x]['type'] == TypeQuestion.multi){
+        listW.add(CardQuestion(question: quizProvider.listQuestion[x],));
+      }
+      if(quizProvider.listQuestion[x]['type'] == TypeQuestion.order){
+
+      }
+      if(quizProvider.listQuestion[x]['type'] == TypeQuestion.union){
+        listW.add(UnionQuestion(question: quizProvider.listQuestion[x],));
+      }
     }
 
     return PageView(

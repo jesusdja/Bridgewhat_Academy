@@ -1,3 +1,4 @@
+import 'package:academybw/utils/get_data.dart';
 import 'package:flutter/material.dart';
 
 class QuizProvider extends ChangeNotifier {
@@ -5,6 +6,7 @@ class QuizProvider extends ChangeNotifier {
   bool loadData = true;
   List<Map<String,dynamic>> listQuestion = [];
   int posQuestion = 0;
+  Map<int,Map<String,Color>> listMapColor = {};
 
   late ScrollController scrollController;
   late PageController controllerPageView;
@@ -15,39 +17,17 @@ class QuizProvider extends ChangeNotifier {
     scrollController = ScrollController();
     controllerPageView = PageController(initialPage: 0);
     posQuestion = 0;
+    listMapColor = {};
     notifyListeners();
 
-    await Future.delayed(const Duration(seconds: 3));
+    listQuestion = getListQuestionQuiz();
 
-    listQuestion = [];
-    Map<String,dynamic> question = {};
-    for(int x = 1; x <= 20; x = x + 2){
-      question = {
-        'id' : x,
-        'header' : 'Information',
-        'title' : 'How many stages of client engagement are included in the Bridgewhat 20 Levers of Growth framework?',
-        'questions' : [
-          '4','5','10','20'
-        ],
-        'result' : '5',
-        'answered' : '',
-        'multi' : false,
-      };
-      listQuestion.add(question);
-      question = {
-        'id' : x + 1,
-        'header' : 'The BridgeWhat 20 Levers of Growth',
-        'title' : 'What levers belong to Attraction?',
-        'questions' : [
-          'CRM Marketing','Multichannel Development','Positioning & Targeting','Client-Centricity',
-          'Digital Marketing','Innovative Co-Creation','Traffic Generation','Competences Development',
-        ],
-        'result' : 'CRM Marketing|Positioning & Targeting|Digital Marketing|Traffic Generation',
-        'answered' : '',
-        'multi' : true,
-      };
-      listQuestion.add(question);
+    for (var element in listQuestion) {
+      if(element['type'] == TypeQuestion.union){
+        listMapColor[element['id']] = {};
+      }
     }
+
     loadData = false;
     notifyListeners();
   }
@@ -92,21 +72,61 @@ class QuizProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  onTapQuestion({required String answered, required int idQuestion}){
+  void onTapQuestion({required String answered, required int idQuestion}){
     int? pos;
     for(int x = 0; x < listQuestion.length; x++){
       if(listQuestion[x]['id'] == idQuestion){
         pos = x;
       }
     }
-     if(pos != null){
-       if(listQuestion[pos]['multi']){
-         listQuestion[pos]['answered'] = '${listQuestion[pos]['answered']}$answered|';
-       }else{
-         listQuestion[pos]['answered'] = answered;
-       }
-       notifyListeners();
-     }
+    if(pos != null){
+
+      if(listQuestion[pos]['type'] == TypeQuestion.simple){
+        listQuestion[pos]['answered'] = answered;
+      }
+      if(listQuestion[pos]['type'] == TypeQuestion.multi){
+        if(!listQuestion[pos]['answered'].toString().contains(answered)){
+          listQuestion[pos]['answered'] = '${listQuestion[pos]['answered']}$answered|';
+        }else{
+          listQuestion[pos]['answered'] = listQuestion[pos]['answered'].toString().replaceAll('$answered|', '');
+        }
+      }
+      if(listQuestion[pos]['type'] == TypeQuestion.union){
+        List data = answered.split('|');
+        String keyExists = '';
+        listQuestion[pos]['answered'].forEach((key, value) {
+          if(value == data[1]){ keyExists = key; }
+        });
+        if(keyExists.isNotEmpty){ listQuestion[pos]['answered'].remove(keyExists); }
+        listQuestion[pos]['answered'][data[0]] = data[1];
+      }
+      notifyListeners();
+    }
+  }
+
+  void onRemoveValueToQuestion({required String removeKey, required int idQuestion}){
+    int? pos;
+    for(int x = 0; x < listQuestion.length; x++){
+      if(listQuestion[x]['id'] == idQuestion){
+        pos = x;
+      }
+    }
+    if(pos != null){
+      listQuestion[pos]['answered'].remove(removeKey);
+      notifyListeners();
+    }
+  }
+
+  void removeMapColor({required int id, required String stRemove}){
+    listMapColor[id]!.remove(stRemove);
+    notifyListeners();
+    onRemoveValueToQuestion(idQuestion: id,removeKey: stRemove);
+  }
+
+
+  void addMapColor({required int id, required String stAdd, required Color colorAdd}){
+    listMapColor[id]![stAdd] = colorAdd;
+    notifyListeners();
   }
 
 }
