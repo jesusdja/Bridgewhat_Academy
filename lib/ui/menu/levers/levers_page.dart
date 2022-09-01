@@ -2,6 +2,7 @@
 import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
+import 'package:academybw/services/finish_app.dart';
 import 'package:academybw/widgets_shared/appbar_widgets.dart';
 import 'package:academybw/widgets_shared/widgets_shared.dart';
 import 'package:animate_do/animate_do.dart';
@@ -16,6 +17,7 @@ class LeversPage extends StatefulWidget {
 
 class _LeversPageState extends State<LeversPage> {
 
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   String title1 = 'To create a common language on how to grow, Bridgewhat developed a proprietary framework that includes 20 Levers of Growth (20 LOG) organised around five stages of client engagement - Attraction, Acquisition, ARPU, Retention, Referrals.\n\nTo see the BridgeWhat 20 LOG and their connection to the 5 stages of client engagement, please click the animated loop.';
   Map<int,Map<String,String>> structure1 = {
     1 : {
@@ -66,10 +68,11 @@ class _LeversPageState extends State<LeversPage> {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Scaffold(
+          key: scaffoldKey,
           backgroundColor: Colors.white,
           body: Column(
             children: [
-              headerShared(context: context,color: AcademyColors.colorsLeversObscure),
+              headerShared(context: context,color: AcademyColors.colorsLeversObscure,scaffoldKey: scaffoldKey,viewSca: false),
               Expanded(
                 child: SizedBox(
                   width: sizeW,

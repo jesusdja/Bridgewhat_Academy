@@ -4,6 +4,7 @@ import 'package:academybw/main.dart';
 import 'package:academybw/providers/menu_provider.dart';
 import 'package:academybw/providers/post_provider.dart';
 import 'package:academybw/services/finish_app.dart';
+import 'package:academybw/ui/home/send_email.dart';
 import 'package:academybw/ui/menu/cartoons/cartoons_page.dart';
 import 'package:academybw/ui/menu/demo/demo_page.dart';
 import 'package:academybw/ui/menu/levers/levers_page.dart';
@@ -21,11 +22,12 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+
 class _HomePageState extends State<HomePage> {
 
   late MenuProvider menuProvider;
   bool loadSignOut = false;
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -46,7 +48,7 @@ class _HomePageState extends State<HomePage> {
           Provider.of<PostProvider>(context).viewContainerLikePost(idPost: 0);
         },
         child: Scaffold(
-          key: _scaffoldKey,
+          key: scaffoldKey,
           backgroundColor: Colors.white,
           endDrawer: appDrawer(),
           body: Column(
@@ -73,13 +75,16 @@ class _HomePageState extends State<HomePage> {
           iconApp(),
           Expanded(child: Container()),
           IconButton(
-            icon: Icon(Icons.info,size: sizeH * 0.035,color: AcademyColors.primary),
-            onPressed: (){},
+            icon: Icon(Icons.email,size: sizeH * 0.03,color: AcademyColors.primary),
+            onPressed: (){
+              Navigator.push(context,MaterialPageRoute<void>(
+                  builder: (context) => const SendEmail()),);
+            },
           ),
           IconButton(
             icon: Icon(Icons.menu,size: sizeH * 0.04,color: AcademyColors.primary),
             onPressed: (){
-              _scaffoldKey.currentState!.openEndDrawer();
+              scaffoldKey.currentState!.openEndDrawer();
               //menuProvider.changeMenu(MenuStatus.home);
             },
           ),

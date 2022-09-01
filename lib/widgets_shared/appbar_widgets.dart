@@ -1,6 +1,8 @@
 import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
+import 'package:academybw/ui/home/home_page.dart';
+import 'package:academybw/ui/home/send_email.dart';
 import 'package:flutter/material.dart';
 
 AppBar appBarWidget({
@@ -32,7 +34,7 @@ AppBar appBarWidget({
   );
 }
 
-Widget headerShared({required BuildContext context, Color color = AcademyColors.primary}){
+Widget headerShared({required BuildContext context, Color color = AcademyColors.primary, required GlobalKey<ScaffoldState> scaffoldKey, bool viewSca = true}){
   return Container(
     width: sizeW,
     margin: EdgeInsets.only(left: sizeW * 0.02, right: sizeW * 0.03,top: sizeH * 0.02, bottom: sizeH * 0.02),
@@ -54,6 +56,22 @@ Widget headerShared({required BuildContext context, Color color = AcademyColors.
             ),
           ),
         ),
+        if(viewSca)...[
+          Expanded(child: Container()),
+          IconButton(
+            icon: Icon(Icons.email,size: sizeH * 0.03,color: AcademyColors.primary),
+            onPressed: (){
+              Navigator.push(context,MaterialPageRoute<void>(
+                  builder: (context) => const SendEmail()),);
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.menu,size: sizeH * 0.04,color: AcademyColors.primary),
+            onPressed: (){
+              scaffoldKey.currentState!.openEndDrawer();
+            },
+          ),
+        ],
       ],
     ),
   );
