@@ -9,6 +9,7 @@ import 'package:academybw/utils/get_data.dart';
 import 'package:academybw/widgets_shared/appbar_widgets.dart';
 import 'package:academybw/widgets_shared/button_general.dart';
 import 'package:academybw/widgets_shared/circular_progress_colors.dart';
+import 'package:academybw/widgets_shared/drawer_all.dart';
 import 'package:academybw/widgets_shared/widgets_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -51,7 +52,7 @@ class _VideosPageState extends State<VideosPage> {
       },
         child: Scaffold(
           key: scaffoldKey,
-          endDrawer: appDrawer(),
+          endDrawer: AppDrawerAll(contextAll: context),
           backgroundColor: Colors.white,
           body: Column(
             children: [
@@ -114,68 +115,6 @@ class _VideosPageState extends State<VideosPage> {
           )
         ),
     );
-  }
-
-  Widget appDrawer(){
-
-    Widget divide = const Divider();
-
-    return Container(
-      width: sizeW * 0.6,
-      color: Colors.white,
-      child: Column(
-        children: [
-          SizedBox(height: sizeH * 0.02,),
-          Container(
-            height: sizeH * 0.2,
-            width: sizeH * 0.2,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: Image.asset('assets/image/icon_app.png').image,
-                  fit: BoxFit.fitWidth
-              ),
-            ),
-          ),
-          Expanded(child: Container()),
-          titleDrawer(type: 1),
-          divide,
-          titleDrawer(type: 2),
-          titleDrawer(type: 0),
-          divide,
-          SizedBox(height: sizeH * 0.02,),
-        ],
-      ),
-    );
-  }
-
-  Widget titleDrawer({required int type}){
-    String title = 'SignOut';
-    if(type == 1){title = '20 Levers of growth (20 LOG)'; }
-    if(type == 2){title = 'Settings'; }
-
-    return InkWell(
-      onTap: (){
-        if(type == 0){ signOut(); }
-        if(type == 1){
-          Navigator.of(context).pop();
-          Navigator.push(context,MaterialPageRoute<void>(
-              builder: (context) => const LeversPage()),);
-
-        }
-      },
-      child: Container(
-        width: sizeW,
-        margin: EdgeInsets.only(left: sizeW * 0.03,bottom: sizeH * 0.01, top: sizeH * 0.01),
-        child: Text(title,textAlign: TextAlign.left,
-            style: AcademyStyles().stylePoppins(size: sizeH * 0.018,color: AcademyColors.primary,fontWeight: FontWeight.bold)),
-      ),
-    );
-  }
-
-  Future signOut() async{
-    await finishApp();
-    Navigator.pushReplacement(context, MaterialPageRoute(builder:
-        (BuildContext context) => const AppState()));
   }
 
   Widget cardContainer(){
