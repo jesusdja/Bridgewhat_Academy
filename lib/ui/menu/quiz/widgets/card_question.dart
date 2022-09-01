@@ -51,7 +51,13 @@ class _CardQuestionState extends State<CardQuestion> {
   Widget containerQuestions({required String answered, required int index}){
 
     String num = mapABC.containsKey(index) ? mapABC[index]! : '??';
-    bool selected = widget.question['answered'].toString().contains(answered);
+    bool selected = false;
+    if(widget.question['type'] == TypeQuestion.simple){
+      selected = widget.question['answered'] == answered;
+    }else{
+      selected = widget.question['answered'].toString().contains(answered);
+    }
+
 
     return InkWell(
       child: Container(
@@ -66,8 +72,10 @@ class _CardQuestionState extends State<CardQuestion> {
           ),
         ),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(num,style: AcademyStyles().styleLato(size: 16,color: selected ? Colors.white : AcademyColors.primary,fontWeight: FontWeight.bold)),
+            SizedBox(width: sizeW * 0.05,),
             Expanded(
               child: Center(
                 child: Text(answered,style: AcademyStyles().styleLato(size: 16,color: selected ? Colors.white : AcademyColors.primary,fontWeight: FontWeight.bold)),

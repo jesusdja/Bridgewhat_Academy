@@ -6,15 +6,15 @@ import 'package:academybw/utils/get_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class UnionQuestion extends StatefulWidget {
-  const UnionQuestion({Key? key, required this.question}) : super(key: key);
+class Union2Question extends StatefulWidget {
+  const Union2Question({Key? key, required this.question}) : super(key: key);
   final Map<String,dynamic> question;
 
   @override
-  State<UnionQuestion> createState() => _UnionQuestionState();
+  State<Union2Question> createState() => _Union2QuestionState();
 }
 
-class _UnionQuestionState extends State<UnionQuestion> {
+class _Union2QuestionState extends State<Union2Question> {
 
   late QuizProvider quizProvider;
   String colum1Selectd = '';
@@ -39,9 +39,11 @@ class _UnionQuestionState extends State<UnionQuestion> {
         children: [
           Text(widget.question['title'],style: AcademyStyles().styleLato(size: 16,color: AcademyColors.colors_787878),),
           SizedBox(height: sizeH * 0.025),
-          Expanded(
-            child: SizedBox(
-              width: sizeW,
+          SizedBox(
+            width: sizeW,
+            height: sizeH * 0.4,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: listQuestion,
@@ -64,8 +66,9 @@ class _UnionQuestionState extends State<UnionQuestion> {
         }
       }else{
         (widget.question['answered'] as Map).forEach((key, value) {
-          if(value == colum1[x] && mapColor.containsKey(key)){
-            bgc = mapColor[key]!;
+          String keySelect = key.toString().substring(0,(key.toString().length - 1));
+          if(value == colum1[x] && mapColor.containsKey(keySelect)){
+            bgc = mapColor[keySelect]!;
           }
         });
       }
@@ -84,24 +87,24 @@ class _UnionQuestionState extends State<UnionQuestion> {
                 color: AcademyColors.primary,
               ),
             ),
-            child: Text(colum1[x].replaceAll('#', ''),style: AcademyStyles().stylePoppins(size: sizeH * 0.02,color: Colors.black),textAlign: TextAlign.center),
+            child: Text(colum1[x],style: AcademyStyles().stylePoppins(size: sizeH * 0.015,color: Colors.black),textAlign: TextAlign.center),
           ),
           onTap: (){
             if(type == 0){
               if(mapColor.containsKey(colum1[x])){
                 colum1Selectd = '';
-                quizProvider.removeMapColor(id: widget.question['id'], stRemove: colum1[x]);
-                //mapColor.remove(colum1[x]);
-                quizProvider.onRemoveValueToQuestion(removeKey: colum1[x], idQuestion: widget.question['id']);
+                quizProvider.removeMapColor2(id: widget.question['id'], stRemove: '${colum1[x]}1');
+                quizProvider.removeMapColor2(id: widget.question['id'], stRemove: '${colum1[x]}2');
+                quizProvider.removeMapColor2(id: widget.question['id'], stRemove: '${colum1[x]}3');
+                quizProvider.onRemoveValueToQuestion(removeKey: '${colum1[x]}$type', idQuestion: widget.question['id']);
               }else{
                 colum1Selectd = colum1[x];
                 quizProvider.addMapColor(id: widget.question['id'], stAdd: colum1[x], colorAdd: colorsListQuestionUnion[x]);
                 mapColor[colum1[x]] = colorsListQuestionUnion[x];
               }
-            }
-            if(type == 1){
+            }else{
               if(colum1Selectd.isNotEmpty){
-                quizProvider.onTapQuestion(answered: '$colum1Selectd|${colum1[x]}', idQuestion: widget.question['id']);
+                quizProvider.onTapQuestion(answered: '$colum1Selectd$type|${colum1[x]}', idQuestion: widget.question['id']);
               }
             }
             setState(() {});
@@ -110,13 +113,12 @@ class _UnionQuestionState extends State<UnionQuestion> {
       );
     }
 
-    return Expanded(
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: sizeW * 0.04),
-        child: SingleChildScrollView(
-          child: Column(
-            children: listW,
-          ),
+    return Container(
+      width: sizeW * 0.35,
+      margin: EdgeInsets.symmetric(horizontal: sizeW * 0.02),
+      child: SingleChildScrollView(
+        child: Column(
+          children: listW,
         ),
       ),
     );

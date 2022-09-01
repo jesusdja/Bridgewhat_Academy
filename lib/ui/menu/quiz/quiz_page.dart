@@ -3,7 +3,9 @@ import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
 import 'package:academybw/providers/quiz_provider.dart';
 import 'package:academybw/ui/menu/quiz/widgets/card_question.dart';
+import 'package:academybw/ui/menu/quiz/widgets/order_question.dart';
 import 'package:academybw/ui/menu/quiz/widgets/roulette_widget.dart';
+import 'package:academybw/ui/menu/quiz/widgets/union2_question.dart';
 import 'package:academybw/ui/menu/quiz/widgets/union_question.dart';
 import 'package:academybw/utils/get_data.dart';
 import 'package:academybw/widgets_shared/button_general.dart';
@@ -40,6 +42,8 @@ class _QuizPageState extends State<QuizPage> {
     quizProvider = Provider.of<QuizProvider>(context);
 
     bool isFinish = quizProvider.posQuestion == (quizProvider.listQuestion.length - 1);
+    TypeQuestion typeQuestion = quizProvider.listQuestion[quizProvider.posQuestion]['type'];
+
 
     return SafeArea(
       child: Scaffold(
@@ -63,6 +67,15 @@ class _QuizPageState extends State<QuizPage> {
               ],
               if(isFinish)...[
                 buttonFinish()
+              ]else...[
+                if(typeQuestion == TypeQuestion.multi)...[
+                  Container(
+                    width: sizeW,
+                    padding: EdgeInsets.symmetric(vertical: sizeH * 0.015),
+                    child: Text('"Select all answers that apply."',textAlign: TextAlign.center,
+                    style: AcademyStyles().stylePoppins(size: sizeH * 0.02,color: AcademyColors.primary)),
+                  )
+                ]
               ],
             ],
           ],
@@ -157,11 +170,14 @@ class _QuizPageState extends State<QuizPage> {
       if(quizProvider.listQuestion[x]['type'] == TypeQuestion.multi){
         listW.add(CardQuestion(question: quizProvider.listQuestion[x],));
       }
-      if(quizProvider.listQuestion[x]['type'] == TypeQuestion.order){
-
-      }
       if(quizProvider.listQuestion[x]['type'] == TypeQuestion.union){
         listW.add(UnionQuestion(question: quizProvider.listQuestion[x],));
+      }
+      if(quizProvider.listQuestion[x]['type'] == TypeQuestion.union2){
+        listW.add(Union2Question(question: quizProvider.listQuestion[x],));
+      }
+      if(quizProvider.listQuestion[x]['type'] == TypeQuestion.order){
+        listW.add(OrderQuestion(question: quizProvider.listQuestion[x],));
       }
     }
 
@@ -184,17 +200,22 @@ class _QuizPageState extends State<QuizPage> {
       width: sizeW,
       margin: EdgeInsets.only(bottom: sizeH * 0.02,top: sizeH * 0.02),
       child: ButtonGeneral(
-        title: 'Continuar',
+        title: 'Finish',
         margin: EdgeInsets.symmetric(horizontal: sizeW * 0.3),
         height: sizeH * 0.05,
         backgroundColor: AcademyColors.primary,
         textStyle: AcademyStyles().styleLato(size: sizeH * 0.02,color: Colors.white, fontWeight: FontWeight.bold),
         onPressed: (){
+          goToFinish();
           isPageFinish = true;
           setState(() {});
         },
       ),
     );
+  }
+
+  void goToFinish(){
+
   }
 
   Widget pageFinish(){

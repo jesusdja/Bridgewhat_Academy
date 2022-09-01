@@ -23,7 +23,7 @@ class QuizProvider extends ChangeNotifier {
     listQuestion = getListQuestionQuiz();
 
     for (var element in listQuestion) {
-      if(element['type'] == TypeQuestion.union){
+      if(element['type'] == TypeQuestion.union || element['type'] == TypeQuestion.union2){
         listMapColor[element['id']] = {};
       }
     }
@@ -100,6 +100,15 @@ class QuizProvider extends ChangeNotifier {
         if(keyExists.isNotEmpty){ listQuestion[pos]['answered'].remove(keyExists); }
         listQuestion[pos]['answered'][data[0]] = data[1];
       }
+      if(listQuestion[pos]['type'] == TypeQuestion.union2){
+        List data = answered.split('|');
+        String keyExists = '';
+        listQuestion[pos]['answered'].forEach((key, value) {
+          if(value == data[1]){ keyExists = key; }
+        });
+        if(keyExists.isNotEmpty){ listQuestion[pos]['answered'].remove(keyExists); }
+        listQuestion[pos]['answered'][data[0]] = data[1];
+      }
       notifyListeners();
     }
   }
@@ -123,10 +132,38 @@ class QuizProvider extends ChangeNotifier {
     onRemoveValueToQuestion(idQuestion: id,removeKey: stRemove);
   }
 
+  void removeMapColor2({required int id, required String stRemove}){
+    String keySelect = stRemove.toString().substring(0,(stRemove.toString().length - 1));
+    listMapColor[id]!.remove(keySelect);
+    notifyListeners();
+    onRemoveValueToQuestion(idQuestion: id,removeKey: stRemove);
+  }
+
 
   void addMapColor({required int id, required String stAdd, required Color colorAdd}){
     listMapColor[id]![stAdd] = colorAdd;
     notifyListeners();
   }
+
+
+  void reorderData({required int oldindex, required int newindex, required int idQuestion}){
+    int? pos;
+    for(int x = 0; x < listQuestion.length; x++){
+      if(listQuestion[x]['id'] == idQuestion){
+        pos = x;
+      }
+    }
+    if(pos != null){
+      if(newindex>oldindex){
+        newindex-=1;
+      }
+      final items =listQuestion[pos]['answered'].removeAt(oldindex);
+      listQuestion[pos]['answered'].insert(newindex, items);
+      notifyListeners();
+    }
+  }
+
+
+
 
 }
