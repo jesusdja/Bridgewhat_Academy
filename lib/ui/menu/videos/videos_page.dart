@@ -52,11 +52,11 @@ class _VideosPageState extends State<VideosPage> {
       },
         child: Scaffold(
           key: scaffoldKey,
-          endDrawer: AppDrawerAll(contextAll: context),
+          //endDrawer: AppDrawerAll(contextAll: context),
           backgroundColor: Colors.white,
           body: Column(
             children: [
-              headerShared(context: context,scaffoldKey: scaffoldKey),
+              //headerShared(context: context,scaffoldKey: scaffoldKey),
               Expanded(
                 child: Container(
                   width: sizeW,
@@ -177,6 +177,7 @@ class _CardPostContainerState extends State<CardPostContainer> {
         children: [
           cardVideo(),
           cardBottom(),
+          SizedBox(height: sizeH * 0.04,)
         ],
       ),
     );
@@ -214,13 +215,26 @@ class _CardPostContainerState extends State<CardPostContainer> {
           if(_controller.value.isInitialized && !_controller.value.isPlaying)...[
             Align(
               alignment: Alignment.center,
+              child: Container(
+                width: sizeW,
+                height: sizeH * 0.25,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: Image.asset('assets/image/capture_video_1.png').image,
+                        fit: BoxFit.fitWidth
+                    )
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.center,
               child: InkWell(
                 onTap: (){
                   videosProvider.viewContainerLikePost(idPost: video['id']);
                 },
-                child: IconButton(
-                  icon: Icon(Icons.play_circle_outline,color: Colors.grey[400],size: sizeH * 0.08),
-                  onPressed: (){
+                child: InkWell(
+                  child: Icon(Icons.play_circle_outline,color: AcademyColors.primary,size: sizeH * 0.08),
+                  onTap: (){
                     _controller.play();
                     setState(() {});
                   },

@@ -49,10 +49,10 @@ class _CartoonsPageState extends State<CartoonsPage> {
       child: Scaffold(
           key: scaffoldKey,
           backgroundColor: Colors.white,
-          endDrawer: AppDrawerAll(contextAll: context),
+          //endDrawer: AppDrawerAll(contextAll: context),
           body: Column(
             children: [
-              headerShared(context: context,scaffoldKey: scaffoldKey),
+              //headerShared(context: context,scaffoldKey: scaffoldKey),
               Container(
                 width: sizeW,
                 margin: EdgeInsets.symmetric(horizontal: sizeW * 0.06),
@@ -129,9 +129,10 @@ class _CardCartoonsContainerState extends State<CardCartoonsContainer> {
       width: sizeW,
       child: Column(
         children: [
+          titleText(),
           cardPostImg(),
-          textDescription(),
-          SizedBox(height: sizeH * 0.05),
+          //textDescription(),
+          SizedBox(height: sizeH * 0.03),
         ],
       ),
     );
@@ -154,6 +155,19 @@ class _CardCartoonsContainerState extends State<CardCartoonsContainer> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget titleText(){
+
+    String title = cartoon['title'];
+
+    return Container(
+      width: sizeW,
+      margin: EdgeInsets.only(bottom: sizeH * 0.01),
+      child: Text(title,
+        style: AcademyStyles().styleLato(size: 18,color: AcademyColors.colorsLeversObscure, fontWeight: FontWeight.bold),
+      textAlign: TextAlign.left),
     );
   }
 

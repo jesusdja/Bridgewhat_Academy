@@ -28,10 +28,10 @@ class _DemoPageState extends State<DemoPage> {
     return Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
-        endDrawer: AppDrawerAll(contextAll: context),
+        //endDrawer: AppDrawerAll(contextAll: context),
         body: Column(
           children: [
-            headerShared(context: context,scaffoldKey: scaffoldKey),
+            //headerShared(context: context,scaffoldKey: scaffoldKey),
             Expanded(
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),

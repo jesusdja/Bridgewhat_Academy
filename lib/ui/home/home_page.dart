@@ -42,6 +42,12 @@ class _HomePageState extends State<HomePage> {
 
     menuProvider = Provider.of<MenuProvider>(context);
 
+    Widget childBody = optionMenu();
+    if(menuProvider.status == MenuStatus.news){ childBody = const PostPage(); }
+    if(menuProvider.status == MenuStatus.log){ childBody = const VideosPage(); }
+    if(menuProvider.status == MenuStatus.cartoons){ childBody = const CartoonsPage(); }
+    if(menuProvider.status == MenuStatus.demo){ childBody = const DemoPage(); }
+
     return SafeArea(
       child: GestureDetector(
         onTap: (){
@@ -55,10 +61,11 @@ class _HomePageState extends State<HomePage> {
             children: [
               SizedBox(height: sizeH * 0.01,),
               headerContainer(),
-              SizedBox(height: sizeH * 0.02,),
+              SizedBox(height: sizeH * 0.01,),
               Expanded(
-                child: optionMenu(),
-              )
+                child: childBody,
+              ),
+              SizedBox(height: sizeH * 0.01,),
             ],
           ),
         ),
@@ -72,17 +79,26 @@ class _HomePageState extends State<HomePage> {
       margin: EdgeInsets.only(left: sizeW * 0.06, right: sizeW * 0.03),
       child: Row(
         children: [
+          SizedBox(
+            width: sizeW * 0.07,
+            child: menuProvider.status != MenuStatus.home ? InkWell(
+              child: Icon(Icons.arrow_back_ios,size: sizeH * 0.035,color: AcademyColors.primary),
+              onTap: (){
+                menuProvider.changeMenu(MenuStatus.home);
+              },
+            ) : Container(),
+          ),
           iconApp(),
           Expanded(child: Container()),
           IconButton(
-            icon: Icon(Icons.email,size: sizeH * 0.03,color: AcademyColors.primary),
+            icon: const Icon(Icons.email,size: 28,color: AcademyColors.primary),
             onPressed: (){
               Navigator.push(context,MaterialPageRoute<void>(
                   builder: (context) => const SendEmail()),);
             },
           ),
           IconButton(
-            icon: Icon(Icons.menu,size: sizeH * 0.04,color: AcademyColors.primary),
+            icon: const Icon(Icons.menu,size: 30,color: AcademyColors.primary),
             onPressed: (){
               scaffoldKey.currentState!.openEndDrawer();
               //menuProvider.changeMenu(MenuStatus.home);
@@ -181,6 +197,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget optionMenu(){
+
     return SizedBox(
       width: sizeW,
       child: Column(
@@ -197,10 +214,6 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             child: cardMenu(type: 3),
           ),
-          // cardMenu(type: 0),
-          // cardMenu(type: 1),
-          // cardMenu(type: 2),
-          // cardMenu(type: 3),
         ],
       ),
     );
@@ -216,17 +229,10 @@ class _HomePageState extends State<HomePage> {
 
     return InkWell(
       onTap: (){
-
-        Widget push = Container();
-
-        if(type == 0){ push = const PostPage(); }
-        if(type == 1){ push = const VideosPage(); }
-        if(type == 2){ push = const CartoonsPage(); }
-        if(type == 3){ push = const DemoPage(); }
-
-
-        Navigator.push(context,MaterialPageRoute<void>(
-            builder: (context) => push),);
+        if(type == 0){ menuProvider.changeMenu(MenuStatus.news); }
+        if(type == 1){ menuProvider.changeMenu(MenuStatus.log); }
+        if(type == 2){ menuProvider.changeMenu(MenuStatus.cartoons); }
+        if(type == 3){ menuProvider.changeMenu(MenuStatus.demo); }
       },
       child: Container(
         width: sizeW,

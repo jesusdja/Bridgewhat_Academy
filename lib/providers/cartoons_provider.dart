@@ -36,7 +36,7 @@ class CartoonsProvider extends ChangeNotifier {
       Map<String, dynamic> post = {
         'id': x,
         'user': 'Acenture',
-        'title': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        'title': 'Cartoons $x',
         'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut amet, volutpat risus aliquam malesuada quis. Eu, adipiscing egestas volutpat quis platea tempus vitae, fermentum tincidunt Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut amet, volutpat risus aliquam malesuada quis. Eu, adipiscing egestas volutpat quis platea tempus vitae, fermentum tincidunt',
         'like': 0,
         'shared': 0,

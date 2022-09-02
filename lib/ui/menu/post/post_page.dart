@@ -72,11 +72,9 @@ class _PostPageState extends State<PostPage> {
       },
       child: Scaffold(
         backgroundColor: Colors.white,
-        endDrawer: AppDrawerAll(contextAll: context),
         key: scaffoldKey,
         body: Column(
           children: [
-            headerShared(context: context,scaffoldKey: scaffoldKey),
             Expanded(
               child: Container(
                 width: sizeW,
@@ -216,7 +214,7 @@ class _CardPostContainerState extends State<CardPostContainer> {
 
     return Container(
       width: sizeW,
-      margin: EdgeInsets.only(bottom: sizeH * 0.02),
+      margin: EdgeInsets.only(bottom: sizeH * 0.015),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
@@ -521,13 +519,18 @@ class _CardPostContainerState extends State<CardPostContainer> {
         );
       }
     }else{
-      textMore = Text(description,style: AcademyStyles().styleLato(size: 12,color: AcademyColors.colors_787878),);
+      textMore = Text(description,style: AcademyStyles().styleLato(size: 12,color: AcademyColors.colors_787878),
+      textAlign: TextAlign.left,);
     }
 
 
 
 
-    return textMore;
+    return Container(
+      width: sizeW,
+      margin: EdgeInsets.only(top: sizeH * 0.01,bottom: sizeH * 0.035),
+      child: textMore,
+    );
   }
 }
 
