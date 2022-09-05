@@ -6,7 +6,6 @@ class QuizProvider extends ChangeNotifier {
   bool loadData = true;
   List<Map<String,dynamic>> listQuestion = [];
   int posQuestion = 0;
-  Map<int,Map<String,Color>> listMapColor = {};
 
   late ScrollController scrollController;
   late PageController controllerPageView;
@@ -17,16 +16,9 @@ class QuizProvider extends ChangeNotifier {
     scrollController = ScrollController();
     controllerPageView = PageController(initialPage: 0);
     posQuestion = 0;
-    listMapColor = {};
     notifyListeners();
 
     listQuestion = getListQuestionQuiz();
-
-    for (var element in listQuestion) {
-      if(element['type'] == TypeQuestion.union || element['type'] == TypeQuestion.union2){
-        listMapColor[element['id']] = {};
-      }
-    }
 
     loadData = false;
     notifyListeners();
@@ -91,60 +83,27 @@ class QuizProvider extends ChangeNotifier {
           listQuestion[pos]['answered'] = listQuestion[pos]['answered'].toString().replaceAll('$answered|', '');
         }
       }
-      if(listQuestion[pos]['type'] == TypeQuestion.union){
-        List data = answered.split('|');
-        String keyExists = '';
-        listQuestion[pos]['answered'].forEach((key, value) {
-          if(value == data[1]){ keyExists = key; }
-        });
-        if(keyExists.isNotEmpty){ listQuestion[pos]['answered'].remove(keyExists); }
-        listQuestion[pos]['answered'][data[0]] = data[1];
-      }
-      if(listQuestion[pos]['type'] == TypeQuestion.union2){
-        List data = answered.split('|');
-        String keyExists = '';
-        listQuestion[pos]['answered'].forEach((key, value) {
-          if(value == data[1]){ keyExists = key; }
-        });
-        if(keyExists.isNotEmpty){ listQuestion[pos]['answered'].remove(keyExists); }
-        listQuestion[pos]['answered'][data[0]] = data[1];
-      }
+      // if(listQuestion[pos]['type'] == TypeQuestion.union){
+      //   List data = answered.split('|');
+      //   String keyExists = '';
+      //   listQuestion[pos]['answered'].forEach((key, value) {
+      //     if(value == data[1]){ keyExists = key; }
+      //   });
+      //   if(keyExists.isNotEmpty){ listQuestion[pos]['answered'].remove(keyExists); }
+      //   listQuestion[pos]['answered'][data[0]] = data[1];
+      // }
+      // if(listQuestion[pos]['type'] == TypeQuestion.union2){
+      //   List data = answered.split('|');
+      //   String keyExists = '';
+      //   listQuestion[pos]['answered'].forEach((key, value) {
+      //     if(value == data[1]){ keyExists = key; }
+      //   });
+      //   if(keyExists.isNotEmpty){ listQuestion[pos]['answered'].remove(keyExists); }
+      //   listQuestion[pos]['answered'][data[0]] = data[1];
+      // }
       notifyListeners();
     }
   }
-
-  void onRemoveValueToQuestion({required String removeKey, required int idQuestion}){
-    int? pos;
-    for(int x = 0; x < listQuestion.length; x++){
-      if(listQuestion[x]['id'] == idQuestion){
-        pos = x;
-      }
-    }
-    if(pos != null){
-      listQuestion[pos]['answered'].remove(removeKey);
-      notifyListeners();
-    }
-  }
-
-  void removeMapColor({required int id, required String stRemove}){
-    listMapColor[id]!.remove(stRemove);
-    notifyListeners();
-    onRemoveValueToQuestion(idQuestion: id,removeKey: stRemove);
-  }
-
-  void removeMapColor2({required int id, required String stRemove}){
-    String keySelect = stRemove.toString().substring(0,(stRemove.toString().length - 1));
-    listMapColor[id]!.remove(keySelect);
-    notifyListeners();
-    onRemoveValueToQuestion(idQuestion: id,removeKey: stRemove);
-  }
-
-
-  void addMapColor({required int id, required String stAdd, required Color colorAdd}){
-    listMapColor[id]![stAdd] = colorAdd;
-    notifyListeners();
-  }
-
 
   void reorderData({required int oldindex, required int newindex, required int idQuestion}){
     int? pos;
@@ -163,7 +122,49 @@ class QuizProvider extends ChangeNotifier {
     }
   }
 
+  void addUnionList({required String idQuestion, required List columns}){
+    int? pos;
+    for(int x = 0; x < listQuestion.length; x++){
+      if(listQuestion[x]['id'] == idQuestion){
+        pos = x;
+      }
+    }
+    if(pos != null){
+      listQuestion[pos]['answered'] = columns;
+      notifyListeners();
+    }
+  }
 
 
+  // void onRemoveValueToQuestion({required String removeKey, required int idQuestion}){
+  //   int? pos;
+  //   for(int x = 0; x < listQuestion.length; x++){
+  //     if(listQuestion[x]['id'] == idQuestion){
+  //       pos = x;
+  //     }
+  //   }
+  //   if(pos != null){
+  //     listQuestion[pos]['answered'].remove(removeKey);
+  //     notifyListeners();
+  //   }
+  // }
+  //
+  // void removeMapColor({required int id, required String stRemove}){
+  //   listMapColor[id]!.remove(stRemove);
+  //   notifyListeners();
+  //   onRemoveValueToQuestion(idQuestion: id,removeKey: stRemove);
+  // }
+  //
+  // void removeMapColor2({required int id, required String stRemove}){
+  //   String keySelect = stRemove.toString().substring(0,(stRemove.toString().length - 1));
+  //   listMapColor[id]!.remove(keySelect);
+  //   notifyListeners();
+  //   onRemoveValueToQuestion(idQuestion: id,removeKey: stRemove);
+  // }
+  //
+  // void addMapColor({required int id, required String stAdd, required Color colorAdd}){
+  //   listMapColor[id]![stAdd] = colorAdd;
+  //   notifyListeners();
+  // }
 
 }

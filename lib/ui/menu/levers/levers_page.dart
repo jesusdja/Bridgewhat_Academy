@@ -2,7 +2,6 @@
 import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
-import 'package:academybw/services/finish_app.dart';
 import 'package:academybw/widgets_shared/appbar_widgets.dart';
 import 'package:academybw/widgets_shared/widgets_shared.dart';
 import 'package:animate_do/animate_do.dart';

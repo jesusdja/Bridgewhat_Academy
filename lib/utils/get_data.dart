@@ -1,18 +1,10 @@
-
-import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/services/shared_preferences.dart';
 import 'package:flutter/material.dart';
 
 String numberFormat(double x) {
   List<String> parts = x.toString().split('.');
   RegExp re = RegExp(r'\B(?=(\d{3})+(?!\d))');
-
   parts[0] = parts[0].replaceAll(re, '.');
-  // if (parts.length == 1) {
-  //   parts.add('00');
-  // } else {
-  //   parts[1] = parts[1].padRight(2, '0').substring(0, 2);
-  // }
   return parts.join(',');
 }
 
@@ -51,20 +43,20 @@ String getToken(){
 }
 
 List<Color> colorsListQuestionUnion = [
-  Color(0xF0A6061A),
+  const Color(0xF0A6061A),
   Colors.cyan,
-  Color(0xF095C4E9),
+  const Color(0xF095C4E9),
   Colors.amber,
   Colors.teal,
   Colors.green,
-  Color(0xF0958E6F),
+  const Color(0xF0958E6F),
   Colors.deepPurpleAccent,
   Colors.lightBlue,
-  Color(0xF0E1E1E1),
-  Color(0xF0958E6F),
+  const Color(0xF0E1E1E1),
+  const Color(0xF0958E6F),
 ];
 
-enum TypeQuestion {simple,multi,union,union2,order}
+enum TypeQuestion {simple,multi,union,order}
 
 List<Map<String,dynamic>> getListQuestionQuiz () => [
   {
@@ -109,7 +101,10 @@ List<Map<String,dynamic>> getListQuestionQuiz () => [
       ['Revenue','Advocacy','Attention','Loyalty','Activation'],
     ],
     'result' : {'Attraction' : 'Attention','Retention' : 'Loyalty','Referrals' : 'Advocacy','ARPU' : 'Revenue','Acquisition' : 'Activation', },
-    'answered' : {},
+    'answered' : [
+      ['Attraction','Retention','Referrals','ARPU','Acquisition'],
+      ['Revenue','Advocacy','Attention','Loyalty','Activation'],
+    ],
     'type' : TypeQuestion.union,
   },
   {
@@ -231,7 +226,10 @@ List<Map<String,dynamic>> getListQuestionQuiz () => [
       ['Hot','Cold','Tepid'],
     ],
     'result' : {'Not aware of a need' : 'Cold','Looking for a solution' : 'Hot','Aware, but not looking for a solution' : 'Tepid' },
-    'answered' : {},
+    'answered' : [
+      ['Not aware of a need','Looking for a solution','Aware, but not looking for a solution'],
+      ['Hot','Cold','Tepid'],
+    ],
     'type' : TypeQuestion.union,
   },
   {
@@ -274,8 +272,13 @@ List<Map<String,dynamic>> getListQuestionQuiz () => [
         'Promotion1' : 'Symbolization','Promotion2' : 'Conversation','Promotion3' : 'Communication',
       }
     },
-    'answered' : {},
-    'type' : TypeQuestion.union2,
+    'answered' : [
+      ['Product','Price','Place','Promotion'],
+      ['Symbolization','Configuration','Facilitation','Valuation'],
+      ['Conversation','Customer Costs','Co-Creation','Convenient'],
+      ['Communication','Community','Currency','Customer Value'],
+    ],
+    'type' : TypeQuestion.union,
   },
   {
     'id' : 19,
@@ -297,7 +300,10 @@ List<Map<String,dynamic>> getListQuestionQuiz () => [
       ['Outbound','Indirect','Brick-and-Mortar','Field Sales'],
     ],
     'result' : {'Online' : 'Brick-and-Mortar','Inside Sales' : 'Field Sales','Direct' : 'Indirect','Inbound' : 'Outbound' },
-    'answered' : {},
+    'answered' : [
+      ['Online','Inside Sales','Direct','Inbound'],
+      ['Outbound','Indirect','Brick-and-Mortar','Field Sales'],
+    ],
     'type' : TypeQuestion.union,
   },
   {
@@ -342,7 +348,10 @@ List<Map<String,dynamic>> getListQuestionQuiz () => [
       ['The smallest','The biggest','In between'],
     ],
     'result' : {'TAM' : 'The biggest','SAM' : 'In between','SOM' : 'The smallest'},
-    'answered' : {},
+    'answered' : [
+      ['TAM','SAM','SOM'],
+      ['The smallest','The biggest','In between'],
+    ],
     'type' : TypeQuestion.union,
   },
   {
@@ -354,7 +363,10 @@ List<Map<String,dynamic>> getListQuestionQuiz () => [
       ['Contract','Equity'],
     ],
     'result' : {'M&A' : 'Equity','Partnership' : 'Contract' },
-    'answered' : {},
+    'answered' : [
+      ['M&A','Partnership'],
+      ['Contract','Equity'],
+    ],
     'type' : TypeQuestion.union,
   },
   {
@@ -419,7 +431,10 @@ List<Map<String,dynamic>> getListQuestionQuiz () => [
       ['Own Company','Partnership'],
     ],
     'result' : {'Revenue Sharing' : 'Partnership','Cross-Selling' : 'Own Company'},
-    'answered' : {},
+    'answered' : [
+      ['Revenue Sharing','Cross-Selling'],
+      ['Own Company','Partnership'],
+    ],
     'type' : TypeQuestion.union,
   },
   {
@@ -480,8 +495,12 @@ List<Map<String,dynamic>> getListQuestionQuiz () => [
         'Matter1' : 'Partnership','Matter2' : 'Scalability',
       }
     },
-    'answered' : {},
-    'type' : TypeQuestion.union2,
+    'answered' : [
+      ['Scatter','Gather','Matter'],
+      ['Co-Creation','Communication','Partnership'],
+      ['Scalability','Spreadability','Shareability'],
+    ],
+    'type' : TypeQuestion.union,
   },
   {
     'id' : 37,
@@ -492,7 +511,10 @@ List<Map<String,dynamic>> getListQuestionQuiz () => [
       ['Free products by purchase','Benefits by segment','Discounts for members','Purchasing history',],
     ],
     'result' : {'Membership' : 'Discounts for members','Rewards' : 'Free products by purchase','Points' : 'Purchasing history','Segments' : 'Benefits by segment'},
-    'answered' : {},
+    'answered' : [
+      ['Membership','Rewards','Points','Segments'],
+      ['Free products by purchase','Benefits by segment','Discounts for members','Purchasing history',],
+    ],
     'type' : TypeQuestion.union,
   },
   {
@@ -504,7 +526,10 @@ List<Map<String,dynamic>> getListQuestionQuiz () => [
       ['Cross-benefits from third party','Pecuniary benefits','Products or services offers','Partnerships based on client-centricity','Convenience, VIP...'],
     ],
     'result' : {'Discounts' : 'Pecuniary benefits','Free' : 'Products or services offers','Client-Experience' : 'Convenience, VIP...','External Benefits' : 'Cross-benefits from third party','Affinity' : 'Partnerships based on client-centricity', },
-    'answered' : {},
+    'answered' : [
+      ['Discounts','Free','Client-Experience','External Benefits','Affinity'],
+      ['Cross-benefits from third party','Pecuniary benefits','Products or services offers','Partnerships based on client-centricity','Convenience, VIP...'],
+    ],
     'type' : TypeQuestion.union,
   },
   {
@@ -549,7 +574,10 @@ List<Map<String,dynamic>> getListQuestionQuiz () => [
       ['One or two companies acting profitability in one market of limited size (e.g.: pipelines, airports).','Companies can make price wars and still keep their profitability (e.g.: UPS-FedEx).','Firms that bet on customer’s high inconvenience to change suppliers (e.g.: mortgages’, banks).','Platforms in which participants mutually benefit from others’ growth (e.g.: Apple Store, Amazon).','Firms that protect themselves with brands, patents and public licenses (e.g.: pharmaceuticals, Coca-Cola).'],
     ],
     'result' : {'Cost Advantage' : 'Companies can make price wars and still keep their profitability (e.g.: UPS-FedEx).','Intangible Assets' : 'Firms that protect themselves with brands, patents and public licenses (e.g.: pharmaceuticals, Coca-Cola).','Switching Costs' : 'Firms that bet on customer’s high inconvenience to change suppliers (e.g.: mortgages’, banks).','Efficient Scale' : 'One or two companies acting profitability in one market of limited size (e.g.: pipelines, airports).','Network Effect' : 'Platforms in which participants mutually benefit from others’ growth (e.g.: Apple Store, Amazon).', },
-    'answered' : {},
+    'answered' : [
+      ['Cost Advantage','Intangible Assets','Switching Costs','Efficient Scale','Network Effect'],
+      ['One or two companies acting profitability in one market of limited size (e.g.: pipelines, airports).','Companies can make price wars and still keep their profitability (e.g.: UPS-FedEx).','Firms that bet on customer’s high inconvenience to change suppliers (e.g.: mortgages’, banks).','Platforms in which participants mutually benefit from others’ growth (e.g.: Apple Store, Amazon).','Firms that protect themselves with brands, patents and public licenses (e.g.: pharmaceuticals, Coca-Cola).'],
+    ],
     'type' : TypeQuestion.union,
   },
   {
@@ -572,7 +600,10 @@ List<Map<String,dynamic>> getListQuestionQuiz () => [
       ['Outsorced or Vendor-relations','Partnerships or Platforms','In-House'],
     ],
     'result' : {'Core-competences' : 'In-House','Important but not core' : 'Partnerships or Platforms','Not Important and commoditized' : 'Outsorced or Vendor-relations'},
-    'answered' : {},
+    'answered' : [
+      ['Core-competences','Important but not core','Not Important and commoditized'],
+      ['Outsorced or Vendor-relations','Partnerships or Platforms','In-House'],
+    ],
     'type' : TypeQuestion.union,
   },
   {
@@ -595,7 +626,10 @@ List<Map<String,dynamic>> getListQuestionQuiz () => [
       ['One-to-Many','One-to-One','Many-to-Many','One-to-One#'],
     ],
     'result' : {'Physical Goods' : 'One-to-One','Services' : 'One-to-One#','Technology' : 'One-to-Many','Network' : 'Many-to-Many'},
-    'answered' : {},
+    'answered' : [
+      ['Physical Goods','Services','Technology','Network'],
+      ['One-to-Many','One-to-One','Many-to-Many','One-to-One#'],
+    ],
     'type' : TypeQuestion.union,
   },
   {

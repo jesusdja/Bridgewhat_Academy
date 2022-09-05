@@ -1,13 +1,9 @@
 import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
-import 'package:academybw/services/finish_app.dart';
 import 'package:academybw/ui/menu/demo/demo_selected.dart';
 import 'package:academybw/ui/menu/demo/demo_selected_calendar.dart';
 import 'package:academybw/ui/menu/demo/widgets/demo_page_more_info.dart';
-import 'package:academybw/ui/menu/levers/levers_page.dart';
-import 'package:academybw/widgets_shared/appbar_widgets.dart';
-import 'package:academybw/widgets_shared/drawer_all.dart';
 import 'package:academybw/widgets_shared/widgets_shared.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

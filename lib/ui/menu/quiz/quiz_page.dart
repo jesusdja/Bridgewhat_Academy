@@ -5,8 +5,7 @@ import 'package:academybw/providers/quiz_provider.dart';
 import 'package:academybw/ui/menu/quiz/widgets/card_question.dart';
 import 'package:academybw/ui/menu/quiz/widgets/order_question.dart';
 import 'package:academybw/ui/menu/quiz/widgets/roulette_widget.dart';
-import 'package:academybw/ui/menu/quiz/widgets/union2_question.dart';
-import 'package:academybw/ui/menu/quiz/widgets/union_question.dart';
+import 'package:academybw/ui/menu/quiz/widgets/union_dragdrop_question.dart';
 import 'package:academybw/utils/get_data.dart';
 import 'package:academybw/widgets_shared/button_general.dart';
 import 'package:academybw/widgets_shared/circular_progress_colors.dart';
@@ -171,10 +170,7 @@ class _QuizPageState extends State<QuizPage> {
         listW.add(CardQuestion(question: quizProvider.listQuestion[x],));
       }
       if(quizProvider.listQuestion[x]['type'] == TypeQuestion.union){
-        listW.add(UnionQuestion(question: quizProvider.listQuestion[x],));
-      }
-      if(quizProvider.listQuestion[x]['type'] == TypeQuestion.union2){
-        listW.add(Union2Question(question: quizProvider.listQuestion[x],));
+        listW.add(UnionDragQuestion(question: quizProvider.listQuestion[x],));
       }
       if(quizProvider.listQuestion[x]['type'] == TypeQuestion.order){
         listW.add(OrderQuestion(question: quizProvider.listQuestion[x],));

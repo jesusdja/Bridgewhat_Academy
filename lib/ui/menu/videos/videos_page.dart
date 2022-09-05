@@ -2,14 +2,10 @@ import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
 import 'package:academybw/providers/videos_provider.dart';
-import 'package:academybw/services/finish_app.dart';
-import 'package:academybw/ui/menu/levers/levers_page.dart';
 import 'package:academybw/ui/menu/quiz/quiz_page.dart';
 import 'package:academybw/utils/get_data.dart';
-import 'package:academybw/widgets_shared/appbar_widgets.dart';
 import 'package:academybw/widgets_shared/button_general.dart';
 import 'package:academybw/widgets_shared/circular_progress_colors.dart';
-import 'package:academybw/widgets_shared/drawer_all.dart';
 import 'package:academybw/widgets_shared/widgets_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -58,7 +54,7 @@ class _VideosPageState extends State<VideosPage> {
             children: [
               //headerShared(context: context,scaffoldKey: scaffoldKey),
               Expanded(
-                child: Container(
+                child: SizedBox(
                   width: sizeW,
                   //margin: EdgeInsets.symmetric(horizontal: sizeW * 0.06),
                   child: Column(
@@ -220,7 +216,7 @@ class _CardPostContainerState extends State<CardPostContainer> {
                 height: sizeH * 0.25,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: Image.asset('assets/image/capture_video_1.png').image,
+                        image: Image.asset('assets/image/capture_video_${video['id']}.png').image,
                         fit: BoxFit.fitWidth
                     )
                 ),
