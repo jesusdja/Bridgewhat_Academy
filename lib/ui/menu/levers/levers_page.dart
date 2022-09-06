@@ -108,7 +108,7 @@ class _LeversPageState extends State<LeversPage> {
               height: sizeH * 0.35,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: Image.asset('assets/image/levers.png').image,
+                    image: Image.asset('assets/image/logo_levers_animation.GIF').image,
                     fit: BoxFit.fitWidth
                 ),
               ),
