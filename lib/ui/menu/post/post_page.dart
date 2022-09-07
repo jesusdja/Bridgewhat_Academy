@@ -2,7 +2,7 @@
 import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
-import 'package:academybw/providers/post_provider.dart';
+import 'package:academybw/ui/menu/post/provider/post_provider.dart';
 import 'package:academybw/widgets_shared/widgets_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

@@ -1,7 +1,7 @@
 import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
-import 'package:academybw/providers/quiz_provider.dart';
+import 'package:academybw/ui/menu/quiz/provider/quiz_provider.dart';
 import 'package:academybw/ui/menu/quiz/widgets/card_question.dart';
 import 'package:academybw/ui/menu/quiz/widgets/order_question.dart';
 import 'package:academybw/ui/menu/quiz/widgets/roulette_widget.dart';

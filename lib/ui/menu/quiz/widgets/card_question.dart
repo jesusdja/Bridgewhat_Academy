@@ -1,7 +1,7 @@
 import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
-import 'package:academybw/providers/quiz_provider.dart';
+import 'package:academybw/ui/menu/quiz/provider/quiz_provider.dart';
 import 'package:academybw/utils/get_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

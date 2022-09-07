@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:academybw/initial_page.dart';
 import 'package:academybw/providers/auth_provider.dart';
-import 'package:academybw/providers/cartoons_provider.dart';
-import 'package:academybw/providers/menu_provider.dart';
-import 'package:academybw/providers/post_provider.dart';
-import 'package:academybw/providers/quiz_provider.dart';
-import 'package:academybw/providers/videos_provider.dart';
+import 'package:academybw/ui/menu/cartoons/provider/cartoons_provider.dart';
+import 'package:academybw/ui/home/provider/menu_provider.dart';
+import 'package:academybw/ui/menu/post/provider/post_provider.dart';
+import 'package:academybw/ui/menu/quiz/provider/quiz_provider.dart';
+import 'package:academybw/ui/menu/videos/provider/videos_provider.dart';
 import 'package:academybw/services/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

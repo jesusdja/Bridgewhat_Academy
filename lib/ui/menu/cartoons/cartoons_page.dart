@@ -1,7 +1,7 @@
 import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
-import 'package:academybw/providers/cartoons_provider.dart';
+import 'package:academybw/ui/menu/cartoons/provider/cartoons_provider.dart';
 import 'package:academybw/utils/get_data.dart';
 import 'package:academybw/widgets_shared/widgets_shared.dart';
 import 'package:flutter/material.dart';
