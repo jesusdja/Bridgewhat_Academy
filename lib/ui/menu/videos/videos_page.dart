@@ -87,17 +87,42 @@ class _VideosPageState extends State<VideosPage> {
                 },
                 child: Container(
                   width: sizeW,
-                  height: sizeH * 0.08,
+                  height: sizeH * 0.06,
                   color: AcademyColors.primary,
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Expanded(
-                        child: RichText(
+                        child: Center(
+                          child: RichText(
                           text: TextSpan(
-                            text: 'Please take the ', // _snapshot.data['username']
+                            text: 'Please take ',
                             style: AcademyStyles().stylePoppins(size: 12,color: Colors.white ),
                             children: [
+                              WidgetSpan(
+                                child: Container(
+                                  width: sizeW * 0.12,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                    border: Border.all(
+                                      width: 1.0,
+                                      color: AcademyColors.primary,
+                                    ),
+                                  ),
+                                  child: Center(
+                                      child: Text('QUIZ',style: AcademyStyles().stylePoppins(size: 12,color: AcademyColors.primary,
+                                          fontWeight: FontWeight.bold),
+                                      )
+                                  ),
+                                ),
+                              ),
+                              TextSpan(
+                                text: ' know more about the ',
+                                style: AcademyStyles().stylePoppins(size: 12,color: Colors.white),
+                              ),
                               WidgetSpan(
                                 child: Container(
                                   width: sizeW * 0.15,
@@ -110,45 +135,7 @@ class _VideosPageState extends State<VideosPage> {
                                     ),
                                   ),
                                   child: Center(
-                                    child: Text('QUIZ',style: AcademyStyles().stylePoppins(size: 12,color: AcademyColors.primary,
-                                      fontWeight: FontWeight.bold),
-                                    )
-                                  ),
-                                ),
-                              ),
-                              // TextSpan(
-                              //   text: 'QUIZ',
-                              //   style: AcademyStyles().stylePoppins(size: 12,color: Colors.white,fontWeight: FontWeight.bold ,textDecoration: TextDecoration.combine([TextDecoration.underline,TextDecoration.underline,])),
-                              // ),
-                              TextSpan(
-                                text: '\nTo know more about the 20 LOG, ',
-                                style: AcademyStyles().stylePoppins(size: 12,color: Colors.white),
-                              ),
-                              // TextSpan(
-                              //   text: 'click here.',
-                              //   style: AcademyStyles().stylePoppins(size: 12,color: Colors.white,textDecoration: TextDecoration.underline,fontWeight: FontWeight.bold),
-                              // ),
-                              WidgetSpan(
-                                child: Container(
-                                  width: sizeW * 0.25,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                                    border: Border.all(
-                                      width: 1.0,
-                                      color: AcademyColors.primary,
-                                    ),
-                                    // boxShadow: [
-                                    //   BoxShadow(
-                                    //     color: Colors.white.withOpacity(0.5),
-                                    //     spreadRadius: 5,
-                                    //     blurRadius: 7,
-                                    //     offset: Offset(0, 0), // changes position of shadow
-                                    //   ),
-                                    // ],
-                                  ),
-                                  child: Center(
-                                      child: Text('click here',style: AcademyStyles().stylePoppins(size: 12,color: AcademyColors.primary,
+                                      child: Text('20 LOG',style: AcademyStyles().stylePoppins(size: 12,color: AcademyColors.primary,
                                           fontWeight: FontWeight.bold),
                                       )
                                   ),
@@ -156,27 +143,9 @@ class _VideosPageState extends State<VideosPage> {
                               ),
                             ],
                           ),
+                      ),
                         ),
-                      )
-                      // Expanded(
-                      //   child: Container(
-                      //     margin: EdgeInsets.only(left: sizeW * 0.05),
-                      //     child: Text('Please take the quiz.\nTo know more about the 20 LOG, click here.',style: AcademyStyles().stylePoppins(
-                      //         size: 12,color: Colors.white
-                      //     )),
-                      //   ),
-                      // ),
-                      // ButtonGeneral(
-                      //   margin: EdgeInsets.symmetric(horizontal: sizeW * 0.05),
-                      //   width: sizeW * 0.2,
-                      //   height: sizeH * 0.04,
-                      //   radius: 5,
-                      //   title: 'click here',
-                      //   textStyle: AcademyStyles().stylePoppins(size: 12,color: AcademyColors.primary,fontWeight: FontWeight.bold),
-                      //   onPressed: (){
-                      //     Navigator.push(context,MaterialPageRoute<void>( builder: (context) => const QuizPage()),);
-                      //   },
-                      // ),
+                      ),
                     ],
                   ),
                 ),
@@ -384,13 +353,13 @@ class _CardPostContainerState extends State<CardPostContainer> {
       margin: EdgeInsets.symmetric(horizontal: sizeW * 0.05),
       child: Row(
         children: [
-          Expanded(child: containerCardSubVideos(type: 1)),
+          Expanded(child: containerCardSubVideos(type: videosProvider.mapSubVideos[video['id']]!.keys.elementAt(0))),
           SizedBox(width: sizeW * 0.02,),
-          Expanded(child: containerCardSubVideos(type: 2)),
+          Expanded(child: containerCardSubVideos(type: videosProvider.mapSubVideos[video['id']]!.keys.elementAt(1))),
           SizedBox(width: sizeW * 0.02,),
-          Expanded(child: containerCardSubVideos(type: 3)),
+          Expanded(child: containerCardSubVideos(type: videosProvider.mapSubVideos[video['id']]!.keys.elementAt(2))),
           SizedBox(width: sizeW * 0.02,),
-          Expanded(child: containerCardSubVideos(type: 4)),
+          Expanded(child: containerCardSubVideos(type: videosProvider.mapSubVideos[video['id']]!.keys.elementAt(3))),
         ],
       ),
     );
@@ -414,7 +383,7 @@ class _CardPostContainerState extends State<CardPostContainer> {
             ),
           ),
           child: Center(
-            child: Text('Video $type',style: style),
+            child: Text('LOG $type',style: style),
           ),
         ),
         onTap: (){

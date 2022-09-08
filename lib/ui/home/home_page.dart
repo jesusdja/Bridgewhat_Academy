@@ -38,6 +38,15 @@ class _HomePageState extends State<HomePage> {
     ));
   }
 
+  Future<bool> exit() async {
+
+    if(menuProvider.status != MenuStatus.home){
+      menuProvider.changeMenu(MenuStatus.home);
+      return false;
+    }
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -49,25 +58,28 @@ class _HomePageState extends State<HomePage> {
     if(menuProvider.status == MenuStatus.cartoons){ childBody = const CartoonsPage(); }
     if(menuProvider.status == MenuStatus.demo){ childBody = const DemoPage(); }
 
-    return SafeArea(
-      child: GestureDetector(
-        onTap: (){
-          Provider.of<PostProvider>(context).viewContainerLikePost(idPost: 0);
-        },
-        child: Scaffold(
-          key: scaffoldKey,
-          backgroundColor: Colors.white,
-          endDrawer: appDrawer(),
-          body: Column(
-            children: [
-              SizedBox(height: sizeH * 0.01,),
-              headerContainer(),
-              SizedBox(height: sizeH * 0.01,),
-              Expanded(
-                child: childBody,
-              ),
-              SizedBox(height: sizeH * 0.01,),
-            ],
+    return WillPopScope(
+      onWillPop: exit,
+      child: SafeArea(
+        child: GestureDetector(
+          onTap: (){
+            Provider.of<PostProvider>(context).viewContainerLikePost(idPost: 0);
+          },
+          child: Scaffold(
+            key: scaffoldKey,
+            backgroundColor: Colors.white,
+            endDrawer: appDrawer(),
+            body: Column(
+              children: [
+                SizedBox(height: sizeH * 0.01,),
+                headerContainer(),
+                SizedBox(height: sizeH * 0.01,),
+                Expanded(
+                  child: childBody,
+                ),
+                SizedBox(height: sizeH * 0.01,),
+              ],
+            ),
           ),
         ),
       ),
@@ -77,18 +89,18 @@ class _HomePageState extends State<HomePage> {
   Widget headerContainer(){
     return Container(
       width: sizeW,
-      margin: EdgeInsets.only(left: sizeW * 0.06, right: sizeW * 0.03),
+      margin: EdgeInsets.only(left: sizeW * 0.08, right: sizeW * 0.05),
       child: Row(
         children: [
-          SizedBox(
+          menuProvider.status != MenuStatus.home ? SizedBox(
             width: sizeW * 0.07,
-            child: menuProvider.status != MenuStatus.home ? InkWell(
+            child:  InkWell(
               child: Icon(Icons.arrow_back_ios,size: sizeH * 0.035,color: AcademyColors.primary),
               onTap: (){
                 menuProvider.changeMenu(MenuStatus.home);
               },
-            ) : Container(),
-          ),
+            ) ,
+          ): Container(),
           iconApp(),
           Expanded(child: Container()),
           IconButton(

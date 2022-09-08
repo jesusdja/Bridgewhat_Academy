@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.0+15
+version: 1.0.0+16
 
 environment:
   sdk: ">=2.16.2 <3.0.0"
@@ -21,7 +21,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^2.0.0
   video_player: ^2.4.5
-  flick_video_player: ^0.5.0
+  #flick_video_player: ^0.5.0
   flutter_inappwebview: ^5.4.3+7
   animate_do: ^2.1.0
 

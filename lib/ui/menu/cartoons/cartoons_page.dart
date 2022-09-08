@@ -60,7 +60,7 @@ class _CartoonsPageState extends State<CartoonsPage> {
                   physics: const BouncingScrollPhysics(),
                   child: Container(
                     width: sizeW,
-                    margin: EdgeInsets.symmetric(horizontal: sizeW * 0.06),
+                    //margin: EdgeInsets.symmetric(horizontal: sizeW * 0.06),
                     child: Column(
                       children: [
                         cardContainer(),
@@ -135,12 +135,13 @@ class _CardCartoonsContainerState extends State<CardCartoonsContainer> {
   }
 
   Widget cardPostImg(){
-    return Column(
-      children: [
-        Container(
+    return Container(
+      width: sizeW,
+      child: Center(
+        child: Container(
           width: sizeW,
           height: sizeH * 0.4,
-          margin: EdgeInsets.only(bottom: sizeH * 0.02),
+          margin: EdgeInsets.only(bottom: sizeH * 0.02,left: sizeW * 0.06, right: sizeW * 0.06),
           decoration: BoxDecoration(
             color: Colors.grey[100],
             borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -150,7 +151,7 @@ class _CardCartoonsContainerState extends State<CardCartoonsContainer> {
             ),
           ),
         ),
-      ],
+      ),
     );
   }
 
@@ -160,7 +161,7 @@ class _CardCartoonsContainerState extends State<CardCartoonsContainer> {
 
     return Container(
       width: sizeW,
-      margin: EdgeInsets.only(bottom: sizeH * 0.01),
+      margin: EdgeInsets.only(bottom: sizeH * 0.01,left: sizeW * 0.1),
       child: Text(title,
         style: AcademyStyles().styleLato(size: 18,color: AcademyColors.colorsLeversObscure, fontWeight: FontWeight.bold),
       textAlign: TextAlign.left),

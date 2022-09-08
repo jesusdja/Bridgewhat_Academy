@@ -61,11 +61,11 @@ class VideosProvider extends ChangeNotifier {
   }
 
   Map<int,String> titlesVideos = {
-    1 : 'Stage 1 - Attraction – How companies become visible and credible.',
-    2 : 'Stage 2 - Acquisition – How companies get clients, once they are visible and credible.',
-    3 : 'Stage 3 - *ARPU (Average Revenue Per User) *– How companies maximize clients’ purchases.',
-    4 : 'Stage 4 - Retention – How companies maintain their clients in the long term.',
-    5 : 'Stage 5 - Referrals – How clients refer your company to other potential clients.',
+    1 : 'Attraction – How companies become visible and credible.',
+    2 : 'Acquisition – How companies get clients, once they are visible and credible.',
+    3 : 'ARPU (Average Revenue Per User) – How companies maximize clients’ purchases.',
+    4 : 'Retention – How companies maintain their clients in the long term.',
+    5 : 'Referrals – How clients refer your company to other potential clients.',
   };
 
   Map<int,String> descriptionVideos = {
@@ -78,34 +78,34 @@ class VideosProvider extends ChangeNotifier {
 
   Map<int,Map<int,String>> mapSubVideos = {
     1 : {
-      1 : 'https://vimeo.com/747323324',
-      2 : 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
-      3 : 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
-      4 : 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+      1 : 'https://drive.google.com/file/d/14x0zZ23EskVDhlXDE43cK5fEGe8jrPdt/view?usp=sharing',
+      2 : 'https://drive.google.com/file/d/1h2hA6-pRuw7CipgNgHb64MHSBgUAVdSq/view?usp=sharing',
+      3 : 'https://drive.google.com/file/d/1mIO2LER2gBoD47O-aiZYz9DQNesdkHmf/view?usp=sharing',
+      4 : 'https://drive.google.com/file/d/1K6Pl0T0wh1-4lGX6w78GmpqMG184tByr/view?usp=sharing',
     },
     2 : {
-      1 : '',
-      2 : '',
-      3 : '',
-      4 : '',
+      5 : 'https://drive.google.com/file/d/1v6Ts1I7ZUi7cMGWSEDu3ElpufnrWskbL/view?usp=sharing',
+      6 : 'https://drive.google.com/file/d/1-FzNmy2eE3n3KvjJPOD5MYemibTRTE-a/view?usp=sharing',
+      7 : 'https://drive.google.com/file/d/1YFkANwbH2dVZQA6DDRiNwajFXqONTjvH/view?usp=sharing',
+      8 : 'https://drive.google.com/file/d/1M6ikxZ9DwNWsXKKAjo8f2DFUly972Av-/view?usp=sharing',
     },
     3 : {
-      1 : '',
-      2 : '',
-      3 : '',
-      4 : '',
+      9 : 'https://drive.google.com/file/d/1f2CjW-gw9rSIXgShLuXqiEVAzFGhVF8M/view?usp=sharing',
+      10 : 'https://drive.google.com/file/d/1XE5NQe82Tjpup2H8OFHWal0NoA_S-_hN/view?usp=sharing',
+      11 : 'https://drive.google.com/file/d/1OV4ghLqWQZLxwofT0WslpRh3fLaRADwO/view?usp=sharing',
+      12 : 'https://drive.google.com/file/d/1Y1ltK8ozB5j1DeTYmKC-Ura6p4oYkOHz/view?usp=sharing',
     },
     4 : {
-      1 : '',
-      2 : '',
-      3 : '',
-      4 : '',
+      13 : 'https://drive.google.com/file/d/1f2CjW-gw9rSIXgShLuXqiEVAzFGhVF8M/view?usp=sharing',
+      14 : 'https://drive.google.com/file/d/1XE5NQe82Tjpup2H8OFHWal0NoA_S-_hN/view?usp=sharing',
+      15 : 'https://drive.google.com/file/d/1OV4ghLqWQZLxwofT0WslpRh3fLaRADwO/view?usp=sharing',
+      16 : 'https://drive.google.com/file/d/1Y1ltK8ozB5j1DeTYmKC-Ura6p4oYkOHz/view?usp=sharing',
     },
     5 : {
-      1 : '',
-      2 : '',
-      3 : '',
-      4 : '',
+      17 : 'https://drive.google.com/file/d/1wbU3rTiP2MZ14Fsp6izmZ0cjZFj9axWk/view?usp=sharing',
+      18 : 'https://drive.google.com/file/d/1tOe0gEcgfONpwYICEC08nYxurS395kkV/view?usp=sharing',
+      19 : 'https://drive.google.com/file/d/1oeYBQdVzEzVVxl9YLWW7Fjosv_HYWpCy/view?usp=sharing',
+      20 : 'https://drive.google.com/file/d/1XlZSP20rjjDPqZisSuj29zlPRqoUya8h/view?usp=sharing',
     },
   };
 }
