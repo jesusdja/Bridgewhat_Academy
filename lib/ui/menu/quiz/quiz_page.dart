@@ -72,9 +72,17 @@ class _QuizPageState extends State<QuizPage> {
                     width: sizeW,
                     padding: EdgeInsets.symmetric(vertical: sizeH * 0.015),
                     child: Text('"Select all answers that apply."',textAlign: TextAlign.center,
-                    style: AcademyStyles().stylePoppins(size: sizeH * 0.02,color: AcademyColors.primary)),
+                        style: AcademyStyles().stylePoppins(size: sizeH * 0.02,color: AcademyColors.primary)),
                   )
-                ]
+                ],
+                if(typeQuestion == TypeQuestion.union)...[
+                  Container(
+                    width: sizeW,
+                    padding: EdgeInsets.symmetric(vertical: sizeH * 0.015,horizontal: sizeW * 0.02),
+                    child: Text('Note: Drag each of the rectangles from the left and drop it on the corresponding correct  option on the right',textAlign: TextAlign.center,
+                        style: AcademyStyles().stylePoppins(size: sizeH * 0.016,color: AcademyColors.primary)),
+                  )
+                ],
               ],
             ],
           ],

@@ -108,4 +108,27 @@ class VideosProvider extends ChangeNotifier {
       20 : 'https://drive.google.com/file/d/1XlZSP20rjjDPqZisSuj29zlPRqoUya8h/view?usp=sharing',
     },
   };
+
+  Map<int,String> titleButtonVideo = {
+    1 : 'PT',
+    2 : 'DM',
+    3 : 'TG',
+    4 : 'CM',
+    5 : 'MD',
+    6 : 'SE',
+    7 : 'ME',
+    8 : 'MP',
+    9 : 'IC',
+    10 : 'PP',
+    11 : 'CS',
+    12 : 'SC',
+    13 : 'CC',
+    14 : 'LI',
+    15 : 'CR',
+    16 : 'BM',
+    17 : 'CD',
+    18 : 'OM',
+    19 : 'RR',
+    20 : 'BD',
+  };
 }

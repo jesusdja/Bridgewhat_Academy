@@ -83,24 +83,6 @@ class QuizProvider extends ChangeNotifier {
           listQuestion[pos]['answered'] = listQuestion[pos]['answered'].toString().replaceAll('$answered|', '');
         }
       }
-      // if(listQuestion[pos]['type'] == TypeQuestion.union){
-      //   List data = answered.split('|');
-      //   String keyExists = '';
-      //   listQuestion[pos]['answered'].forEach((key, value) {
-      //     if(value == data[1]){ keyExists = key; }
-      //   });
-      //   if(keyExists.isNotEmpty){ listQuestion[pos]['answered'].remove(keyExists); }
-      //   listQuestion[pos]['answered'][data[0]] = data[1];
-      // }
-      // if(listQuestion[pos]['type'] == TypeQuestion.union2){
-      //   List data = answered.split('|');
-      //   String keyExists = '';
-      //   listQuestion[pos]['answered'].forEach((key, value) {
-      //     if(value == data[1]){ keyExists = key; }
-      //   });
-      //   if(keyExists.isNotEmpty){ listQuestion[pos]['answered'].remove(keyExists); }
-      //   listQuestion[pos]['answered'][data[0]] = data[1];
-      // }
       notifyListeners();
     }
   }
@@ -135,36 +117,24 @@ class QuizProvider extends ChangeNotifier {
     }
   }
 
+  void resetUnionList({required int idQuestion}){
+    int? pos;
+    for(int x = 0; x < listQuestion.length; x++){
+      if(listQuestion[x]['id'] == idQuestion){
+        pos = x;
+      }
+    }
+    if(pos != null){
 
-  // void onRemoveValueToQuestion({required String removeKey, required int idQuestion}){
-  //   int? pos;
-  //   for(int x = 0; x < listQuestion.length; x++){
-  //     if(listQuestion[x]['id'] == idQuestion){
-  //       pos = x;
-  //     }
-  //   }
-  //   if(pos != null){
-  //     listQuestion[pos]['answered'].remove(removeKey);
-  //     notifyListeners();
-  //   }
-  // }
-  //
-  // void removeMapColor({required int id, required String stRemove}){
-  //   listMapColor[id]!.remove(stRemove);
-  //   notifyListeners();
-  //   onRemoveValueToQuestion(idQuestion: id,removeKey: stRemove);
-  // }
-  //
-  // void removeMapColor2({required int id, required String stRemove}){
-  //   String keySelect = stRemove.toString().substring(0,(stRemove.toString().length - 1));
-  //   listMapColor[id]!.remove(keySelect);
-  //   notifyListeners();
-  //   onRemoveValueToQuestion(idQuestion: id,removeKey: stRemove);
-  // }
-  //
-  // void addMapColor({required int id, required String stAdd, required Color colorAdd}){
-  //   listMapColor[id]![stAdd] = colorAdd;
-  //   notifyListeners();
-  // }
+      List<Map<String,dynamic>> listQuestionAux = getListQuestionQuiz();
 
+      List a = listQuestionAux[pos]['questions'];
+      List newList = [];
+      for (var element in a) {
+        newList.add(element);
+      }
+      listQuestion[pos]['answered'] = listQuestionAux[pos]['questions'];
+      notifyListeners();
+    }
+  }
 }

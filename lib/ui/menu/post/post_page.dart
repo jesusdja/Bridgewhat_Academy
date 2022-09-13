@@ -181,7 +181,6 @@ class _CardPostContainerState extends State<CardPostContainer> {
             child: selectLike(),
           )
         ],
-
         if(postSelectShared)...[
           Container(
             margin: EdgeInsets.only(top: sizeH * 0.3),
@@ -381,8 +380,8 @@ class _CardPostContainerState extends State<CardPostContainer> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                height: sizeH * 0.03,
-                width: sizeH * 0.03,
+                height: sizeH * 0.032,
+                width: sizeH * 0.032,
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: Image.asset('assets/image/like$x.png').image,
@@ -390,7 +389,7 @@ class _CardPostContainerState extends State<CardPostContainer> {
                     )
                 ),
               ),
-              Text(listTitleLikes[x],style: AcademyStyles().styleLato(size: 12,color: AcademyColors.primary),)
+              // Text(listTitleLikes[x],style: AcademyStyles().styleLato(size: 12,color: AcademyColors.primary),)
             ],
           ),
         ),
@@ -429,8 +428,8 @@ class _CardPostContainerState extends State<CardPostContainer> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                height: sizeH * 0.03,
-                width: sizeH * 0.03,
+                height: sizeH * 0.032,
+                width: sizeH * 0.032,
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: Image.asset('assets/image/shared$x.png').image,

@@ -383,7 +383,7 @@ class _CardPostContainerState extends State<CardPostContainer> {
             ),
           ),
           child: Center(
-            child: Text('LOG $type',style: style),
+            child: Text(videosProvider.titleButtonVideo[type]!,style: style),
           ),
         ),
         onTap: (){
