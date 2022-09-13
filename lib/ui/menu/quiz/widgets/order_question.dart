@@ -2,7 +2,9 @@ import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
 import 'package:academybw/ui/menu/quiz/provider/quiz_provider.dart';
+import 'package:academybw/ui/menu/quiz/widgets/union_dragdrop_question.dart';
 import 'package:academybw/utils/get_data.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,13 +21,52 @@ class _OrderQuestionState extends State<OrderQuestion> {
   late QuizProvider quizProvider;
 
   @override
+  void initState() {
+    super.initState();
+    initialData();
+  }
+
+  Future initialData()async{
+    List listCant = widget.question['answered'];
+    bool equals = true;
+    for(int x = 0; x < listCant.length; x++){
+      if(widget.question['answered'][x] != widget.question['questions'][x]){
+        equals = false;
+      }
+    }
+    if(!equals){
+      await Future.delayed(const Duration(milliseconds: 500));
+      bool? res = await showCupertinoModalPopup(
+        context: context,
+        builder: (BuildContext context) {
+          return PopUpReset(idQuestion: widget.question['id'],);
+        },
+      );
+      if(res != null && res){
+        setState(() {});
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     quizProvider = Provider.of<QuizProvider>(context);
 
     List<String> listQuestion = [];
-    if(widget.question.containsKey('answered')){
-      listQuestion = widget.question['answered'];
+    // if(widget.question.containsKey('answered')){
+    //   listQuestion = widget.question['answered'];
+    // }
+
+
+    int? pos;
+    for(int x = 0; x < quizProvider.listQuestion.length; x++){
+      if(quizProvider.listQuestion[x]['id'] == widget.question['id']){
+        pos = x;
+      }
+    }
+    if(pos != null){
+      listQuestion = quizProvider.listQuestion[pos]['answered'] ?? [];
     }
 
     List<Widget> listW = [];
