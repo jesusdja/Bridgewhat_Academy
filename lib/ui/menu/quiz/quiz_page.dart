@@ -23,8 +23,8 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
 
   late QuizProvider quizProvider;
-  bool isPageFinish = true;
-  double successQuestions = 91;
+  bool isPageFinish = false;
+  double successQuestions = 0;
 
   @override
   void initState() {
@@ -395,26 +395,96 @@ class _QuizPageState extends State<QuizPage> {
               ),
             ),
           ),
-          SizedBox(
-            width: sizeW,
-            child: Center(
-              child: Container(
-                height: sizeH * 0.2,
-                width: sizeH * 0.2,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: Image.asset('assets/image/$urlImage.png').image,
-                      fit: BoxFit.fitWidth
+          Stack(
+            children: [
+              SizedBox(
+                width: sizeW,
+                child: Center(
+                  child: Container(
+                    height: sizeH * 0.2,
+                    width: sizeH * 0.2,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: Image.asset('assets/image/$urlImage.png').image,
+                          fit: BoxFit.fitWidth
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
+              // if(successQuestions >= 50.0)...[
+              //   SizedBox(
+              //     height: sizeH * 0.2,
+              //     width: sizeH,
+              //     child: Align(
+              //       alignment: Alignment.topLeft,
+              //       child: Container(
+              //         margin: EdgeInsets.only(left: sizeW * 0.13,top: sizeH * 0.02),
+              //         padding: EdgeInsets.all(sizeH * 0.005),
+              //         decoration: const BoxDecoration(
+              //           color: Colors.white,
+              //           borderRadius: BorderRadius.all(Radius.circular(10)),
+              //         ),
+              //         child: Column(
+              //           mainAxisSize: MainAxisSize.min,
+              //           children: [
+              //             SizedBox(
+              //               width: sizeW * 0.2,
+              //               child: Text('Share on',style: AcademyStyles().styleLato(
+              //                   size: sizeH * 0.02,color: AcademyColors.primary,fontWeight: FontWeight.bold),
+              //                 textAlign: TextAlign.center,
+              //               ),
+              //             ),
+              //             Container(
+              //               height: sizeH * 0.028,
+              //               width: sizeH * 0.028,
+              //               decoration: BoxDecoration(
+              //                 image: DecorationImage(
+              //                     image: Image.asset('assets/image/shared1.png').image,
+              //                     fit: BoxFit.fitWidth
+              //                 ),
+              //               ),
+              //             ),
+              //           ],
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ]
+            ],
           ),
           SizedBox(
             width: sizeW,
             child: Text("There's work to do!",textAlign: TextAlign.center,
                 style: AcademyStyles().styleLato(size: 14,color: AcademyColors.primary)),
           ),
+          if(successQuestions > 50.0)...[
+            SizedBox(height: sizeH * 0.02,),
+            Container(
+              width: sizeW,
+              margin: EdgeInsets.symmetric(horizontal: sizeW * 0.15),
+              child: ButtonGeneral(
+                title: 'Share on Linkedin',
+                textStyle: AcademyStyles().styleLato(size: sizeH * 0.016,color: Colors.white,fontWeight: FontWeight.bold),
+                onPressed: (){},
+                radius: 5,
+                backgroundColor: AcademyColors.primary,
+                height: sizeH * 0.05,
+                widgetLatDer: Container(
+                  height: sizeH * 0.03,
+                  width: sizeH * 0.03,
+                  margin: EdgeInsets.only(left: sizeW * 0.1),
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: Image.asset('assets/image/shared1_white.png').image,
+                          fit: BoxFit.fitWidth
+                      )
+                  ),
+                ),
+                widgetLatIzq: Container(margin: EdgeInsets.only(right: sizeW * 0.05)),
+              ),
+            )
+          ],
           SizedBox(height: sizeH * 0.02,),
           Expanded(
             child: Container(
@@ -435,32 +505,32 @@ class _QuizPageState extends State<QuizPage> {
             ),
           ),
           SizedBox(height: sizeH * 0.02,),
-          if(successQuestions > 50.0)...[
-            Container(
-              width: sizeW,
-              margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
-              child: ButtonGeneral(
-                title: 'Share on Linkedin',
-                textStyle: AcademyStyles().styleLato(size: 16,color: Colors.white,fontWeight: FontWeight.bold),
-
-                onPressed: (){},
-                backgroundColor: AcademyColors.primary,
-                height: sizeH * 0.05,
-                widgetLatDer: Container(
-                  height: sizeH * 0.03,
-                  width: sizeH * 0.03,
-                  margin: EdgeInsets.only(left: sizeW * 0.18,right: sizeW * 0.01),
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: Image.asset('assets/image/shared1_white.png').image,
-                          fit: BoxFit.fitWidth
-                      )
-                  ),
-                ),
-                widgetLatIzq: Container(margin: EdgeInsets.only(right: sizeW * 0.15)),
-              ),
-            )
-          ],
+          // if(successQuestions > 50.0)...[
+          //   Container(
+          //     width: sizeW,
+          //     margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
+          //     child: ButtonGeneral(
+          //       title: 'Share on Linkedin',
+          //       textStyle: AcademyStyles().styleLato(size: 16,color: Colors.white,fontWeight: FontWeight.bold),
+          //
+          //       onPressed: (){},
+          //       backgroundColor: AcademyColors.primary,
+          //       height: sizeH * 0.05,
+          //       widgetLatDer: Container(
+          //         height: sizeH * 0.03,
+          //         width: sizeH * 0.03,
+          //         margin: EdgeInsets.only(left: sizeW * 0.18,right: sizeW * 0.01),
+          //         decoration: BoxDecoration(
+          //             image: DecorationImage(
+          //                 image: Image.asset('assets/image/shared1_white.png').image,
+          //                 fit: BoxFit.fitWidth
+          //             )
+          //         ),
+          //       ),
+          //       widgetLatIzq: Container(margin: EdgeInsets.only(right: sizeW * 0.15)),
+          //     ),
+          //   )
+          // ],
         ],
       ),
     );
