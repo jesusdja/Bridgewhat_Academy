@@ -100,7 +100,7 @@ List<Map<String,dynamic>> getListQuestionQuiz () => [
       ['Attraction','Retention','Referrals','ARPU','Acquisition'],
       ['Revenue','Advocacy','Attention','Loyalty','Activation'],
     ],
-    'result' : {'Attraction' : 'Attention','Retention' : 'Loyalty','Referrals' : 'Advocacy','ARPU' : 'Revenue','Acquisition' : 'Activation', },
+    'result' : ['Attraction / Attention','Retention / Loyalty','Referrals / Advocacy','ARPU / Revenue','Acquisition / Activation'],
     'answered' : [
       ['Attraction','Retention','Referrals','ARPU','Acquisition'],
       ['Revenue','Advocacy','Attention','Loyalty','Activation'],
@@ -225,7 +225,7 @@ List<Map<String,dynamic>> getListQuestionQuiz () => [
       ['Not aware of a need','Looking for a solution','Aware, but not looking for a solution'],
       ['Hot','Cold','Tepid'],
     ],
-    'result' : {'Not aware of a need' : 'Cold','Looking for a solution' : 'Hot','Aware, but not looking for a solution' : 'Tepid' },
+    'result' : ['Not aware of a need / Cold','Looking for a solution / Hot','Aware, but not looking for a solution / Tepid'],
     'answered' : [
       ['Not aware of a need','Looking for a solution','Aware, but not looking for a solution'],
       ['Hot','Cold','Tepid'],
@@ -264,14 +264,12 @@ List<Map<String,dynamic>> getListQuestionQuiz () => [
       ['Conversation','Customer Costs','Co-Creation','Convenient'],
       ['Communication','Community','Currency','Customer Value'],
     ],
-    'result' : {
-      {
-        'Product1' : 'Configuration','Product2' : 'Co-Creation','Product3' : 'Customer Value',
-        'Price1' : 'Valuation','Price2' : 'Customer Costs','Price3' : 'Currency',
-        'Place1' : 'Facilitation','Place2' : 'Convenient','Place3' : 'Community',
-        'Promotion1' : 'Symbolization','Promotion2' : 'Conversation','Promotion3' : 'Communication',
-      }
-    },
+    'result' : [
+      'Product / Configuration / Co-Creation / Customer Value',
+      'Price / Valuation / Customer Costs / Currency',
+      'Place / Facilitation / Convenient / Community',
+      'Promotion / Symbolization / Conversation / Communication',
+    ],
     'answered' : [
       ['Product','Price','Place','Promotion'],
       ['Symbolization','Configuration','Facilitation','Valuation'],
@@ -299,7 +297,7 @@ List<Map<String,dynamic>> getListQuestionQuiz () => [
       ['Online','Inside Sales','Direct','Inbound'],
       ['Outbound','Indirect','Brick-and-Mortar','Field Sales'],
     ],
-    'result' : {'Online' : 'Brick-and-Mortar','Inside Sales' : 'Field Sales','Direct' : 'Indirect','Inbound' : 'Outbound' },
+    'result' : ['Online / Brick-and-Mortar','Inside Sales / Field Sales','Direct / Indirect','Inbound / Outbound'],
     'answered' : [
       ['Online','Inside Sales','Direct','Inbound'],
       ['Outbound','Indirect','Brick-and-Mortar','Field Sales'],
@@ -347,7 +345,7 @@ List<Map<String,dynamic>> getListQuestionQuiz () => [
       ['TAM','SAM','SOM'],
       ['The smallest','The biggest','In between'],
     ],
-    'result' : {'TAM' : 'The biggest','SAM' : 'In between','SOM' : 'The smallest'},
+    'result' : ['TAM / The biggest','SAM / In between','SOM / The smallest',],
     'answered' : [
       ['TAM','SAM','SOM'],
       ['The smallest','The biggest','In between'],
@@ -362,7 +360,7 @@ List<Map<String,dynamic>> getListQuestionQuiz () => [
       ['M&A','Partnership'],
       ['Contract','Equity'],
     ],
-    'result' : {'M&A' : 'Equity','Partnership' : 'Contract' },
+    'result' : ['M&A / Equity','Partnership / Contract',],
     'answered' : [
       ['M&A','Partnership'],
       ['Contract','Equity'],
@@ -430,7 +428,7 @@ List<Map<String,dynamic>> getListQuestionQuiz () => [
       ['Revenue Sharing','Cross-Selling'],
       ['Own Company','Partnership'],
     ],
-    'result' : {'Revenue Sharing' : 'Partnership','Cross-Selling' : 'Own Company'},
+    'result' : ['Revenue Sharing / Partnership','Cross-Selling / Own Company',],
     'answered' : [
       ['Revenue Sharing','Cross-Selling'],
       ['Own Company','Partnership'],
@@ -488,13 +486,11 @@ List<Map<String,dynamic>> getListQuestionQuiz () => [
       ['Co-Creation','Communication','Partnership'],
       ['Scalability','Spreadability','Shareability'],
     ],
-    'result' : {
-      {
-        'Scatter1' : 'Communication','Scatter2' : 'Spreadability',
-        'Gather1' : 'Co-Creation','Gather2' : 'Shareability',
-        'Matter1' : 'Partnership','Matter2' : 'Scalability',
-      }
-    },
+    'result' : [
+      'Scatter / Communication / Spreadability',
+      'Gather / Co-Creation / Shareability',
+      'Matter / Partnership / Scalability',
+    ],
     'answered' : [
       ['Scatter','Gather','Matter'],
       ['Co-Creation','Communication','Partnership'],
@@ -510,7 +506,7 @@ List<Map<String,dynamic>> getListQuestionQuiz () => [
       ['Membership','Rewards','Points','Segments'],
       ['Free products by purchase','Benefits by segment','Discounts for members','Purchasing history',],
     ],
-    'result' : {'Membership' : 'Discounts for members','Rewards' : 'Free products by purchase','Points' : 'Purchasing history','Segments' : 'Benefits by segment'},
+    'result' : ['Membership / Discounts for members','Rewards / Free products by purchase','Points / Purchasing history','Segments / Benefits by segment',],
     'answered' : [
       ['Membership','Rewards','Points','Segments'],
       ['Free products by purchase','Benefits by segment','Discounts for members','Purchasing history',],
@@ -525,7 +521,7 @@ List<Map<String,dynamic>> getListQuestionQuiz () => [
       ['Discounts','Free','Client-Experience','External Benefits','Affinity'],
       ['Cross-benefits from third party','Pecuniary benefits','Products or services offers','Partnerships based on client-centricity','Convenience, VIP...'],
     ],
-    'result' : {'Discounts' : 'Pecuniary benefits','Free' : 'Products or services offers','Client-Experience' : 'Convenience, VIP...','External Benefits' : 'Cross-benefits from third party','Affinity' : 'Partnerships based on client-centricity', },
+    'result' : ['Discounts / Pecuniary benefits','Free / Products or services offers','Client-Experience / Convenience, VIP...','External Benefits / Cross-benefits from third party','Affinity / Partnerships based on client-centricity',],
     'answered' : [
       ['Discounts','Free','Client-Experience','External Benefits','Affinity'],
       ['Cross-benefits from third party','Pecuniary benefits','Products or services offers','Partnerships based on client-centricity','Convenience, VIP...'],
@@ -573,7 +569,7 @@ List<Map<String,dynamic>> getListQuestionQuiz () => [
       ['Cost Advantage','Intangible Assets','Switching Costs','Efficient Scale','Network Effect'],
       ['One or two companies acting profitability in one market of limited size (e.g.: pipelines, airports).','Companies can make price wars and still keep their profitability (e.g.: UPS-FedEx).','Firms that bet on customer’s high inconvenience to change suppliers (e.g.: mortgages’, banks).','Platforms in which participants mutually benefit from others’ growth (e.g.: Apple Store, Amazon).','Firms that protect themselves with brands, patents and public licenses (e.g.: pharmaceuticals, Coca-Cola).'],
     ],
-    'result' : {'Cost Advantage' : 'Companies can make price wars and still keep their profitability (e.g.: UPS-FedEx).','Intangible Assets' : 'Firms that protect themselves with brands, patents and public licenses (e.g.: pharmaceuticals, Coca-Cola).','Switching Costs' : 'Firms that bet on customer’s high inconvenience to change suppliers (e.g.: mortgages’, banks).','Efficient Scale' : 'One or two companies acting profitability in one market of limited size (e.g.: pipelines, airports).','Network Effect' : 'Platforms in which participants mutually benefit from others’ growth (e.g.: Apple Store, Amazon).', },
+    'result' :[ 'Cost Advantage / Companies can make price wars and still keep their profitability (e.g.: UPS-FedEx).','Intangible Assets / Firms that protect themselves with brands, patents and public licenses (e.g.: pharmaceuticals, Coca-Cola).','Switching Costs / Firms that bet on customer’s high inconvenience to change suppliers (e.g.: mortgages’, banks).','Efficient Scale / One or two companies acting profitability in one market of limited size (e.g.: pipelines, airports).','Network Effect / Platforms in which participants mutually benefit from others’ growth (e.g.: Apple Store, Amazon).', ],
     'answered' : [
       ['Cost Advantage','Intangible Assets','Switching Costs','Efficient Scale','Network Effect'],
       ['One or two companies acting profitability in one market of limited size (e.g.: pipelines, airports).','Companies can make price wars and still keep their profitability (e.g.: UPS-FedEx).','Firms that bet on customer’s high inconvenience to change suppliers (e.g.: mortgages’, banks).','Platforms in which participants mutually benefit from others’ growth (e.g.: Apple Store, Amazon).','Firms that protect themselves with brands, patents and public licenses (e.g.: pharmaceuticals, Coca-Cola).'],
@@ -599,7 +595,7 @@ List<Map<String,dynamic>> getListQuestionQuiz () => [
       ['Core-competences','Important but not core','Not Important and commoditized'],
       ['Outsorced or Vendor-relations','Partnerships or Platforms','In-House'],
     ],
-    'result' : {'Core-competences' : 'In-House','Important but not core' : 'Partnerships or Platforms','Not Important and commoditized' : 'Outsorced or Vendor-relations'},
+    'result' : ['Core-competences / In-House','Important but not core / Partnerships or Platforms','Not Important and commoditized / Outsorced or Vendor-relations'],
     'answered' : [
       ['Core-competences','Important but not core','Not Important and commoditized'],
       ['Outsorced or Vendor-relations','Partnerships or Platforms','In-House'],
@@ -625,7 +621,7 @@ List<Map<String,dynamic>> getListQuestionQuiz () => [
       ['Physical Goods','Services','Technology','Network'],
       ['One-to-Many','One-to-One','Many-to-Many','One-to-One#'],
     ],
-    'result' : {'Physical Goods' : 'One-to-One','Services' : 'One-to-One#','Technology' : 'One-to-Many','Network' : 'Many-to-Many'},
+    'result' : ['Physical Goods / One-to-One','Services / One-to-One#','Technology / One-to-Many','Network / Many-to-Many'],
     'answered' : [
       ['Physical Goods','Services','Technology','Network'],
       ['One-to-Many','One-to-One','Many-to-Many','One-to-One#'],

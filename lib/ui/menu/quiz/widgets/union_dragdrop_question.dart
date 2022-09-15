@@ -160,6 +160,7 @@ class _UnionDragQuestionState extends State<UnionDragQuestion> {
               if((columns[dragC] as List).isEmpty){ dragC++; }
               setState(() {});
               actionKey(key: '2-$x');
+              quizProvider.change();
             }
           },
           builder: (_, candidateData, rejectedData) {

@@ -137,4 +137,8 @@ class QuizProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  void change(){
+    notifyListeners();
+  }
 }

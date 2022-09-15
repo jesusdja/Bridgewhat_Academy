@@ -24,6 +24,7 @@ class _QuizPageState extends State<QuizPage> {
 
   late QuizProvider quizProvider;
   bool isPageFinish = false;
+  double successQuestions = 0;
 
   @override
   void initState() {
@@ -64,7 +65,7 @@ class _QuizPageState extends State<QuizPage> {
                 bodyQuiz(),
                 Expanded(child: cardContainer(),)
               ],
-              if(isFinish)...[
+              if(isFinish && answeredRefresh())...[
                 buttonFinish()
               ]else...[
                 if(typeQuestion == TypeQuestion.multi)...[
@@ -185,8 +186,11 @@ class _QuizPageState extends State<QuizPage> {
       }
     }
 
+    debugPrint('page : ${quizProvider.posQuestion}');
+
     return PageView(
       controller: quizProvider.controllerPageView,
+      physics: answeredRefresh() ? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),
       scrollDirection: Axis.horizontal,
       children: listW,
       onPageChanged: (page){
@@ -199,6 +203,37 @@ class _QuizPageState extends State<QuizPage> {
     );
   }
 
+  bool answeredRefresh(){
+    bool result = false;
+    Map<String,dynamic> question = quizProvider.listQuestion[quizProvider.posQuestion];
+
+    if(question['type'] == TypeQuestion.simple){
+      result = question['answered'].toString().isNotEmpty;
+    }
+    if(question['type'] == TypeQuestion.multi){
+      result = question['answered'].toString().isNotEmpty;
+    }
+    if(question['type'] == TypeQuestion.union){
+      int cant = 0;
+      for (var element in (question['answered'] as List)) {
+        if((element as List).isNotEmpty){ cant++; }
+      }
+      result = cant == 1;
+    }
+    if(question['type'] == TypeQuestion.order){
+      List listCant = question['answered'];
+      bool equals = true;
+      for(int x = 0; x < listCant.length; x++){
+        if(question['answered'][x] != question['questions'][x]){
+          equals = false;
+        }
+      }
+      result = !equals;
+    }
+
+    return result;
+  }
+
   Widget buttonFinish(){
     return Container(
       width: sizeW,
@@ -209,8 +244,8 @@ class _QuizPageState extends State<QuizPage> {
         height: sizeH * 0.05,
         backgroundColor: AcademyColors.primary,
         textStyle: AcademyStyles().styleLato(size: sizeH * 0.02,color: Colors.white, fontWeight: FontWeight.bold),
-        onPressed: (){
-          goToFinish();
+        onPressed: () async {
+          await answeredFinish();
           isPageFinish = true;
           setState(() {});
         },
@@ -218,8 +253,59 @@ class _QuizPageState extends State<QuizPage> {
     );
   }
 
-  void goToFinish(){
+  Future answeredFinish() async{
+    int questionSuccess = 0;
+    List<Map<String,dynamic>> questions = quizProvider.listQuestion;
 
+    for (var question in questions) {
+      if(question['type'] == TypeQuestion.simple){
+        if(question['answered'] == question['result']){
+          questionSuccess++;
+        }
+      }
+      if(question['type'] == TypeQuestion.multi){
+        List data = question['answered'].toString().split('|');
+        bool allExists = true;
+        for (var element in data) {
+          if(!question['result'].toString().contains(element)){
+            allExists = false;
+          }
+        }
+        if(allExists && question['answered'].toString().split('|').length == question['result'].toString().split('|').length){
+          questionSuccess++;
+        }
+      }
+      if(question['type'] == TypeQuestion.union){
+        List<List<String>> listAnswered = question['answered'];
+        List<String> listResult = question['result'];
+
+        List<String> lastAnswered = listAnswered.last;
+        int cantTrue = 0;
+        for (var last in lastAnswered) {
+          for (var element in listResult) {
+            if(element.contains(last)){ cantTrue++; }
+          }
+        }
+        if(cantTrue == listResult.length){
+          questionSuccess++;
+        }
+      }
+      if(question['type'] == TypeQuestion.order){
+        List listCant = question['answered'];
+        bool equals = true;
+        for(int x = 0; x < listCant.length; x++){
+          if(question['answered'][x] != question['result'][x]){
+            equals = false;
+          }
+        }
+        if(equals){
+          questionSuccess++;
+        }
+      }
+    }
+
+    successQuestions = (questionSuccess * 100) / 50;
+    setState(() {});
   }
 
   Widget pageFinish(){
@@ -261,7 +347,7 @@ class _QuizPageState extends State<QuizPage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   SizedBox(height: sizeH * 0.02,),
-                  Text('80%',style: AcademyStyles().stylePoppins(size: sizeH * 0.05,color: AcademyColors.primary,fontWeight: FontWeight.bold),),
+                  Text('${successQuestions.toStringAsFixed(0)}%',style: AcademyStyles().stylePoppins(size: sizeH * 0.05,color: AcademyColors.primary,fontWeight: FontWeight.bold),),
                   Text('HIGH',style: AcademyStyles().stylePoppins(size: sizeH * 0.025,color: AcademyColors.primary),),
                   SizedBox(height: sizeH * 0.02,),
                   Container(
@@ -275,11 +361,11 @@ class _QuizPageState extends State<QuizPage> {
                         color: AcademyColors.primary,
                       ),
                     ),
-                    child: const ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                       child: LinearProgressIndicator(
-                        value: 0.8,
-                        valueColor: AlwaysStoppedAnimation<Color>(AcademyColors.primary),
+                        value: (successQuestions / 100),
+                        valueColor: const AlwaysStoppedAnimation<Color>(AcademyColors.primary),
                         backgroundColor: Colors.white,
                       ),
                     ),
@@ -320,30 +406,32 @@ class _QuizPageState extends State<QuizPage> {
             ),
           ),
           SizedBox(height: sizeH * 0.02,),
-          Container(
-            width: sizeW,
-            margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
-            child: ButtonGeneral(
-              title: 'Share on Linkedin',
-              textStyle: AcademyStyles().styleLato(size: 16,color: Colors.white,fontWeight: FontWeight.bold),
+          if(successQuestions > 50.0)...[
+            Container(
+              width: sizeW,
+              margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
+              child: ButtonGeneral(
+                title: 'Share on Linkedin',
+                textStyle: AcademyStyles().styleLato(size: 16,color: Colors.white,fontWeight: FontWeight.bold),
 
-              onPressed: (){},
-              backgroundColor: AcademyColors.primary,
-              height: sizeH * 0.05,
-              widgetLatDer: Container(
-                height: sizeH * 0.03,
-                width: sizeH * 0.03,
-                margin: EdgeInsets.only(left: sizeW * 0.18,right: sizeW * 0.01),
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: Image.asset('assets/image/shared1_white.png').image,
-                        fit: BoxFit.fitWidth
-                    )
+                onPressed: (){},
+                backgroundColor: AcademyColors.primary,
+                height: sizeH * 0.05,
+                widgetLatDer: Container(
+                  height: sizeH * 0.03,
+                  width: sizeH * 0.03,
+                  margin: EdgeInsets.only(left: sizeW * 0.18,right: sizeW * 0.01),
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: Image.asset('assets/image/shared1_white.png').image,
+                          fit: BoxFit.fitWidth
+                      )
+                  ),
                 ),
+                widgetLatIzq: Container(margin: EdgeInsets.only(right: sizeW * 0.15)),
               ),
-              widgetLatIzq: Container(margin: EdgeInsets.only(right: sizeW * 0.15)),
-            ),
-          )
+            )
+          ],
         ],
       ),
     );
