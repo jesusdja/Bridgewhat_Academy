@@ -83,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
               Container(
                 width: sizeW,
                 margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
-                child: Text('Fort your password?',
+                child: Text('Forgot your password?',
                   style: AcademyStyles().styleLato(
                       color: AcademyColors.primary,size: sizeH * 0.02
                   ),textAlign: TextAlign.left),

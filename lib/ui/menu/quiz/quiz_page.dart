@@ -23,8 +23,8 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
 
   late QuizProvider quizProvider;
-  bool isPageFinish = false;
-  double successQuestions = 0;
+  bool isPageFinish = true;
+  double successQuestions = 91;
 
   @override
   void initState() {
@@ -51,7 +51,9 @@ class _QuizPageState extends State<QuizPage> {
         body: Column(
           children: [
             if(isPageFinish)...[
-              pageFinish(),
+              Expanded(
+                child: pageFinish(),
+              )
             ]else...[
               SizedBox(height: sizeH * 0.01,),
               headerContainer(),
@@ -312,6 +314,13 @@ class _QuizPageState extends State<QuizPage> {
 
     TextStyle style = AcademyStyles().styleLato(size: 14,color: AcademyColors.colors_787878);
 
+    String urlImage = 'podium_0';
+    if(successQuestions >= 41 && successQuestions <= 50){ urlImage = 'podium_1'; }
+    if(successQuestions >= 51 && successQuestions <= 75){ urlImage = 'podium_2'; }
+    if(successQuestions >= 76 && successQuestions <= 90){ urlImage = 'podium_3'; }
+    if(successQuestions >= 91 && successQuestions <= 99){ urlImage = 'podium_4'; }
+    if(successQuestions >= 100){ urlImage = 'podium_5'; }
+
     return SizedBox(
       width: sizeW,
       child: Column(
@@ -329,13 +338,23 @@ class _QuizPageState extends State<QuizPage> {
           ),
           Container(
             width: sizeW,
-            margin: EdgeInsets.symmetric(horizontal: sizeW * 0.2),
+            margin: EdgeInsets.symmetric(horizontal: sizeW * 0.15),
             child: Text('Thank you for taking the Bridgewhat Acquisition quiz',
-            style: AcademyStyles().stylePoppins(
-              size: 20,
-              color: AcademyColors.colors_787878,
-              fontWeight: FontWeight.bold
-            ),textAlign: TextAlign.center),
+                style: AcademyStyles().stylePoppins(
+                    size: sizeH * 0.02,
+                    color: AcademyColors.colors_787878,
+                    fontWeight: FontWeight.bold
+                ),textAlign: TextAlign.center),
+          ),
+          SizedBox(height: sizeH * 0.01,),
+          Container(
+            width: sizeW,
+            margin: EdgeInsets.symmetric(horizontal: sizeW * 0.05),
+            child: Text('A minimum of 50% score is needed to be able to share',
+                style: AcademyStyles().stylePoppins(
+                    size: sizeH * 0.014,
+                    color: AcademyColors.primary,
+                ),textAlign: TextAlign.center),
           ),
           SizedBox(height: sizeH * 0.03,),
           Container(
@@ -376,31 +395,41 @@ class _QuizPageState extends State<QuizPage> {
               ),
             ),
           ),
-          SizedBox(height: sizeH * 0.025,),
+          SizedBox(
+            width: sizeW,
+            child: Center(
+              child: Container(
+                height: sizeH * 0.2,
+                width: sizeH * 0.2,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: Image.asset('assets/image/$urlImage.png').image,
+                      fit: BoxFit.fitWidth
+                  ),
+                ),
+              ),
+            ),
+          ),
           SizedBox(
             width: sizeW,
             child: Text("There's work to do!",textAlign: TextAlign.center,
                 style: AcademyStyles().styleLato(size: 14,color: AcademyColors.primary)),
           ),
           SizedBox(height: sizeH * 0.02,),
-          SizedBox(
-            height: sizeH * 0.35,
-            width: sizeW,
-            child: Expanded(
-              child: Container(
-                width: sizeW,
-                margin: EdgeInsets.symmetric(horizontal: sizeW * 0.05),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Text('Bridgewhat’s mission is to help other companies grow their businesses in a B2B digital transformation context. We have developed 20 Levers of Growth organised around 5 stages of client engagement in a bid to help companies understand how they can grow.',style: style,),
-                      SizedBox(height: sizeH * 0.02,),
-                      Text('The acquisition phase is the second stage, and it is a key part of developing a successful business. Being knowleagable about how to acquire your clients is vital if you want to succeed. In this phase, companies should concentrate efforts on going after clients and converting potential customers into their effective customers.',style: style,),
-                      SizedBox(height: sizeH * 0.02,),
-                      Text('If you wish you learn more about the Acqusition phase and how to implement the 20 LOG, use the buttons below to watch our YouTube videos, follow us in LinkedIn or email us.',style: style,),
-                      SizedBox(height: sizeH * 0.02,),
-                    ],
-                  ),
+          Expanded(
+            child: Container(
+              width: sizeW,
+              margin: EdgeInsets.symmetric(horizontal: sizeW * 0.05),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Text('Bridgewhat’s mission is to help other companies grow their businesses in a B2B digital transformation context. We have developed 20 Levers of Growth organised around 5 stages of client engagement in a bid to help companies understand how they can grow.',style: style,),
+                    SizedBox(height: sizeH * 0.02,),
+                    Text('The acquisition phase is the second stage, and it is a key part of developing a successful business. Being knowleagable about how to acquire your clients is vital if you want to succeed. In this phase, companies should concentrate efforts on going after clients and converting potential customers into their effective customers.',style: style,),
+                    SizedBox(height: sizeH * 0.02,),
+                    Text('If you wish you learn more about the Acqusition phase and how to implement the 20 LOG, use the buttons below to watch our YouTube videos, follow us in LinkedIn or email us.',style: style,),
+                    SizedBox(height: sizeH * 0.02,),
+                  ],
                 ),
               ),
             ),
