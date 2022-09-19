@@ -33,4 +33,10 @@ class AcademyColors {
   static const Color colorsLeversObscure = Color(0xF01B4570);
 
   static const Color colorsLeversCeleste = Color(0xF095C4E9);
+
+  static const Color colorsTabbar1 = Color(0xF05AAEDD);
+  static const Color colorsTabbar2 = Color(0xF01294D5);
+  static const Color colorsTabbar3 = Color(0xF00474C0);
+  static const Color colorsTabbar4 = Color(0xF00B5C9A);
+  static const Color colorsTabbar5 = Color(0xF0014576);
 }
