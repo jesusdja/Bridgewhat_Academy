@@ -1,28 +1,17 @@
-
 import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
-import 'package:academybw/widgets_shared/appbar_widgets.dart';
-import 'package:academybw/widgets_shared/widgets_shared.dart';
-import 'package:animate_do/animate_do.dart';
+import 'package:academybw/ui/menu/levers/levers_page.dart';
 import 'package:flutter/material.dart';
 
-class LeversPage extends StatefulWidget {
-  const LeversPage({
-    Key? key,
-    this.type,
-  }) : super(key: key);
-
-  final String? type;
+class Tabbar extends StatefulWidget {
+  const Tabbar({Key? key}) : super(key: key);
 
   @override
-  State<LeversPage> createState() => _LeversPageState();
+  State<Tabbar> createState() => _TabbarState();
 }
 
-class _LeversPageState extends State<LeversPage> {
-
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-  String title1 = 'To create a common language on how to grow, Bridgewhat developed a proprietary framework that includes 20 Levers of Growth (20 LOG) organised around five stages of client engagement - Attraction, Acquisition, ARPU, Retention, Referrals.\n\nTo see the BridgeWhat 20 LOG and their connection to the 5 stages of client engagement, please click the animated loop.';
+class _TabbarState extends State<Tabbar> {
 
   Map<int,String> mapTitle = {
     1 : 'ATRACTION',
@@ -79,78 +68,126 @@ class _LeversPageState extends State<LeversPage> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Scaffold(
-          key: scaffoldKey,
-          backgroundColor: widget.type == null ?  Colors.white : Colors.transparent,
-          body: Column(
-            children: [
-              if(widget.type == null)...[
-                headerShared(context: context,color: AcademyColors.colorsLeversObscure,scaffoldKey: scaffoldKey,viewSca: false),
-              ],
-              Expanded(
-                child: SizedBox(
-                  width: sizeW,
-                  child: Column(
-                    children: [
-                      if(widget.type == null)...[
-                        Container(
-                            margin: EdgeInsets.symmetric(horizontal: sizeW * 0.06),
-                            child: bannerTitle(type: 6)
-                        ),
-                        SizedBox(height: sizeH * 0.04),
-                      ],
-                      Expanded(
-                        child: cardContainer(),
-                      ),
-                    ],
-                  ),
-                ),
-              )
-            ],
-          )
-      )
-    );
-  }
-
-  Widget cardContainer(){
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      child: Column(
+    return SizedBox(
+      width: sizeW,
+      child: Row(
         children: [
-          if(widget.type == null)...[
-            BounceInUp(
-              duration: const Duration(milliseconds: 1200),
-              child: Container(
-                margin: EdgeInsets.symmetric(horizontal: sizeW * 0.06),
-                width: sizeH * 0.35,
-                height: sizeH * 0.35,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: Image.asset('assets/image/logo_levers_animation.GIF').image,
-                      fit: BoxFit.fitWidth
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: sizeW * 0.06, vertical: sizeH * 0.02),
-              child: Text(title1,style: AcademyStyles().styleLato(size: sizeH * 0.02,color: AcademyColors.colors_1B4570)),
-            ),
-            container1(num: '1',title: 'ATRACTION', data: structure1[1]!),
-            container2(num: '2',title: 'ACQUISITION', data: structure2[1]!),
-            container1(num: '3',title: 'ARPU', data: structure1[2]!),
-            container2(num: '4',title: 'RETENTION', data: structure2[2]!),
-            container1(num: '5',title: 'REFERRALS', data: structure1[3]!),
-          ]else...[
-            container1(num: widget.type!,title: 'REFERRALS', data: structure1[3]!),
-          ]
+          Expanded(child: containerTabbar(type: 1),),
+          Expanded(child: containerTabbar(type: 2),),
+          Expanded(child: containerTabbar(type: 3),),
+          Expanded(child: containerTabbar(type: 4),),
+          Expanded(child: containerTabbar(type: 5),),
         ],
       ),
     );
   }
 
-  Widget container1({required String num, required title , required Map<String,String> data}){
+  Widget containerTabbar({required int type}){
+
+    Color colorBg = AcademyColors.colorsTabbar1;
+    String title = 'Attraction';
+    if(type == 2){
+      colorBg = AcademyColors.colorsTabbar2;
+      title = 'Acquisition';
+    }
+    if(type == 3){
+      colorBg = AcademyColors.colorsTabbar3;
+      title = 'ARPU';
+    }
+    if(type == 4){
+      colorBg = AcademyColors.colorsTabbar4;
+      title = 'Retention';
+    }
+    if(type == 5){
+      colorBg = AcademyColors.colorsTabbar5;
+      title = 'Referrals';
+    }
+
+    return InkWell(
+      onTap: (){ openShowBottom(type: type); },
+      child: Container(
+        color: colorBg,
+        height: sizeH * 0.1,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(height: sizeH * 0.01,),
+            Container(
+              width: sizeW,
+              height: sizeH * 0.04,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: Image.asset('assets/image/tabbar_$type.png').image,
+                      fit: BoxFit.fitHeight
+                  )
+              ),
+            ),
+            SizedBox(height: sizeH * 0.01,),
+            SizedBox(
+              width: sizeW,
+              height: sizeH * 0.025,
+              child: Text(title,style: AcademyStyles().styleLato(size: sizeH * 0.016,color: Colors.white),maxLines: 1,textAlign: TextAlign.center),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void openShowBottom({required int type}){
+    showModalBottomSheet<void>(
+        context: context,
+        isDismissible: false,
+        isScrollControlled: true,
+        enableDrag: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(50.0),topRight: Radius.circular(50.0),
+            bottomLeft: Radius.circular(0.0),bottomRight: Radius.circular(0.0),
+          ),
+        ),
+        builder: (context){
+          return Container(
+            width: sizeW,
+            height: sizeH * 0.6,
+            decoration: const BoxDecoration(
+              color: AcademyColors.colorsLeversObscure,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(50.0),topRight: Radius.circular(50.0),
+                bottomLeft: Radius.circular(0.0),bottomRight: Radius.circular(0.0),
+              ),
+            ),
+            child: ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(50.0),topRight: Radius.circular(50.0),
+                bottomLeft: Radius.circular(0.0),bottomRight: Radius.circular(0.0),
+              ),
+              child: Column(
+                children: [
+                  Container(
+                    width: sizeW,
+                    color: AcademyColors.colorsLeversObscure,
+                    height: sizeH * 0.05,
+                  ),
+                  Expanded(
+                    child: LeversPage(type: type.toString()),
+                  )
+                ],
+              ),
+            ),
+          );
+        }
+    );
+  }
+
+  Widget container1({required String num, required title}){
+
+    Map<String,String> data = {};
+    if(num == '1'){ data = structure1[1]!; }
+    if(num == '2'){ data = structure2[1]!; }
+    if(num == '3'){ data = structure1[2]!; }
+    if(num == '4'){ data = structure2[2]!; }
+    if(num == '5'){ data = structure1[3]!; }
 
     List<Widget> listW = [];
     bool isPar = false;
@@ -164,8 +201,6 @@ class _LeversPageState extends State<LeversPage> {
       ));
       isPar = !isPar;
     });
-
-
     return Container(
       width: sizeW,
       padding: const EdgeInsets.all(20),
@@ -296,25 +331,27 @@ class _LeversPageState extends State<LeversPage> {
               width: sizeW * 0.25,
               child: Center(
                 child: Text(title,style: AcademyStyles().stylePoppins(
-                  size: sizeH * 0.025,color: Colors.white
+                    size: sizeH * 0.025,color: Colors.white
                 )),
               ),
             ),
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(title2,style: AcademyStyles().stylePoppins(
-                      size: sizeH * 0.018,color: Colors.white
-                  )),
-                  Text(subTitle,style: AcademyStyles().stylePoppins(
-                      size: sizeH * 0.015,color: Colors.white
-                  )),
-                  !openText[title]! ? Container() :
-                  Text(subTitle2,style: AcademyStyles().stylePoppins(
-                      size: sizeH * 0.015,color: Colors.white
-                  )),
-                ],
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(title2,style: AcademyStyles().stylePoppins(
+                        size: sizeH * 0.018,color: Colors.white
+                    )),
+                    Text(subTitle,style: AcademyStyles().stylePoppins(
+                        size: sizeH * 0.015,color: Colors.white
+                    )),
+                    !openText[title]! ? Container() :
+                    Text(subTitle2,style: AcademyStyles().stylePoppins(
+                        size: sizeH * 0.015,color: Colors.white
+                    )),
+                  ],
+                ),
               ),
             )
           ],
@@ -323,4 +360,3 @@ class _LeversPageState extends State<LeversPage> {
     );
   }
 }
-

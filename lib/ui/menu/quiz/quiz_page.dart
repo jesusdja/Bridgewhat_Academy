@@ -6,6 +6,7 @@ import 'package:academybw/ui/menu/quiz/widgets/card_question.dart';
 import 'package:academybw/ui/menu/quiz/widgets/order_question.dart';
 import 'package:academybw/ui/menu/quiz/widgets/roulette_widget.dart';
 import 'package:academybw/ui/menu/quiz/widgets/union_dragdrop_question.dart';
+import 'package:academybw/ui/menu/videos/widgets/tabbar_widget.dart';
 import 'package:academybw/utils/get_data.dart';
 import 'package:academybw/widgets_shared/button_general.dart';
 import 'package:academybw/widgets_shared/circular_progress_colors.dart';
@@ -87,117 +88,11 @@ class _QuizPageState extends State<QuizPage> {
                   )
                 ],
               ],
-              tabbar(),
+              const Tabbar(),
             ],
           ],
         ),
       ),
-    );
-  }
-
-  Widget tabbar(){
-    return Container(
-      width: sizeW,
-      child: Row(
-        children: [
-          Expanded(child: containerTabbar(type: 1),),
-          Expanded(child: containerTabbar(type: 2),),
-          Expanded(child: containerTabbar(type: 3),),
-          Expanded(child: containerTabbar(type: 4),),
-          Expanded(child: containerTabbar(type: 5),),
-        ],
-      ),
-    );
-  }
-
-  Widget containerTabbar({required int type}){
-
-    Color colorBg = AcademyColors.colorsTabbar1;
-    String title = 'Attraction';
-    if(type == 2){
-      colorBg = AcademyColors.colorsTabbar2;
-      title = 'Acquisition';
-    }
-    if(type == 3){
-      colorBg = AcademyColors.colorsTabbar3;
-      title = 'ARPU';
-    }
-    if(type == 4){
-      colorBg = AcademyColors.colorsTabbar4;
-      title = 'Retention';
-    }
-    if(type == 5){
-      colorBg = AcademyColors.colorsTabbar5;
-      title = 'Referrals';
-    }
-
-    return InkWell(
-      onTap: (){ openShowBottom(); },
-      child: Container(
-        color: colorBg,
-        height: sizeH * 0.1,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(height: sizeH * 0.01,),
-            Container(
-              width: sizeW,
-              height: sizeH * 0.04,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: Image.asset('assets/image/tabbar_$type.png').image,
-                      fit: BoxFit.fitHeight
-                  )
-              ),
-            ),
-            SizedBox(height: sizeH * 0.01,),
-            SizedBox(
-              width: sizeW,
-              height: sizeH * 0.025,
-              child: Text(title,style: AcademyStyles().styleLato(size: sizeH * 0.016,color: Colors.white),maxLines: 1,textAlign: TextAlign.center),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void openShowBottom(){
-    showModalBottomSheet<void>(
-        context: context,
-        isDismissible: false,
-        isScrollControlled: true,
-        enableDrag: true,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(50.0),topRight: Radius.circular(50.0),
-            bottomLeft: Radius.circular(0.0),bottomRight: Radius.circular(0.0),
-          ),
-        ),
-        builder: (context){
-          return Container(
-            width: sizeW,
-            height: sizeH * 0.8,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(50.0),topRight: Radius.circular(50.0),
-                bottomLeft: Radius.circular(0.0),bottomRight: Radius.circular(0.0),
-              ),
-            ),
-            child: Container(
-              margin: EdgeInsets.only(top: sizeH * 0.05,right: sizeW * 0.1,left: sizeW * 0.1),
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(height: sizeH * 0.5,),
-                  ],
-                ),
-              ),
-            ),
-          );
-        }
     );
   }
 
