@@ -29,8 +29,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    controllerEmail = TextEditingController(text: 'bridgewhat-frontend@wbotests.com');
-    controllerPass = TextEditingController(text: "z9e;u3RyQWvr]H3'");
   }
 
   @override
@@ -200,13 +198,18 @@ class _LoginPageState extends State<LoginPage> {
       errorText = 'Contraseña no puede estar vacia.';
     }
     if(errorText.isEmpty){
-      bool res = await HttpConnection().login(email: controllerEmail.text, password: controllerPass.text);
-      if(res){
-        if(checkRemember){
-          SharedPreferencesLocal.prefs.setBool('AcademyLogin',false);
+      Map<String,dynamic> body = {
+        'email' : controllerEmail.text,
+        'password' : controllerPass.text,
+      };
+      if(await HttpConnection().login(body: body)){
+        if(await HttpConnection().loginStatic()){
+          if(checkRemember){
+            SharedPreferencesLocal.prefs.setBool('AcademyLogin',false);
+          }
+          Navigator.pushReplacement(context, MaterialPageRoute(builder:
+              (BuildContext context) => const HomePage()));
         }
-        Navigator.pushReplacement(context, MaterialPageRoute(builder:
-            (BuildContext context) => const HomePage()));
       }
     }else{
       showAlert(text: errorText,isError: true);

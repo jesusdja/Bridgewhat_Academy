@@ -22,6 +22,7 @@ class TextFieldGeneral extends StatefulWidget {
   final FocusNode? focusNode;
   final TextAlign textAlign;
   final TextStyle labelStyle;
+  final TextStyle errorStyle;
   final List<BoxShadow>? boxShadow;
   final EdgeInsetsGeometry padding;
   final TextCapitalization textCapitalization;
@@ -34,6 +35,7 @@ class TextFieldGeneral extends StatefulWidget {
   final void Function(String)? onChanged;
   final void Function()? onTap;
   final void Function(String)? onFieldSubmitted;
+  final String? Function(String?)? validator;
   final EdgeInsetsGeometry contentPadding;
 
   const TextFieldGeneral({
@@ -52,9 +54,11 @@ class TextFieldGeneral extends StatefulWidget {
     this.focusNode,
     this.onTap,
     this.onFieldSubmitted,
+    this.validator,
     this.sizeHeight = 0,
     this.textAlign = TextAlign.left,
     this.labelStyle = const TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
+    this.errorStyle = const TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.red),
     this.boxShadow,
     this.sizeBorder = 1.5,
     this.suffixIcon,
@@ -112,6 +116,7 @@ class _TextFieldGeneralState extends State<TextFieldGeneral> {
         textInputAction: widget.textInputAction,
         inputFormatters: widget.inputFormatters,
         autovalidateMode: AutovalidateMode.onUserInteraction,
+        validator: widget.validator,
         decoration: InputDecoration(
           filled: true,
           fillColor: widget.colorBack,
@@ -132,7 +137,7 @@ class _TextFieldGeneralState extends State<TextFieldGeneral> {
           suffixIcon: widget.suffixIcon,
           labelText: widget.placeHolder,
           labelStyle: widget.labelStyle,
-          errorStyle: widget.labelStyle,
+          errorStyle: widget.errorStyle,
           hintText: widget.hintText,
           hintStyle: widget.labelStyle,
           prefixIcon: widget.prefixIcon,

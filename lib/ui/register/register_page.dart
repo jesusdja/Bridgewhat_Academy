@@ -1,8 +1,12 @@
 import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
+import 'package:academybw/services/http_connection.dart';
+import 'package:academybw/services/shared_preferences.dart';
+import 'package:academybw/ui/home/home_page.dart';
 import 'package:academybw/ui/login/login_page.dart';
 import 'package:academybw/widgets_shared/button_general.dart';
+import 'package:academybw/widgets_shared/circular_progress_colors.dart';
 import 'package:academybw/widgets_shared/dropdown_button_generic.dart';
 import 'package:academybw/widgets_shared/textfield_general.dart';
 import 'package:academybw/widgets_shared/toast_widget.dart';
@@ -20,14 +24,18 @@ class _RegisterPageState extends State<RegisterPage> {
   bool obscurePass = true;
   bool checkPrivacy = false;
   bool checkSendInfo = false;
+  bool loadSaveData = false;
   TextEditingController controllerName = TextEditingController();
   TextEditingController controllerLastName = TextEditingController();
   TextEditingController controllerEmail = TextEditingController();
+  TextEditingController controllerPass = TextEditingController();
   TextEditingController controllerCompanyName = TextEditingController();
 
   List<String> items = ['job function', 'items 1', 'items 2', 'items 3'];
   String itemSelect = 'job function';
   late TextStyle styleTextField;
+
+  final globalKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -38,92 +46,193 @@ class _RegisterPageState extends State<RegisterPage> {
     return GestureDetector(
       onTap: ()=> FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            children: [
-              SizedBox(height: sizeH * 0.02,),
-              iconApp(),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
-                child: TextFieldGeneral(
-                  textEditingController: controllerName,
-                  initialValue: null,
-                  radius: 5,
-                  borderColor: AcademyColors.primaryGreyApp,
-                  sizeBorder: 1.5,
-                  hintText: 'Name *',
-                  labelStyle: styleTextField,
-                  textInputType: TextInputType.name,
+        body: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Form(
+                  key: globalKey,
+                  child: Column(
+                    children: [
+                      SizedBox(height: sizeH * 0.02,),
+                      iconApp(),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
+                        child: TextFieldGeneral(
+                          textEditingController: controllerName,
+                          initialValue: null,
+                          radius: 5,
+                          borderColor: AcademyColors.primaryGreyApp,
+                          sizeBorder: 1.5,
+                          hintText: 'Name *',
+                          labelStyle: styleTextField,
+                          textInputType: TextInputType.name,
+                          validator: (value){
+                            if(value!.isEmpty){
+                              return 'required field';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      SizedBox(height: sizeH * 0.025,),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
+                        child: TextFieldGeneral(
+                          textEditingController: controllerLastName,
+                          initialValue: null,
+                          radius: 5,
+                          borderColor: AcademyColors.primaryGreyApp,
+                          sizeBorder: 1.5,
+                          hintText: 'Last name *',
+                          labelStyle: styleTextField,
+                          textInputType: TextInputType.name,
+                          validator: (value){
+                            if(value!.isEmpty){
+                              return 'required field';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      SizedBox(height: sizeH * 0.025,),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
+                        child: TextFieldGeneral(
+                          textEditingController: controllerEmail,
+                          initialValue: null,
+                          radius: 5,
+                          borderColor: AcademyColors.primaryGreyApp,
+                          sizeBorder: 1.5,
+                          hintText: 'E-mail *',
+                          labelStyle: styleTextField,
+                          textInputType: TextInputType.emailAddress,
+                          validator: (value){
+                            if(value!.isEmpty){
+                              return 'required field';
+                            }
+                            if(!validateEmailAddress(email: value, )['valid']){
+                              return 'Email no valid';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      SizedBox(height: sizeH * 0.025,),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
+                        child: TextFieldGeneral(
+                          textEditingController: controllerPass,
+                          initialValue: null,
+                          radius: 5,
+                          borderColor: AcademyColors.primaryGreyApp,
+                          sizeBorder: 1.5,
+                          hintText: 'Password *',
+                          labelStyle: styleTextField,
+                          textInputType: TextInputType.visiblePassword,
+                          obscure: obscurePass,
+                          suffixIcon: IconButton(
+                            icon: Icon(obscurePass ? Icons.remove_red_eye_outlined : Icons.remove_red_eye,size: sizeH * 0.03,color: AcademyColors.primary),
+                            onPressed: (){ setState(() { obscurePass = !obscurePass; }); },
+                          ),
+                          validator: (value){
+                            if(value!.isEmpty){
+                              return 'required field';
+                            }
+                            // if(!validateEmailAddress(email: value, )['valid']){
+                            //   return 'Email no valid';
+                            // }
+                            return null;
+                          },
+                        ),
+                      ),
+                      SizedBox(height: sizeH * 0.025,),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
+                        child: TextFieldGeneral(
+                          textEditingController: controllerCompanyName,
+                          initialValue: null,
+                          radius: 5,
+                          borderColor: AcademyColors.primaryGreyApp,
+                          sizeBorder: 1.5,
+                          hintText: 'Company name',
+                          labelStyle: styleTextField,
+                          textInputType: TextInputType.name,
+                          validator: (value){
+                            if(value!.isEmpty){
+                              return 'required field';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      // SizedBox(height: sizeH * 0.025,),
+                      // dropdownButton(),
+                      SizedBox(height: sizeH * 0.07,),
+                      goToRegister(),
+                      SizedBox(height: sizeH * 0.01,),
+                      privacyCheck(),
+                      receiveInformationCheck(),
+                    ],
+                  ),
                 ),
               ),
-              SizedBox(height: sizeH * 0.025,),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
-                child: TextFieldGeneral(
-                  textEditingController: controllerLastName,
-                  initialValue: null,
-                  radius: 5,
-                  borderColor: AcademyColors.primaryGreyApp,
-                  sizeBorder: 1.5,
-                  hintText: 'Last name *',
-                  labelStyle: styleTextField,
-                  textInputType: TextInputType.name,
-                ),
+            ),
+            SizedBox(height: sizeH * 0.025,),
+            loadSaveData ?
+            SizedBox(
+              width: sizeW,
+              child: Center(
+                child: circularProgressColors(widthContainer1: sizeW,widthContainer2: sizeH * 0.03,colorCircular: AcademyColors.primary),
               ),
-              SizedBox(height: sizeH * 0.025,),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
-                child: TextFieldGeneral(
-                  textEditingController: controllerEmail,
-                  initialValue: null,
-                  radius: 5,
-                  borderColor: AcademyColors.primaryGreyApp,
-                  sizeBorder: 1.5,
-                  hintText: 'E-mail *',
-                  labelStyle: styleTextField,
-                  textInputType: TextInputType.emailAddress,
-                ),
-              ),
-              SizedBox(height: sizeH * 0.025,),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
-                child: TextFieldGeneral(
-                  textEditingController: controllerCompanyName,
-                  initialValue: null,
-                  radius: 5,
-                  borderColor: AcademyColors.primaryGreyApp,
-                  sizeBorder: 1.5,
-                  hintText: 'Company name',
-                  labelStyle: styleTextField,
-                  textInputType: TextInputType.name,
-                ),
-              ),
-              SizedBox(height: sizeH * 0.025,),
-              dropdownButton(),
-              SizedBox(height: sizeH * 0.025,),
-              goToRegister(),
-              SizedBox(height: sizeH * 0.01,),
-              privacyCheck(),
-              receiveInformationCheck(),
-              SizedBox(height: sizeH * 0.025,),
-              ButtonGeneral(
-                title: 'Continue',
-                margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
-                width: sizeW,
-                height: sizeH * 0.07,
-                backgroundColor: AcademyColors.primary,
-                textStyle: styleButtonText,
-                radius: 5,
-                onPressed: (){
+            )
+                :
+            ButtonGeneral(
+              title: 'Continue',
+              margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
+              width: sizeW,
+              height: sizeH * 0.07,
+              backgroundColor: AcademyColors.primary,
+              textStyle: styleButtonText,
+              radius: 5,
+              onPressed: () async {
+
+                loadSaveData = true;
+                setState(() {});
+
+                if(globalKey.currentState!.validate()){
+                  if(checkPrivacy){
+
+                    Map<String,dynamic> body = {
+                      'name' : controllerName.text,
+                      'password' : controllerPass.text,
+                      'lastname' : controllerLastName.text,
+                      'email' : controllerEmail.text,
+                      'company' : controllerCompanyName.text,
+                      'jobfunction' : 'no/Job',
+                    };
+
+                    if(await HttpConnection().register(body: body)){
+                      if(await HttpConnection().loginStatic()){
+                        SharedPreferencesLocal.prefs.setBool('AcademyLogin',false);
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder:
+                            (BuildContext context) => const HomePage()));
+                      }
+                    }
+                  }else{
+                    showAlert(text: 'Check use and privacy policy',isError: true);
+                  }
+                }else{
                   showAlert(text: 'No registre',isError: true);
-                  // Navigator.pushReplacement(context, MaterialPageRoute(builder:
-                  //     (BuildContext context) => const HomePage()));
-                },
-              ),
-              SizedBox(height: sizeH * 0.03,),
-            ],
-          ),
+                }
+
+                loadSaveData = false;
+                setState(() {});
+              },
+            ),
+            SizedBox(height: sizeH * 0.03,),
+          ],
         ),
       ),
     );

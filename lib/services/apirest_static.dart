@@ -2,14 +2,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class Request extends http.BaseClient {
+class RequestStatic extends http.BaseClient {
   final http.Client _client = http.Client();
 
-  Request();
+  RequestStatic();
 
   Uri endpoint(String url) {
-    return Uri.parse("https://bridgewhat.ole.agency/backend/api/$url");
-    //return Uri.parse("https://platform-backend.staging.bridgewhat.com/public/api/$url");
+    return Uri.parse("https://platform-backend.staging.bridgewhat.com/public/api/$url");
   }
 
   void _logEndpoint(String method, String url) {
