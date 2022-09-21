@@ -24,7 +24,7 @@ class HttpConnection{
         SharedPreferencesLocal.prefs.setString('AcademyToken',value['success']['token']);
         return true;
       }else{
-        String errorText = 'Error de conexión con el servidor';
+        String errorText = 'Server connection error';
         if(value.containsKey('error')){
           errorText = value['error'];
         }
@@ -32,7 +32,7 @@ class HttpConnection{
       }
     }catch(e){
       debugPrint('HttpConnection-login ${e.toString()}');
-      showAlert(text: 'Error de conexión con el servidor',isError: true);
+      showAlert(text: 'Server connection error',isError: true);
     }
     return false;
   }
@@ -44,15 +44,18 @@ class HttpConnection{
       if (response.statusCode == 200) {
         return true;
       }else{
-        String errorText = 'Error de conexión con el servidor';
+        String errorText = 'Server connection error';
         if(value.containsKey('error')){
           errorText = value['error'];
+        }
+        if(response.statusCode == 201 && value.containsKey('message')){
+          errorText = 'the user has not been confirmed check your email';
         }
         showAlert(text: errorText,isError: true);
       }
     }catch(e){
       debugPrint('HttpConnection-login ${e.toString()}');
-      showAlert(text: 'Error de conexión con el servidor',isError: true);
+      showAlert(text: 'Server connection error',isError: true);
     }
     return false;
   }
@@ -66,7 +69,7 @@ class HttpConnection{
         //SharedPreferencesLocal.prefs.setString('AcademyToken',value['success']['token']);
         return true;
       }else{
-        String errorText = 'Error de conexión con el servidor';
+        String errorText = 'Server connection error';
         if(value.containsKey('error')){
           errorText = value['error'];
         }
@@ -74,7 +77,7 @@ class HttpConnection{
       }
     }catch(e){
       debugPrint('HttpConnection-login ${e.toString()}');
-      showAlert(text: 'Error de conexión con el servidor',isError: true);
+      showAlert(text: 'Server connection error',isError: true);
     }
     return false;
   }
