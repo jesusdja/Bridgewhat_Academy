@@ -203,13 +203,11 @@ class _LoginPageState extends State<LoginPage> {
         'password' : controllerPass.text,
       };
       if(await HttpConnection().login(body: body)){
-        if(await HttpConnection().loginStatic()){
-          if(checkRemember){
-            SharedPreferencesLocal.prefs.setBool('AcademyLogin',false);
-          }
-          Navigator.pushReplacement(context, MaterialPageRoute(builder:
-              (BuildContext context) => const HomePage()));
+        if(checkRemember){
+          SharedPreferencesLocal.prefs.setBool('AcademyLogin',false);
         }
+        Navigator.pushReplacement(context, MaterialPageRoute(builder:
+            (BuildContext context) => const HomePage()));
       }
     }else{
       showAlert(text: errorText,isError: true);

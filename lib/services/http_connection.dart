@@ -42,6 +42,7 @@ class HttpConnection{
       final response = await _client.post(Uri.parse('login'), body: body);
       Map<String,dynamic> value = jsonDecode(response.body);
       if (response.statusCode == 200) {
+        SharedPreferencesLocal.prefs.setString('AcademyToken',value['access_token']);
         return true;
       }else{
         String errorText = 'Server connection error';
@@ -86,7 +87,21 @@ class HttpConnection{
     Map<String,dynamic> data = {};
     headers['Authorization'] = getToken();
     try{
-      final response = await _clientStatic.get(Uri.parse('appmobile/blogs?$pageNew'),headers: headers);
+      final response = await _client.get(Uri.parse('appmobile/blogs?$pageNew'),headers: headers);
+      if (response.statusCode == 200) {
+        data = jsonDecode(response.body);
+      }
+    }catch(e){
+      debugPrint('HttpConnection-login ${e.toString()}');
+    }
+    return data;
+  }
+
+  Future<Map<String,dynamic>> getCartoonsAll() async{
+    Map<String,dynamic> data = {};
+    headers['Authorization'] = getToken();
+    try{
+      final response = await _client.get(Uri.parse('cartoon/getList'),headers: headers);
       if (response.statusCode == 200) {
         data = jsonDecode(response.body);
       }

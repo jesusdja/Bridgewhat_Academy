@@ -58,6 +58,8 @@ List<Color> colorsListQuestionUnion = [
 
 enum TypeQuestion {simple,multi,union,order}
 
+const String urlImgCartoons = 'https://bridgewhat.ole.agency/backend/storage/cartoons/';
+
 List<Map<String,dynamic>> getListQuestionQuiz () => [
   {
     'id' : 1,
