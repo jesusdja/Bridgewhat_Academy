@@ -317,11 +317,9 @@ class _CardPostContainerState extends State<CardPostContainer> {
 
   Widget cardBottom(){
 
-    String title = post['title'];
+    String title = post['title'] ?? '';
     String likeSt = '0  likes';// '${numberFormat(double.parse('${post['like']}')).split(',')[0]} likes';
     String sharedSt ='0  times shared'; // '${numberFormat(double.parse('${post['shared']}')).split(',')[0]} times shared';
-
-
 
     TextStyle style = AcademyStyles().styleLato(size: 12,color: Colors.black);
     TextStyle style2 = AcademyStyles().styleLato(size: 10,color: Colors.white);
@@ -484,7 +482,7 @@ class _CardPostContainerState extends State<CardPostContainer> {
 
   Widget textDescription(){
 
-    String description = post['description'];
+    String description = post['description'] ?? '';
 
     Widget textMore = Container();
 

@@ -87,7 +87,7 @@ class HttpConnection{
     Map<String,dynamic> data = {};
     headers['Authorization'] = getToken();
     try{
-      final response = await _client.get(Uri.parse('appmobile/blogs?$pageNew'),headers: headers);
+      final response = await _client.get(Uri.parse('posts/getList?$pageNew'),headers: headers);
       if (response.statusCode == 200) {
         data = jsonDecode(response.body);
       }
