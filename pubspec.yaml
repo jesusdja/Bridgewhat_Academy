@@ -22,7 +22,7 @@ dependencies:
   google_fonts: ^2.0.0
   video_player: ^2.4.5
   #flick_video_player: ^0.5.0
-  flutter_inappwebview: ^5.4.3+7
+  webview_flutter: ^3.0.4
   animate_do: ^2.1.0
 
   #DATA
