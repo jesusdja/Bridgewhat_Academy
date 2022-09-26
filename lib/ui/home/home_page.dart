@@ -2,7 +2,6 @@ import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
 import 'package:academybw/ui/home/provider/menu_provider.dart';
-import 'package:academybw/ui/menu/demo/demo_page_2.dart';
 import 'package:academybw/ui/menu/post/provider/post_provider.dart';
 import 'package:academybw/services/finish_app.dart';
 import 'package:academybw/ui/home/send_email.dart';
@@ -245,10 +244,7 @@ class _HomePageState extends State<HomePage> {
         if(type == 0){ menuProvider.changeMenu(MenuStatus.news); }
         if(type == 1){ menuProvider.changeMenu(MenuStatus.log); }
         if(type == 2){ menuProvider.changeMenu(MenuStatus.cartoons); }
-        if(type == 3){
-          Navigator.push(context,MaterialPageRoute<void>(
-              builder: (context) => const DemoPage2()),);
-        }
+        if(type == 3){ menuProvider.changeMenu(MenuStatus.demo); }
       },
       child: Container(
         width: sizeW,

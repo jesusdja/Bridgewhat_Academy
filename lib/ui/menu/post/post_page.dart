@@ -201,57 +201,78 @@ class _CardPostContainerState extends State<CardPostContainer> {
 
   Widget cardPostTop(){
 
-    String nameUser = post['user']['name'] ?? '';
-    String cantFollowers = '0 followers'; //'${numberFormat(double.parse('${post['followers']}')).split(',')[0]} followers';
-    String lecture = '0 min lecture';// '${post['lecture']} min lecture';
+    String nameUser = post['user']['company_name'] ?? '';
+    String cantFollowers = '';// '0 followers'; //'${numberFormat(double.parse('${post['followers']}')).split(',')[0]} followers';
+    String lecture = '';// '0 min lecture';// '${post['lecture']} min lecture';
     DateTime dateDT = DateTime.parse(post['createdAt']);
     String dateSt = '${dateDT.day.toString().padLeft(2,'0')}/${dateDT.month.toString().padLeft(2,'0')}/${dateDT.year}';
 
+    Widget urlLogo = Container(
+      height: sizeH * 0.07,
+      width: sizeH * 0.07,
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: Image.asset('assets/image/img_acenture.png').image,
+              fit: BoxFit.fitWidth
+          )
+      ),
+    );
+    if(post.containsKey('user') && post['user'] != null && post['user'].containsKey('company_logo') && post['user']['company_logo'] != null && post['user']['company_logo'].toString().isNotEmpty) {
+      urlLogo = Container(
+        height: sizeH * 0.07,
+        width: sizeH * 0.07,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: Image.network('https://platform-backend.bridgewhat.com/public/${post['user']['company_logo']}').image,
+                fit: BoxFit.fitWidth
+            )
+        ),
+      );
+    }
+
     return Container(
       width: sizeW,
-      margin: EdgeInsets.only(bottom: sizeH * 0.015),
+      margin: EdgeInsets.only(bottom: sizeH * 0.00),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            height: sizeH * 0.07,
-            width: sizeH * 0.07,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: Image.asset('assets/image/img_acenture.png').image,
-                    fit: BoxFit.fitWidth
-                )
-            ),
-          ),
+          urlLogo,
           SizedBox(width: sizeW * 0.02,),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-
-            children: [
-              Text(nameUser,style: AcademyStyles().styleLato(
-                  size: sizeH * 0.02,
-                  color: AcademyColors.colors_787878
-              )),
-              Text(cantFollowers,style: AcademyStyles().styleLato(
-                  size: sizeH * 0.015,
-                  color: AcademyColors.colors_737373
-              )),
-            ],
-          ),
+          Text(nameUser,style: AcademyStyles().styleLato(
+              size: sizeH * 0.02,
+              color: AcademyColors.colors_787878
+          )),
+          // Column(
+          //   crossAxisAlignment: CrossAxisAlignment.start,
+          //   children: [
+          //     Text(nameUser,style: AcademyStyles().styleLato(
+          //         size: sizeH * 0.02,
+          //         color: AcademyColors.colors_787878
+          //     )),
+          //     // Text(cantFollowers,style: AcademyStyles().styleLato(
+          //     //     size: sizeH * 0.015,
+          //     //     color: AcademyColors.colors_737373
+          //     // )),
+          //   ],
+          // ),
           Expanded(child: Container()),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(lecture,style: AcademyStyles().styleLato(
-                  size: sizeH * 0.015,
-                  color: AcademyColors.colors_737373
-              )),
-              Text(dateSt,style: AcademyStyles().styleLato(
-                  size: sizeH * 0.015,
-                  color: AcademyColors.colors_737373
-              )),
-            ],
-          )
+          Text(dateSt,style: AcademyStyles().styleLato(
+              size: sizeH * 0.015,
+              color: AcademyColors.colors_737373
+          )),
+          // Column(
+          //   crossAxisAlignment: CrossAxisAlignment.start,
+          //   children: [
+          //     // Text(lecture,style: AcademyStyles().styleLato(
+          //     //     size: sizeH * 0.015,
+          //     //     color: AcademyColors.colors_737373
+          //     // )),
+          //     Text(dateSt,style: AcademyStyles().styleLato(
+          //         size: sizeH * 0.015,
+          //         color: AcademyColors.colors_737373
+          //     )),
+          //   ],
+          // )
         ],
       ),
     );
