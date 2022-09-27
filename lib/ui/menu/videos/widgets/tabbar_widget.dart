@@ -166,9 +166,21 @@ class _TabbarState extends State<Tabbar> {
                 children: [
                   Container(
                     width: sizeW,
+                    alignment: Alignment.centerRight,
                     color: AcademyColors.colorsLeversObscure,
-                    height: sizeH * 0.05,
+                    padding: EdgeInsets.only(right: sizeW * 0.1),
+                    child: IconButton(
+                      icon: Icon(Icons.cancel_outlined, size: sizeH * 0.03, color: Colors.white),
+                      onPressed: (){
+                        Navigator.of(context).pop();
+                      },
+                    ),
                   ),
+                  // Container(
+                  //   width: sizeW,
+                  //   color: AcademyColors.colorsLeversObscure,
+                  //   height: sizeH * 0.05,
+                  // ),
                   Expanded(
                     child: LeversPage(type: type.toString()),
                   )

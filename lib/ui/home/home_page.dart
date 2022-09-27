@@ -2,6 +2,8 @@ import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
 import 'package:academybw/ui/home/provider/menu_provider.dart';
+import 'package:academybw/ui/menu/demo/demo_page_2.dart';
+import 'package:academybw/ui/menu/demo/demo_page_3.dart';
 import 'package:academybw/ui/menu/post/provider/post_provider.dart';
 import 'package:academybw/services/finish_app.dart';
 import 'package:academybw/ui/home/send_email.dart';
@@ -55,7 +57,7 @@ class _HomePageState extends State<HomePage> {
     if(menuProvider.status == MenuStatus.news){ childBody = const PostPage(); }
     if(menuProvider.status == MenuStatus.log){ childBody = const VideosPage(); }
     if(menuProvider.status == MenuStatus.cartoons){ childBody = const CartoonsPage(); }
-    if(menuProvider.status == MenuStatus.demo){ childBody = const DemoPage(); }
+    if(menuProvider.status == MenuStatus.demo){ childBody = const DemoPage3(); }
 
     return WillPopScope(
       onWillPop: exit,

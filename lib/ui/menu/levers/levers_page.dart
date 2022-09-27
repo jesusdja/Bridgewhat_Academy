@@ -114,6 +114,17 @@ class _LeversPageState extends State<LeversPage> {
   }
 
   Widget cardContainer(){
+
+    Map<String,String> data = {};
+    if(widget.type != null){
+      if(widget.type == '1'){ data = structure1[1]!; }
+      if(widget.type == '2'){ data = structure2[1]!; }
+      if(widget.type == '3'){ data = structure1[2]!; }
+      if(widget.type == '4'){ data = structure2[2]!; }
+      if(widget.type == '5'){ data = structure1[3]!; }
+    }
+
+
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Column(
@@ -143,7 +154,7 @@ class _LeversPageState extends State<LeversPage> {
             container2(num: '4',title: 'RETENTION', data: structure2[2]!),
             container1(num: '5',title: 'REFERRALS', data: structure1[3]!),
           ]else...[
-            container1(num: widget.type!,title: 'REFERRALS', data: structure1[3]!),
+            container1(num: widget.type!,title: mapTitle[int.parse(widget.type.toString())], data: data),
           ]
         ],
       ),
