@@ -1,6 +1,7 @@
 import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
+import 'package:academybw/ui/menu/demo/demo_page_3.dart';
 import 'package:academybw/ui/menu/demo/demo_selected_calendar.dart';
 import 'package:academybw/ui/menu/demo/demo_selected_email.dart';
 import 'package:academybw/ui/menu/demo/demo_selected_video.dart';
@@ -18,6 +19,12 @@ class DemoSelected extends StatefulWidget {
 class _DemoSelectedState extends State<DemoSelected> {
 
   List<String> title = ['CRYSTAL','SILVER','GOLD','PLATINUM'];
+  Map<int,String> priceForType = {
+    0 : '1.990€|199€',
+    1 : '4.990€|499€',
+    2 : '14.990€|',
+    3 : '38.990€|',
+  };
   int cardSelectedType = 0;
 
   @override
@@ -49,13 +56,17 @@ class _DemoSelectedState extends State<DemoSelected> {
                           margin: EdgeInsets.symmetric(horizontal: sizeW * 0.06),
                           child: bannerTitle(type: 3),
                         ),
-                        titleCard(),
-                        title2Card(),
-                        descriptionCard(),
-                        cardPostImg(),
+                        // titleCard(),
+                        //title2Card(),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: sizeW * 0.05),
+                          child: CardDemo(type: widget.type,isButtonInfo: false),
+                        ),
+                        // descriptionCard(),
+                        // cardPostImg(),
                         selectedAccessPublish(),
                         contentsCardSelected(),
-                        buttonBottom(),
+                        // buttonBottom(),
                       ],
                     ),
                   ),
@@ -144,11 +155,12 @@ class _DemoSelectedState extends State<DemoSelected> {
   }
 
   Widget title2CardText({required int type}){
-    String title = type == 0 ? 'Monthly' : 'Annual';
-    String subTitle = type == 0 ? '€ 199' : '€ 1.999';
+
+    String title = type == 0 ? 'YEARLY' : 'MONTHLY';
+    String subTitle = type == 0 ? priceForType[widget.type].toString().split('|')[0] : priceForType[widget.type].toString().split('|')[1];
     TextStyle style = AcademyStyles().styleLato(size: 14,color: Colors.white);
 
-    return Container(
+    return subTitle.isEmpty ? Container() : Container(
       padding: EdgeInsets.all(sizeH * 0.015),
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -162,7 +174,7 @@ class _DemoSelectedState extends State<DemoSelected> {
           Container(
             margin: EdgeInsets.only(right: sizeW * 0.02),
             child: Text(subTitle,style: style),
-          )
+          ),
         ],
       ),
     );
@@ -226,16 +238,16 @@ class _DemoSelectedState extends State<DemoSelected> {
         padding: EdgeInsets.all(sizeH * 0.01),
         decoration:  BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(5)),
-          color: cardSelectedType == type ? AcademyColors.primary : Colors.white,
+          color: cardSelectedType == type ? AcademyColors.colorsLeversObscure : Colors.white,
           border: Border.all(
-            color: AcademyColors.primary,
+            color: AcademyColors.colorsLeversObscure,
             width: 1,
             style: BorderStyle.solid,
           ),
         ),
         child: Center(
           child: Text(title,
-          style: AcademyStyles().styleLato(size: 14,color: cardSelectedType != type ? AcademyColors.primary : Colors.white,fontWeight: FontWeight.bold)),
+          style: AcademyStyles().styleLato(size: 14,color: cardSelectedType != type ? AcademyColors.colorsLeversObscure : Colors.white,fontWeight: FontWeight.bold)),
         ),
       ),
     );
@@ -345,16 +357,18 @@ class _DemoSelectedState extends State<DemoSelected> {
 
     return Container(
       width: sizeW,
-      padding: EdgeInsets.all(sizeH * 0.05),
-      decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
-          color: AcademyColors.colorsA40000.withOpacity(0.5)
+      height: sizeH * 0.13,
+      padding: EdgeInsets.all(sizeH * 0.01),
+      decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color: AcademyColors.colors_95C4E9
       ),
       child: Center(
-        child: Text(title,style: AcademyStyles().styleLato(
+        child: Text(title.toUpperCase(),style: AcademyStyles().styleLato(
           color: Colors.white,
-          size: 14
-        )),
+          size: sizeH * 0.02,
+          fontWeight: FontWeight.bold
+        ),),
       ),
     );
   }

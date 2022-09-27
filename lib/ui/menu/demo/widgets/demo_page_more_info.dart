@@ -64,12 +64,12 @@ class _DemoPageMoreInfoState extends State<DemoPageMoreInfo> {
                   child: Row(
                     children: [
                       IconButton(
-                        icon: Icon(Icons.cancel_outlined, size: sizeH * 0.035, color: AcademyColors.primary),
+                        icon: Icon(Icons.cancel_outlined, size: sizeH * 0.035, color: Colors.black),
                         onPressed: ()=> Navigator.of(context).pop(),
                       ),
                       Expanded(
                         child: Text('WHAT IS INCLUDED?',style: AcademyStyles().stylePoppins(
-                          size: sizeH * 0.025,color: AcademyColors.primary,
+                          size: sizeH * 0.025,color: Colors.black,
                         )),
                       ),
                     ],
@@ -104,7 +104,7 @@ class _DemoPageMoreInfoState extends State<DemoPageMoreInfo> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.circle,color: AcademyColors.primary,size: sizeH * 0.01,),
+              Icon(Icons.circle,color: Colors.black,size: sizeH * 0.01,),
               SizedBox(width: sizeW * 0.02),
               Expanded(
                 child: Text(dataInfo[x],style: AcademyStyles().styleLato(size: 12,color: Colors.black,),),

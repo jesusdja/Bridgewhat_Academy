@@ -24,10 +24,8 @@ class _DemoPage3State extends State<DemoPage3> {
     return Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
-        //endDrawer: AppDrawerAll(contextAll: context),
         body: Column(
           children: [
-            //headerShared(context: context,scaffoldKey: scaffoldKey),
             Expanded(
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
@@ -45,11 +43,11 @@ class _DemoPage3State extends State<DemoPage3> {
                         child: Expanded(
                           child: SingleChildScrollView(
                             child: Column(
-                              children: [
-                                card(type: 0),
-                                card(type: 1),
-                                card(type: 2),
-                                card(type: 3),
+                              children: const [
+                                CardDemo(type: 0),
+                                CardDemo(type: 1),
+                                CardDemo(type: 2),
+                                CardDemo(type: 3),
                               ],
                             ),
                           ),
@@ -65,26 +63,49 @@ class _DemoPage3State extends State<DemoPage3> {
     );
   }
 
-  Widget card({required int type}){
+}
+
+class CardDemo extends StatefulWidget {
+  const CardDemo({Key? key, required this.type, this.isButtonInfo = true}) : super(key: key);
+  final int type;
+  final bool isButtonInfo;
+
+  @override
+  State<CardDemo> createState() => _CardDemoState();
+}
+
+class _CardDemoState extends State<CardDemo> {
+  late int type;
+
+  @override
+  void initState() {
+    super.initState();
+    type = widget.type;
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
 
     String title = 'CRYSTAL';
-    List<String> listTitle = ['Registration','Reviews','Sampling Marketing','Full content consumption',];
+    List<String> listTitle = ['Registration','View and create posts','Sampling','Reviews','Access to opportunities','Advisor marketplace(Ad hoc days)'];
     Color color = AcademyColors.colors_95C4E9;
     if(type == 1){
       title = 'SILVER';
       color = AcademyColors.colors_85939D;
-      listTitle = ['All Crystal features +','Scoring Board','Protocols','Silver content package',];
+      listTitle = ['Everything in Crystal +','Credentials board','Protocols','Campaigns','20 LOG marketplace',];
     }
     if(type == 2){
       title = 'GOLD';
       color = AcademyColors.colors_958E6F;
-      listTitle = ['All Silver features +','“Need & Leeds”','Campaigns','Gold content package',];
+      listTitle = ['Everything in Silver +','20 LOG survey','Partnerships',];
     }
     if(type == 3){
       title = 'PLATINUM';
       color = AcademyColors.colorsB2BEC6;
-      listTitle = ['All Gold features +','Advisory Services','Platinum content package',];
+      listTitle = ['Everything in Gold +','Advisory Services(12 days package)',];
     }
+
 
     List<Widget> listW = [];
     for (var element in listTitle) {
@@ -94,7 +115,7 @@ class _DemoPage3State extends State<DemoPage3> {
           margin: EdgeInsets.only(bottom: sizeH * 0.01),
           child: Row(
             children: [
-              Icon(Icons.circle,color: AcademyColors.primary,size: sizeH * 0.01,),
+              Icon(Icons.circle,color: Colors.black,size: sizeH * 0.01,),
               SizedBox(width: sizeW * 0.02),
               Expanded(
                 child: Text(element,style: AcademyStyles().styleLato(size: 12,color: Colors.black,),),
@@ -105,53 +126,56 @@ class _DemoPage3State extends State<DemoPage3> {
       );
     }
 
-    listW.add(
-      SizedBox(
-        width: sizeW,
-        child: Row(
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: InkWell(
-                child: Container(
-                  padding: const EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(5)),
-                    color: color,
+    if(widget.isButtonInfo){
+      listW.add(
+        SizedBox(
+          width: sizeW,
+          child: Row(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: InkWell(
+                  child: Container(
+                    padding: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(5)),
+                      color: color,
+                    ),
+                    child: Text('+ INFO',style: AcademyStyles().styleLato(size: 12,color: Colors.white,),),
                   ),
-                  child: Text('+ INFO',style: AcademyStyles().styleLato(size: 12,color: Colors.white,),),
+                  onTap: (){
+                    showCupertinoModalPopup(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return DemoPageMoreInfo(type: type,);
+                      },
+                    );
+                  },
                 ),
-                onTap: (){
-                  showCupertinoModalPopup(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return DemoPageMoreInfo(type: type,);
-                    },
-                  );
-                },
               ),
-            ),
-            SizedBox(width: sizeW * 0.02,),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: InkWell(
-                child: Container(
-                  padding: const EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(5)),
-                    color: color,
+              SizedBox(width: sizeW * 0.02,),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: InkWell(
+                  child: Container(
+                    padding: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(5)),
+                      color: color,
+                    ),
+                    child: Text('GET STARTED',style: AcademyStyles().styleLato(size: 12,color: Colors.white,),),
                   ),
-                  child: Text('GET STARTED',style: AcademyStyles().styleLato(size: 12,color: Colors.white,),),
+                  onTap: (){
+                    Navigator.push(context,MaterialPageRoute<void>( builder: (context) => DemoSelectedCalendar(type: type,menu: true,)),);
+                  },
                 ),
-                onTap: (){
-                  Navigator.push(context,MaterialPageRoute<void>( builder: (context) => DemoSelectedCalendar(type: type,menu: true,)),);
-                },
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    }
+
 
     return InkWell(
       onTap: (){
@@ -177,9 +201,9 @@ class _DemoPage3State extends State<DemoPage3> {
               ),
               child: Center(
                 child: Text(title,style: AcademyStyles().stylePoppins(
-                  size: sizeH * 0.02,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold
+                    size: sizeH * 0.02,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold
                 )),
               ),
             ),
