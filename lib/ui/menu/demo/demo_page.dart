@@ -180,7 +180,7 @@ class _DemoPageState extends State<DemoPage> {
         isSelected = !dataSelected[selectOption].toString().contains(key);
       }
 
-      listW.add(containerWrap(title: key,isSelected: isSelected));
+      listW.add(containerWrap(title: key,isSelected: isSelected,type: type));
     });
 
     return Wrap(
@@ -188,7 +188,7 @@ class _DemoPageState extends State<DemoPage> {
     );
   }
 
-  Widget containerWrap({required String title, required bool isSelected}){
+  Widget containerWrap({required String title, required bool isSelected, required int type}){
 
     Color colorSelect = AcademyColors.colorsLeversCeleste.withOpacity(0.9);
     if(selectOption == 1){ colorSelect = AcademyColors.colors_737373.withOpacity(0.9); }
@@ -211,8 +211,58 @@ class _DemoPageState extends State<DemoPage> {
         ),
       ),
       onTap: (){
-
+        openShowBottom(title: title,subTitle: type == 0 ? dataPageAccess[title]! : dataPageCreate[title]!);
       },
+    );
+  }
+
+  void openShowBottom({required String title, required String subTitle}){
+    showModalBottomSheet<void>(
+        context: context,
+        isDismissible: false,
+        isScrollControlled: true,
+        enableDrag: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(50.0),topRight: Radius.circular(50.0),
+            bottomLeft: Radius.circular(0.0),bottomRight: Radius.circular(0.0),
+          ),
+        ),
+        builder: (context){
+          return Container(
+            width: sizeW,
+            padding: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(50.0),topRight: Radius.circular(50.0),
+                bottomLeft: Radius.circular(0.0),bottomRight: Radius.circular(0.0),
+              ),
+            ),
+            child: ClipRRect(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(height: sizeH * 0.02,),
+                  SizedBox(
+                    width: sizeW,
+                    child: Text(title,style: AcademyStyles().styleLato(
+                      size: sizeH * 0.03,color: AcademyColors.colorsLeversObscure,fontWeight: FontWeight.bold
+                    ),textAlign: TextAlign.left),
+                  ),
+                  SizedBox(height: sizeH * 0.02,),
+                  SizedBox(
+                    width: sizeW,
+                    child: Text(subTitle,style: AcademyStyles().styleLato(
+                      size: sizeH * 0.02,color: AcademyColors.colorsLeversObscure,
+                    ),textAlign: TextAlign.justify),
+                  ),
+                  SizedBox(height: sizeH * 0.1,),
+                ],
+              ),
+            ),
+          );
+        }
     );
   }
 }
