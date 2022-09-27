@@ -35,11 +35,11 @@ class PostProvider extends ChangeNotifier {
         page == pageNew;
         List listPostData = dataAll['data'] ?? [];
         for (int x = 0; x < listPostData.length; x++){
-          var dataResponse = jsonDecode(listPostData[x]['response_data']);
-          listPost.add(dataResponse);
-          postLikes[dataResponse['id']] = false;
-          postShared[dataResponse['id']] = false;
-          postViewMoreDescription[dataResponse['id']] = false;
+          //var dataResponse = jsonDecode(listPostData[x]['response_data']);
+          listPost.add(listPostData[x]);
+          postLikes[listPostData[x]['id']] = false;
+          postShared[listPostData[x]['id']] = false;
+          postViewMoreDescription[listPostData[x]['id']] = false;
         }
         result = true;
       }

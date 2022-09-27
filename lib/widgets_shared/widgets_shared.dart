@@ -31,7 +31,7 @@ Widget bannerTitle({required int type, String? descrip, String? titleSt}){
 
   if(type == 1){title = '20 LOG'; description = 'Learn about the Bridgewhat 20 Levers of Growth';}
   if(type == 2){title = 'CARTOONS'; description = 'Have fun with Bridgewhat Cartoons';}
-  if(type == 3){title = 'DEMO';description = 'Bridgewhat features at a glance';}
+  if(type == 3){title = 'DEMO';description = 'Bridgewhat Package';}
   if(type == 4){title = 'QUIZ LEVELS OF GROWTH';}
   if(type == 5){description = 'Advisors';}
   if(type == 6){

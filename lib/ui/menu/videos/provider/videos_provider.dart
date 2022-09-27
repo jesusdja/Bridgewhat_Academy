@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class VideosProvider extends ChangeNotifier {
@@ -16,7 +18,12 @@ class VideosProvider extends ChangeNotifier {
 
     listVideos = [];
 
-    for (int x = 1; x < 6; x++){
+    int videoCant = 6;
+    if(Platform.isIOS){
+      videoCant = 5;
+    }
+
+    for (int x = 1; x < videoCant; x++){
       Map<String, dynamic> post = {
         'id': x,
         'title': titlesVideos[x],

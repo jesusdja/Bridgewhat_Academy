@@ -2,11 +2,11 @@ import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
 import 'package:academybw/ui/menu/demo/demo_selected.dart';
-import 'package:academybw/ui/menu/demo/demo_selected_calendar.dart';
 import 'package:academybw/ui/menu/demo/widgets/demo_page_more_info.dart';
 import 'package:academybw/widgets_shared/widgets_shared.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DemoPage3 extends StatefulWidget {
   const DemoPage3({Key? key}) : super(key: key);
@@ -165,8 +165,14 @@ class _CardDemoState extends State<CardDemo> {
                     ),
                     child: Text('GET STARTED',style: AcademyStyles().styleLato(size: 12,color: Colors.white,),),
                   ),
-                  onTap: (){
-                    Navigator.push(context,MaterialPageRoute<void>( builder: (context) => DemoSelectedCalendar(type: type,menu: true,)),);
+                  onTap: () async{
+                    //Navigator.push(context,MaterialPageRoute<void>( builder: (context) => DemoSelectedCalendar(type: type,menu: true,)),);
+                    DateTime dateTime = DateTime.now();
+
+                    String _url = 'https://calendly.com/mafalda-sottomayor/contact-bridgewhat?month=${dateTime.year}-${dateTime.month.toString().padLeft(2,'0')}';
+                    if (!await launchUrl(Uri.parse(_url))) {
+                      throw 'Could not launch $_url';
+                    }
                   },
                 ),
               )
