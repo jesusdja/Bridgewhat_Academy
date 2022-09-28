@@ -216,11 +216,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       };
 
                       if(await HttpConnection().register(body: body)){
-                        if(await HttpConnection().loginStatic()){
-                          setState(() {
-                            emailSend = true;
-                          });
-                        }
+                        setState(() {
+                          emailSend = true;
+                        });
                       }
                     }else{
                       showAlert(text: 'Check use and privacy policy',isError: true);

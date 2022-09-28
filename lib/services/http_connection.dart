@@ -9,33 +9,10 @@ import 'package:flutter/material.dart';
 
 class HttpConnection{
   final Request _client = Request();
-  final RequestStatic _clientStatic = RequestStatic();
   final Map<String, String> headers = {
     'Content-Type': 'application/json',
     'X-Requested-With': 'XMLHttpRequest'
   };
-
-  Future<bool> loginStatic() async {
-    try{
-      final response = await _clientStatic.post(Uri.parse('login'),
-          body: {"email": 'bridgewhat-frontend@wbotests.com', "password": "z9e;u3RyQWvr]H3'"});
-      Map<String,dynamic> value = jsonDecode(response.body);
-      if (response.statusCode == 200) {
-        SharedPreferencesLocal.prefs.setString('AcademyToken',value['success']['token']);
-        return true;
-      }else{
-        String errorText = 'Server connection error';
-        if(value.containsKey('error')){
-          errorText = value['error'];
-        }
-        showAlert(text: errorText,isError: true);
-      }
-    }catch(e){
-      debugPrint('HttpConnection-login ${e.toString()}');
-      showAlert(text: 'Server connection error',isError: true);
-    }
-    return false;
-  }
 
   Future<bool> login({required Map<String,dynamic> body}) async {
     try{
