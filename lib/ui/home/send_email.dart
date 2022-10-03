@@ -105,7 +105,7 @@ class _SendEmailState extends State<SendEmail> {
           SizedBox(
             width: sizeW,
             child: TextFieldGeneral(
-              hintText: 'Acceturamadrid@acceture.es',
+              hintText: 'bridgewhat@bridgewhat.com',
               textEditingController: controllerEmail,
               initialValue: null,
               textInputType: TextInputType.emailAddress,

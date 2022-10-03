@@ -1,4 +1,3 @@
-import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
 import 'package:flutter/material.dart';

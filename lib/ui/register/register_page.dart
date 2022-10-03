@@ -2,8 +2,6 @@ import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
 import 'package:academybw/services/http_connection.dart';
-import 'package:academybw/services/shared_preferences.dart';
-import 'package:academybw/ui/home/home_page.dart';
 import 'package:academybw/ui/login/login_page.dart';
 import 'package:academybw/widgets_shared/button_general.dart';
 import 'package:academybw/widgets_shared/circular_progress_colors.dart';

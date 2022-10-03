@@ -5,8 +5,6 @@ import 'package:academybw/ui/menu/videos/provider/videos_provider.dart';
 import 'package:academybw/ui/menu/quiz/quiz_page.dart';
 import 'package:academybw/ui/menu/videos/widgets/sub_videos_view.dart';
 import 'package:academybw/ui/menu/videos/widgets/tabbar_widget.dart';
-import 'package:academybw/utils/get_data.dart';
-import 'package:academybw/widgets_shared/button_general.dart';
 import 'package:academybw/widgets_shared/circular_progress_colors.dart';
 import 'package:academybw/widgets_shared/widgets_shared.dart';
 import 'package:flutter/cupertino.dart';

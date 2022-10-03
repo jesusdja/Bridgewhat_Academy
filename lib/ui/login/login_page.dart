@@ -4,6 +4,7 @@ import 'package:academybw/main.dart';
 import 'package:academybw/services/http_connection.dart';
 import 'package:academybw/services/shared_preferences.dart';
 import 'package:academybw/ui/home/home_page.dart';
+import 'package:academybw/ui/login/forgot_password.dart';
 import 'package:academybw/ui/register/register_page.dart';
 import 'package:academybw/widgets_shared/button_general.dart';
 import 'package:academybw/widgets_shared/circular_progress_colors.dart';
@@ -78,13 +79,19 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               SizedBox(height: sizeH * 0.025,),
-              Container(
-                width: sizeW,
-                margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
-                child: Text('Forgot your password?',
-                  style: AcademyStyles().styleLato(
-                      color: AcademyColors.primary,size: sizeH * 0.02
-                  ),textAlign: TextAlign.left),
+              InkWell(
+                child: Container(
+                  width: sizeW,
+                  margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
+                  child: Text('Forgot your password?',
+                    style: AcademyStyles().styleLato(
+                        color: AcademyColors.primary,size: sizeH * 0.02
+                    ),textAlign: TextAlign.left),
+                ),
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder:
+                      (BuildContext context) => ForgotPass(email: controllerEmail.text)));
+                },
               ),
               rememberPass(),
               SizedBox(height: sizeH * 0.025,),

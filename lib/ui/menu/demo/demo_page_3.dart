@@ -21,6 +21,35 @@ class _DemoPage3State extends State<DemoPage3> {
 
   @override
   Widget build(BuildContext context) {
+
+    return Scaffold(
+        backgroundColor: Colors.white,
+        body: Column(
+          children: [
+            Container(
+              width: sizeW,
+              margin: EdgeInsets.symmetric(horizontal: sizeW * 0.06),
+              child: bannerTitle(type: 3),
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: SizedBox(
+                  width: sizeW,
+                  child: Column(
+                    children: const [
+                      CardDemo(type: 0),
+                      CardDemo(type: 1),
+                      CardDemo(type: 2),
+                      CardDemo(type: 3),
+                    ],
+                  ),
+                ),
+              ),
+            )
+          ],
+        )
+    );
+
     return Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,

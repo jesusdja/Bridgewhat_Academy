@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:academybw/services/apirest.dart';
-import 'package:academybw/services/apirest_static.dart';
 import 'package:academybw/services/shared_preferences.dart';
 import 'package:academybw/utils/get_data.dart';
 import 'package:academybw/widgets_shared/toast_widget.dart';
@@ -50,6 +49,29 @@ class HttpConnection{
         String errorText = 'Server connection error';
         if(value.containsKey('error')){
           errorText = value['error'];
+        }
+        showAlert(text: errorText,isError: true);
+      }
+    }catch(e){
+      debugPrint('HttpConnection-login ${e.toString()}');
+      showAlert(text: 'Server connection error',isError: true);
+    }
+    return false;
+  }
+
+  Future<bool> forgotPass({required Map<String,dynamic> body}) async {
+    try{
+      final response = await _client.post(Uri.parse('forgot-password'), body: body);
+      Map<String,dynamic> value = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        return true;
+      }else{
+        String errorText = 'Server connection error';
+        if(value.containsKey('error')){
+          errorText = value['error'];
+        }
+        if(response.statusCode == 201 && value.containsKey('message')){
+          errorText = 'the user has not been confirmed check your email';
         }
         showAlert(text: errorText,isError: true);
       }
