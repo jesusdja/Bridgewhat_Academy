@@ -19,12 +19,32 @@ class CartoonsPage extends StatefulWidget {
 class _CartoonsPageState extends State<CartoonsPage> {
 
   late CartoonsProvider cartoonsProvider;
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+  final ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     initialData();
+    scrollController.addListener((){
+      getDataPost();
+    });
+  }
+
+  Future getDataPost() async {
+    if(scrollController.position.pixels == scrollController.position.maxScrollExtent){
+      if(!cartoonsProvider.isLoadData){
+        bool result = await cartoonsProvider.getPosts(isInit: false);
+        if(result){
+          if(scrollController.position.pixels >= (scrollController.position.maxScrollExtent - 300)){
+            scrollController.animateTo(
+                scrollController.position.pixels + 120,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.fastOutSlowIn
+            );
+          }
+        }
+      }
+    }
   }
 
   initialData(){
@@ -40,7 +60,6 @@ class _CartoonsPageState extends State<CartoonsPage> {
 
     return GestureDetector(
       child: Scaffold(
-          key: scaffoldKey,
           backgroundColor: Colors.white,
           body: Column(
             children: [
@@ -51,20 +70,10 @@ class _CartoonsPageState extends State<CartoonsPage> {
               ),
               SizedBox(height: sizeH * 0.04),
               Expanded(
-                child: cartoonsProvider.isLoadData ?
-                Center(
-                  child: circularProgressColors(widthContainer1: sizeW,widthContainer2: sizeH * 0.03,),
-                ) :
-                SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  child: SizedBox(
-                    width: sizeW,
-                    child: Column(
-                      children: [
-                        cardContainer(),
-                      ],
-                    ),
-                  ),
+                child: Container(
+                  width: sizeW,
+                  margin: EdgeInsets.symmetric(horizontal: sizeW * 0.06),
+                  child: cardContainer(),
                 ),
               )
             ],
@@ -82,11 +91,35 @@ class _CartoonsPageState extends State<CartoonsPage> {
       listW.add(CardCartoonsContainer(cartoon: element));
     }
 
-    return SizedBox(
-      width: sizeW,
-      child: Column(
-        children: listW,
-      ),
+    return Stack(
+      children: [
+        SizedBox(
+          width: sizeW,
+          child: ListView.builder(
+            controller: scrollController,
+            physics: const BouncingScrollPhysics(),
+            itemCount: listW.length,
+            itemBuilder: (context,index){
+              return listW[index];
+            },
+          ),
+        ),
+        if(cartoonsProvider.isLoadData)...[
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              margin: const EdgeInsets.only(bottom: 20),
+              height: 50,width: 50,
+              decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.5),
+                  shape: BoxShape.circle
+              ),
+              child: const CircularProgressIndicator(color: AcademyColors.primary),
+            ),
+          ),
+        ]
+      ],
     );
   }
 }

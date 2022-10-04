@@ -18,7 +18,6 @@ class _PostPageState extends State<PostPage> {
 
   late PostProvider postProvider;
   final ScrollController scrollController = ScrollController();
-  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -68,7 +67,6 @@ class _PostPageState extends State<PostPage> {
       },
       child: Scaffold(
         backgroundColor: Colors.white,
-        key: scaffoldKey,
         body: Column(
           children: [
             Expanded(
