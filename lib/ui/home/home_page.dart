@@ -158,6 +158,7 @@ class _HomePageState extends State<HomePage> {
           titleDrawer(type: 1),
           divide,
           titleDrawer(type: 2),
+          titleDrawer(type: 3),
           loadSignOut ?
           Container(
             padding: EdgeInsets.symmetric(vertical: sizeH * 0.06),
@@ -176,6 +177,7 @@ class _HomePageState extends State<HomePage> {
     String title = 'SignOut';
     if(type == 1){title = '20 Levers of growth (20 LOG)'; }
     if(type == 2){title = 'Settings'; }
+    if(type == 3){title = 'Contact'; }
 
     return InkWell(
       onTap: (){

@@ -369,7 +369,7 @@ class _QuizPageState extends State<QuizPage> {
                 children: [
                   SizedBox(height: sizeH * 0.02,),
                   Text('${successQuestions.toStringAsFixed(0)}%',style: AcademyStyles().stylePoppins(size: sizeH * 0.05,color: AcademyColors.primary,fontWeight: FontWeight.bold),),
-                  Text('HIGH',style: AcademyStyles().stylePoppins(size: sizeH * 0.025,color: AcademyColors.primary),),
+                  Text(successQuestions >= 50 ? 'HIGH' : 'LOW',style: AcademyStyles().stylePoppins(size: sizeH * 0.025,color: AcademyColors.primary),),
                   SizedBox(height: sizeH * 0.02,),
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: sizeW * 0.05),
