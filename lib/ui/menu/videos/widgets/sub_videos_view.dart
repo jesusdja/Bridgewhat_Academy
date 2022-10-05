@@ -1,8 +1,9 @@
 import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/main.dart';
 import 'package:academybw/ui/menu/videos/provider/videos_provider.dart';
+import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:video_player/video_player.dart';
 
 class SubVideosView extends StatefulWidget {
   const SubVideosView({
@@ -19,11 +20,15 @@ class _SubVideosViewState extends State<SubVideosView> {
 
   String video = '';
   late VideosProvider videosProvider;
+  late FlickManager flickManager;
 
   @override
   void initState() {
     super.initState();
     video = widget.video;
+    flickManager = FlickManager(
+      videoPlayerController: VideoPlayerController.network(video),
+    );
   }
 
   @override
@@ -38,10 +43,15 @@ class _SubVideosViewState extends State<SubVideosView> {
         children: <Widget>[
           headerContainer(),
           Expanded(
-            child: WebView(
-              initialUrl: widget.video,
-              javascriptMode: JavascriptMode.unrestricted,
-              backgroundColor: Colors.transparent,
+            child: FlickVideoPlayer(
+              flickManager: flickManager,
+              flickVideoWithControls: FlickVideoWithControls(
+                videoFit: BoxFit.fitWidth,
+                controls: FlickPortraitControls(
+                  progressBarSettings:
+                  FlickProgressBarSettings(playedColor: Colors.green),
+                ),
+              ),
             ),
           ),
         ],

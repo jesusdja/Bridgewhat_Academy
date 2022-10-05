@@ -49,49 +49,7 @@ class _DemoPage3State extends State<DemoPage3> {
           ],
         )
     );
-
-    return Scaffold(
-        key: scaffoldKey,
-        backgroundColor: Colors.white,
-        body: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: SizedBox(
-                  width: sizeW,
-                  child: Column(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.symmetric(horizontal: sizeW * 0.06),
-                        child: bannerTitle(type: 3),
-                      ),
-                      Container(
-                        width: sizeW,
-                        margin: EdgeInsets.symmetric(horizontal: sizeW * 0.06),
-                        child: Expanded(
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: const [
-                                CardDemo(type: 0),
-                                CardDemo(type: 1),
-                                CardDemo(type: 2),
-                                CardDemo(type: 3),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            )
-          ],
-        )
-    );
   }
-
 }
 
 class CardDemo extends StatefulWidget {

@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.0+27
+version: 1.0.0+28
 
 environment:
   sdk: ">=2.16.2 <3.0.0"
@@ -21,9 +21,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^2.0.0
   video_player: ^2.4.5
-  #flick_video_player: ^0.5.0
   cached_network_image: ^3.2.0
-  webview_flutter: ^3.0.4
+  flick_video_player: ^0.5.0
   animate_do: ^2.1.0
 
   #DATA
@@ -52,6 +51,5 @@ flutter:
   uses-material-design: true
   assets:
     - assets/image/
-    - assets/videos/
     - i18n/es.json
     - i18n/en.json

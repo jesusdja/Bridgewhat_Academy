@@ -27,14 +27,8 @@ class _VideosPageState extends State<VideosPage> {
   @override
   void initState() {
     super.initState();
-    //initialData();
-  }
-
-  initialData(){
-    Future.delayed(const Duration(milliseconds: 100)).then((value){
-      videosProvider.viewContainerLikePost(idPost: 0);
-      videosProvider.viewContainerSharedPost(idPost: 0);
-    });
+    Future.delayed(const Duration(milliseconds: 500)).then((value) =>
+        videosProvider.getVideos());
   }
 
   @override
@@ -193,13 +187,10 @@ class _CardPostContainerState extends State<CardPostContainer> {
   void initState() {
     super.initState();
     video = widget.videos;
-    _controller = VideoPlayerController.asset(video['url'])
+    _controller = VideoPlayerController.network(video['url'])
     ..initialize().then((_) {
       setState(() {});
     });
-
-    Future.delayed(const Duration(milliseconds: 500)).then((value) =>
-    videosProvider.getVideos());
   }
 
   @override
@@ -268,6 +259,12 @@ class _CardPostContainerState extends State<CardPostContainer> {
                     )
                 ),
               ),
+            ),
+          ],
+          if(!_controller.value.isInitialized)...[
+            Align(
+              alignment: Alignment.center,
+              child: circularProgressColors(),
             ),
           ],
           if(_controller.value.isInitialized && !_controller.value.isPlaying)...[
@@ -388,7 +385,7 @@ class _CardPostContainerState extends State<CardPostContainer> {
         ),
         onTap: (){
           Navigator.push(context,CupertinoPageRoute(
-              builder: (_) => SubVideosView(video: videosProvider.mapSubVideos[video['id']]![type]!)));
+              builder: (_) => SubVideosView(video: 'https://bridgewhat.ole.agency/videos/LOG_$type.mp4')));
         },
       ),
     );

@@ -17,22 +17,6 @@ class CartoonsProvider extends ChangeNotifier {
   }
 
   Future<bool> getPosts({required bool isInit}) async {
-    // bool result = false;
-    //
-    // try{
-    //   dataAll = await HttpConnection().getCartoonsAll();
-    //   if(dataAll.containsKey('data')){
-    //     List listPostData = dataAll['data'] ?? [];
-    //     listCartoons = [];
-    //     for (int x = 0; x < listPostData.length; x++){
-    //       listCartoons.add(listPostData[x]);
-    //     }
-    //     result = true;
-    //   }
-    // }catch(e){
-    //   debugPrint('Error getPosts : ${e.toString()}');
-    // }
-
     bool result = false;
     isLoadData = true;
     notifyListeners();
