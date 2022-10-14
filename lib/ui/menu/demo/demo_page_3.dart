@@ -36,11 +36,20 @@ class _DemoPage3State extends State<DemoPage3> {
                 child: SizedBox(
                   width: sizeW,
                   child: Column(
-                    children: const [
-                      CardDemo(type: 0),
-                      CardDemo(type: 1),
-                      CardDemo(type: 2),
-                      CardDemo(type: 3),
+                    children: [
+                      SizedBox(height: sizeH * 0.02),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
+                        width: sizeW,
+                        child: Text('To see what are the benefits you can get from each of the packages, please click in Crystal, Silver, Gold and Platinum.',
+                            textAlign: TextAlign.center,style: AcademyStyles().stylePoppins(
+                            size: sizeH * 0.015
+                        )),
+                      ),
+                      const CardDemo(type: 0),
+                      const CardDemo(type: 1),
+                      const CardDemo(type: 2),
+                      const CardDemo(type: 3),
                     ],
                   ),
                 ),

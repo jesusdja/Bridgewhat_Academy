@@ -47,7 +47,7 @@ class _DemoPageMoreInfoState extends State<DemoPageMoreInfo> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: ()=> FocusScope.of(context).requestFocus(FocusNode()),
+      onTap: ()=> Navigator.of(context).pop(),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Center(
