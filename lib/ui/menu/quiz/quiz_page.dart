@@ -190,8 +190,6 @@ class _QuizPageState extends State<QuizPage> {
       }
     }
 
-    debugPrint('page : ${quizProvider.posQuestion}');
-
     return PageView(
       controller: quizProvider.controllerPageView,
       physics: answeredRefresh() ? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),

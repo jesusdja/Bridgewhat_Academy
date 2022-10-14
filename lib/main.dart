@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:academybw/initial_page.dart';
 import 'package:academybw/providers/auth_provider.dart';
@@ -10,16 +11,22 @@ import 'package:academybw/ui/menu/videos/provider/videos_provider.dart';
 import 'package:academybw/services/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 double sizeH = 0;
 double sizeW = 0;
+String tempPath = '';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Provider.debugCheckInvalidValueType = null;
   await SharedPreferencesLocal.configurePrefs();
+
+  Directory tempDir = await getTemporaryDirectory();
+  tempPath = tempDir.path;
+
   runApp(const AppState());
 }
 

@@ -33,16 +33,17 @@ class _DemoPage3State extends State<DemoPage3> {
             ),
             Expanded(
               child: SingleChildScrollView(
-                child: SizedBox(
+                child: Container(
                   width: sizeW,
+                  margin: EdgeInsets.symmetric(horizontal: sizeW * 0.03),
                   child: Column(
                     children: [
                       SizedBox(height: sizeH * 0.02),
                       Container(
-                        margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
+                        margin: EdgeInsets.symmetric(horizontal: sizeW * 0.05),
                         width: sizeW,
                         child: Text('To see what are the benefits you can get from each of the packages, please click in Crystal, Silver, Gold and Platinum.',
-                            textAlign: TextAlign.center,style: AcademyStyles().stylePoppins(
+                            textAlign: TextAlign.left,style: AcademyStyles().stylePoppins(
                             size: sizeH * 0.015
                         )),
                       ),

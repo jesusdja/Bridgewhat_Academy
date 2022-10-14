@@ -86,6 +86,9 @@ class _CardQuestionState extends State<CardQuestion> {
       ),
       onTap: (){
         quizProvider.onTapQuestion(answered: answered, idQuestion: widget.question['id']);
+        if(widget.question['type'] == TypeQuestion.simple){
+          quizProvider.pageNext();
+        }
       },
     );
   }

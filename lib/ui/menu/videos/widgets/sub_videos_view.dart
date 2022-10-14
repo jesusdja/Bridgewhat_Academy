@@ -1,7 +1,9 @@
+import 'dart:io';
+
 import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/main.dart';
 import 'package:academybw/ui/menu/videos/provider/videos_provider.dart';
-import 'package:flick_video_player/flick_video_player.dart';
+import 'package:academybw/widgets_shared/circular_progress_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -20,40 +22,87 @@ class _SubVideosViewState extends State<SubVideosView> {
 
   String video = '';
   late VideosProvider videosProvider;
-  late FlickManager flickManager;
+  VideoPlayerController? _controller;
 
   @override
   void initState() {
     super.initState();
     video = widget.video;
-    flickManager = FlickManager(
-      videoPlayerController: VideoPlayerController.network(video),
-    );
+    String fullPath = tempPath + "/video_log_$video.mp4";
+    File fileVideo = File(fullPath);
+    existsVideo(fileVideo: fileVideo);
   }
+
+  Future existsVideo({required File fileVideo}) async{
+
+    debugPrint('BUSCANDO VIDEO LOG_$video.mp4');
+    if(await fileVideo.exists()){
+      _controller = VideoPlayerController.file(fileVideo)
+        ..initialize().then((_) {
+          setState(() {});
+        });
+      setState(() {});
+    }else{
+      if(mounted){
+        await Future.delayed(const Duration(seconds: 3));
+        existsVideo(fileVideo: fileVideo);
+      }
+    }
+  }
+
 
   @override
   void dispose() {
     super.dispose();
+    _controller?.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        children: <Widget>[
+        children: [
           headerContainer(),
           Expanded(
-            child: FlickVideoPlayer(
-              flickManager: flickManager,
-              flickVideoWithControls: FlickVideoWithControls(
-                videoFit: BoxFit.fitWidth,
-                controls: FlickPortraitControls(
-                  progressBarSettings:
-                  FlickProgressBarSettings(playedColor: Colors.green),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(
+                  width: sizeW,
+                  height: sizeH * 0.25,
+                  child: Center(
+                    child: _controller != null && _controller!.value.isInitialized
+                        ? VideoPlayer(_controller!) :
+                    circularProgressColors(widthContainer1: sizeW, widthContainer2: sizeW * 0.06,colorCircular: AcademyColors.primary),
+                  ),
                 ),
-              ),
+                if(_controller != null && _controller!.value.isInitialized)...[
+                  SizedBox(
+                    width: sizeW,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          icon: Icon(_controller!.value.isPlaying ? Icons.pause_circle_outline : Icons.play_circle_outline,
+                          size: sizeH * 0.05,color: Colors.black),
+                          onPressed: (){
+                            setState(() {
+                              _controller!.value.isPlaying
+                                  ? _controller!.pause()
+                                  : _controller!.play();
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ],
             ),
           ),
+
         ],
       ),
     );

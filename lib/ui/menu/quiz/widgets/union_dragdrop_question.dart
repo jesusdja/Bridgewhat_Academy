@@ -109,9 +109,7 @@ class _UnionDragQuestionState extends State<UnionDragQuestion> {
         ),
       );
     }else{
-      body = Expanded(
-        child: columnDrop(dataDrop: columns[dragC]),
-      );
+      body = columnDrop(dataDrop: columns[dragC]);
     }
 
 
@@ -161,6 +159,10 @@ class _UnionDragQuestionState extends State<UnionDragQuestion> {
               setState(() {});
               actionKey(key: '2-$x');
               quizProvider.change();
+
+              if((dragC + 1) == columns.length){
+                quizProvider.pageNext();
+              }
             }
           },
           builder: (_, candidateData, rejectedData) {
@@ -183,7 +185,9 @@ class _UnionDragQuestionState extends State<UnionDragQuestion> {
     setState(() {});
     await Future.delayed(const Duration(seconds: 1));
     keySelected = '';
-    setState(() {});
+    if(mounted){
+      setState(() {});
+    }
   }
 
   Widget containerColumn({required String text, bool isAccept = false, required String key}){

@@ -22,7 +22,7 @@ class LeversPage extends StatefulWidget {
 class _LeversPageState extends State<LeversPage> {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  String title1 = 'To create a common language on how to grow, Bridgewhat developed a proprietary framework that includes 20 Levers of Growth (20 LOG) organised around five stages of client engagement - Attraction, Acquisition, ARPU, Retention, Referrals.\n\nTo see the BridgeWhat 20 LOG and their connection to the 5 stages of client engagement, please click the animated loop.';
+  String title1 = 'To create a common language on how to grow, Bridgewhat developed a proprietary framework that includes 20 Levers of Growth (20 LOG) organised around five stages of client engagement - Attraction, Acquisition, ARPU, Retention, Referrals.';
 
   Map<int,String> mapTitle = {
     1 : 'ATRACTION',

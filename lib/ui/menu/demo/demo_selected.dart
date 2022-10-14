@@ -179,86 +179,6 @@ class _DemoSelectedState extends State<DemoSelected> {
 
   Widget contentsCardSelected(){
 
-    // List<Widget> listW = [];
-
-    // if(cardSelectedType == 0){
-    //   listW.add(
-    //       SizedBox(
-    //         width: sizeW,
-    //         child: Row(
-    //           children: [
-    //             Expanded(
-    //               child: contentsCardSelectedContainer(type: 0),
-    //             ),
-    //             SizedBox(width: sizeW * 0.05),
-    //             Expanded(
-    //               child: contentsCardSelectedContainer(type: 1),
-    //             ),
-    //           ],
-    //         ),
-    //       )
-    //   );
-    //   listW.add(SizedBox(height: sizeH * 0.02,));
-    // }
-    //
-    // listW.add(
-    //     SizedBox(
-    //       width: sizeW,
-    //       child: Row(
-    //         children: [
-    //           Expanded(
-    //             child: contentsCardSelectedContainer(type: 2),
-    //           ),
-    //           SizedBox(width: sizeW * 0.05),
-    //           Expanded(
-    //             child: contentsCardSelectedContainer(type: 3),
-    //           ),
-    //         ],
-    //       ),
-    //     )
-    // );
-    // listW.add(SizedBox(height: sizeH * 0.02,));
-    //
-    // if(cardSelectedType == 0){
-    //   listW.add(
-    //       SizedBox(
-    //         width: sizeW,
-    //         child: Row(
-    //           children: [
-    //             Expanded(
-    //               child: contentsCardSelectedContainer(type: 4),
-    //             ),
-    //             SizedBox(width: sizeW * 0.05),
-    //             Expanded(
-    //               child: contentsCardSelectedContainer(type: 5),
-    //             ),
-    //           ],
-    //         ),
-    //       )
-    //   );
-    //   listW.add(SizedBox(height: sizeH * 0.02,));
-    // }
-    //
-    // if(cardSelectedType == 0){
-    //   listW.add(
-    //       SizedBox(
-    //         width: sizeW,
-    //         child: Row(
-    //           children: [
-    //             Expanded(
-    //               child: contentsCardSelectedContainer(type: 6),
-    //             ),
-    //             SizedBox(width: sizeW * 0.05),
-    //             Expanded(
-    //               child: Container(width: sizeW),
-    //             ),
-    //           ],
-    //         ),
-    //       )
-    //   );
-    //   listW.add(SizedBox(height: sizeH * 0.02,));
-    // }
-
     List<Widget> listW = [];
     List<String> listData = cardSelectedType == 0 ? accessTitle[widget.type] :  createTitle[widget.type];
     for (var element in listData) {
@@ -358,16 +278,16 @@ class _DemoSelectedState extends State<DemoSelected> {
   }
 
   Map<int,dynamic> accessTitle = {
-    0 : ['Advisors','Companies','Posts','Samplings','Protocols','I want to sell I want yo buy','Campaigns','partnerships',],
-    1 : ['Advisors','Companies','Posts','Samplings','Protocols','I want to sell I want yo buy','Campaigns','partnerships',],
-    2 : ['Advisors','Companies','Posts','Samplings','Protocols','I want to sell I want yo buy','Campaigns','partnerships',],
-    3 : ['Advisors','Companies','Posts','Samplings','Protocols','I want to sell I want yo buy','Campaigns','partnerships',],
+    0 : ['Advisors','Companies','Posts','Samplings','Protocols','I want to sell','I want yo buy','Campaigns','partnerships',],
+    1 : ['Advisors','Companies','Posts','Samplings','Protocols','I want to sell','I want yo buy','Campaigns','partnerships',],
+    2 : ['Advisors','Companies','Posts','Samplings','Protocols','I want to sell','I want yo buy','Campaigns','partnerships',],
+    3 : ['Advisors','Companies','Posts','Samplings','Protocols','I want to sell','I want yo buy','Campaigns','partnerships',],
   };
   Map<int,dynamic> createTitle = {
     0 : ['posts','Samplings'],
-    1 : ['posts','Samplings','Protocols','I want to sell I want yo buy','Campaigns'],
-    2 : ['posts','Samplings','Protocols','I want to sell I want yo buy','Campaigns','partnerships'],
-    3 : ['posts','Samplings','Protocols','I want to sell I want yo buy','Campaigns','partnerships'],
+    1 : ['posts','Samplings','Protocols','I want to sell','I want yo buy','Campaigns'],
+    2 : ['posts','Samplings','Protocols','I want to sell','I want yo buy','Campaigns','partnerships'],
+    3 : ['posts','Samplings','Protocols','I want to sell','I want yo buy','Campaigns','partnerships'],
   };
   Map<String,String> infoAccessTitle = {
     'Advisors' : 'Ad hoc days.\n\nHere is a group of selected advisors willing to share with you their experience and knowledge built throughout their C-Suite level careers. Why increase your risk and waste your resources, when someone can show you the way?',
@@ -375,7 +295,8 @@ class _DemoSelectedState extends State<DemoSelected> {
     'Posts' : 'Here you can learn more on how to grow by accessing content around the Bridgewhat 20 Levers of Growth published by other participants that want to share their experiences and know-how.',
     'Samplings' : 'Here you will get for free products or services from other participants that want you to try them and give feedback on your experience.',
     'Protocols' : 'Here you can access promotions on products and services offered by other Bridgewhat participants.',
-    'I want to sell I want yo buy' : 'I want to Sell: Here you can look for specific offers published by sellers of services and software linked to the Bridgewhat 20 Levers of Growth that can help you to accelerate your growth.\n\nI want to Buy: As a seller of services and software linked to the Bridgewhat 20 Levers of Growth, here you have several opportunities to do business.',
+    'I want to sell' : 'Here you can look for specific offers published by sellers of services and software linked to the Bridgewhat 20 Levers of Growth that can help you to accelerate your growth.',
+    'I want yo buy' : 'As a seller of services and software linked to the Bridgewhat 20 Levers of Growth, here you have several opportunities to do business.',
     'Campaigns' : 'Here you can look for, and take advantage of, campaigns published by all of the Silver, Gold and Platinum Bridgewhat participants.',
     'partnerships' : 'Here you can look for, and take advantage of, partnerships published by all of the Gold and Platinum partnering Bridgewhat participants.',
   };
@@ -383,7 +304,8 @@ class _DemoSelectedState extends State<DemoSelected> {
     'posts' : 'Multimedia posts are an undisputable way of showing your company’s competences. Organized around the Bridgewhat 20 Levers of Growth, these publications will allow you to position your company as an expert in your correspondent fields of action.',
     'Samplings' : 'There is no better way to create a first-hand customer experience than let your target audience get access to a sample of your products or services for free. Not only you are building brand awareness but also grasping feedback that help you to improve your offer.',
     'Protocols' : 'Start selling in Bridgewhat by offering special conditions to your peer participants. These special conditions can be translated in better prices, better service levels or other features that are capable of hooking new clients.',
-    'I want to sell I want yo buy' : 'I want to sell: As a Bridgewhat seller, you can publish as many specific offers as you wish, highlighting your differentiators and why your company is able to deliver a high standard of services/software related to the Bridgewhat 20 Levers of Growth. It is expected that via your, “best in class catalogue”, potential clients will find a good partner to successfully help them on their growth journeys.\n\nI want to buy: If, after researching among sellers of services/software related to the Bridgewhat 20 Levers of Growth (in general) and their “I want to sell” (in particular), you still haven’t found the best solution to help you to accelerate your company’s growth, as a gold and up participant you can publish a specific need and we guarantee you that we will find at least a suitable seller.',
+    'I want to sell' : 'As a Bridgewhat seller, you can publish as many specific offers as you wish, highlighting your differentiators and why your company is able to deliver a high standard of services/software related to the Bridgewhat 20 Levers of Growth. It is expected that via your, “best in class catalogue”, potential clients will find a good partner to successfully help them on their growth journeys.',
+    'I want yo buy' : 'If, after researching among sellers of services/software related to the Bridgewhat 20 Levers of Growth (in general) and their “I want to sell” (in particular), you still haven’t found the best solution to help you to accelerate your company’s growth, as a gold and up participant you can publish a specific need and we guarantee you that we will find at least a suitable seller.',
     'Campaigns' : 'Apart from the Marketplace for services/software organized around the Bridgewhat 20 Levers of Growth, all Gold and Platinum participants can use the platform as a distribution channel, via Campaigns. A campaign must define an advantage that leads to an indisputable business case to the correspondent buyer. Participants can publish as many campaigns as they want.',
     'partnerships' : 'Partnerships allow you to offer your products or services to other participants’ clients, via joint I want to sell, campaigns or protocols. Participants can initiate as many partnerships as they want. Bridgewhat guarantees that, following participants initiative, at least, two partnerships per year will be set among the three parties involved: two channel and/or product partners (among participants) and Bridgewhat.',
   };

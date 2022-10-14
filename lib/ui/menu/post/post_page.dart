@@ -261,48 +261,48 @@ class _CardPostContainerState extends State<CardPostContainer> {
             fit: BoxFit.cover
         ),
       ),
-      child: Stack(
-        children: [
-          Align(
-            alignment: Alignment.bottomRight,
-            child: InkWell(
-              onTap: (){
-                postProvider.viewContainerLikePost(idPost: post['id']);
-              },
-              child: Container(
-                height: sizeH * 0.03,
-                width: sizeH * 0.03,
-                margin: EdgeInsets.only(bottom: sizeH * 0.015,right: sizeW * 0.1),
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: Image.asset('assets/image/button_like.png').image,
-                        fit: BoxFit.fitWidth
-                    )
-                ),
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: InkWell(
-              onTap: (){
-                postProvider.viewContainerSharedPost(idPost: post['id']);
-              },
-              child: Container(
-                margin: EdgeInsets.only(bottom: sizeH * 0.015,right: sizeW * 0.025),
-                height: sizeH * 0.03,
-                width: sizeH * 0.03,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: Image.asset('assets/image/button_shared.png').image,
-                        fit: BoxFit.fitWidth
-                    )
-                ),
-              ),
-            ),
-          )
-        ],
-      ),
+      // child: Stack(
+      //   children: [
+      //     // Align(
+      //     //   alignment: Alignment.bottomRight,
+      //     //   child: InkWell(
+      //     //     onTap: (){
+      //     //       postProvider.viewContainerLikePost(idPost: post['id']);
+      //     //     },
+      //     //     child: Container(
+      //     //       height: sizeH * 0.03,
+      //     //       width: sizeH * 0.03,
+      //     //       margin: EdgeInsets.only(bottom: sizeH * 0.015,right: sizeW * 0.1),
+      //     //       decoration: BoxDecoration(
+      //     //           image: DecorationImage(
+      //     //               image: Image.asset('assets/image/button_like.png').image,
+      //     //               fit: BoxFit.fitWidth
+      //     //           )
+      //     //       ),
+      //     //     ),
+      //     //   ),
+      //     // ),
+      //     // Align(
+      //     //   alignment: Alignment.bottomRight,
+      //     //   child: InkWell(
+      //     //     onTap: (){
+      //     //       postProvider.viewContainerSharedPost(idPost: post['id']);
+      //     //     },
+      //     //     child: Container(
+      //     //       margin: EdgeInsets.only(bottom: sizeH * 0.015,right: sizeW * 0.025),
+      //     //       height: sizeH * 0.03,
+      //     //       width: sizeH * 0.03,
+      //     //       decoration: BoxDecoration(
+      //     //           image: DecorationImage(
+      //     //               image: Image.asset('assets/image/button_shared.png').image,
+      //     //               fit: BoxFit.fitWidth
+      //     //           )
+      //     //       ),
+      //     //     ),
+      //     //   ),
+      //     // )
+      //   ],
+      // ),
     );
   }
 

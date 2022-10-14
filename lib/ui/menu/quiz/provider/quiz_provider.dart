@@ -141,4 +141,12 @@ class QuizProvider extends ChangeNotifier {
   void change(){
     notifyListeners();
   }
+
+  void pageNext(){
+    controllerPageView.nextPage(
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeOut
+    );
+    notifyListeners();
+  }
 }

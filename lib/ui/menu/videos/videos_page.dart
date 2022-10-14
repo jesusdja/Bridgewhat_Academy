@@ -385,7 +385,7 @@ class _CardPostContainerState extends State<CardPostContainer> {
         ),
         onTap: (){
           Navigator.push(context,CupertinoPageRoute(
-              builder: (_) => SubVideosView(video: 'https://bridgewhat.ole.agency/videos/LOG_$type.mp4')));
+              builder: (_) => SubVideosView(video: '$type')));
         },
       ),
     );
