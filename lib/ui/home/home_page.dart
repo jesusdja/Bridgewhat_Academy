@@ -157,7 +157,6 @@ class _HomePageState extends State<HomePage> {
           Expanded(child: Container()),
           titleDrawer(type: 1),
           divide,
-          titleDrawer(type: 2),
           titleDrawer(type: 3),
           loadSignOut ?
           Container(
@@ -187,6 +186,11 @@ class _HomePageState extends State<HomePage> {
           Navigator.push(context,MaterialPageRoute<void>(
               builder: (context) => const LeversPage()),);
 
+        }
+        if(type == 3){
+          Navigator.of(context).pop();
+          Navigator.push(context,MaterialPageRoute<void>(
+              builder: (context) => const SendEmail()),);
         }
       },
       child: Container(
