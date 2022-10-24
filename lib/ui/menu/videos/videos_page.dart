@@ -1,6 +1,7 @@
 import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
+import 'package:academybw/ui/menu/levers/levers_page.dart';
 import 'package:academybw/ui/menu/videos/provider/videos_provider.dart';
 import 'package:academybw/ui/menu/quiz/quiz_page.dart';
 import 'package:academybw/ui/menu/videos/widgets/sub_videos_view.dart';
@@ -74,27 +75,27 @@ class _VideosPageState extends State<VideosPage> {
                   ),
                 ),
               ),
-              InkWell(
-                onTap: (){
-                  Navigator.push(context,MaterialPageRoute<void>( builder: (context) => const QuizPage()),);
-                },
-                child: Container(
-                  width: sizeW,
-                  height: sizeH * 0.06,
-                  color: AcademyColors.primary,
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Center(
-                          child: RichText(
-                          text: TextSpan(
-                            text: 'Please take ',
-                            style: AcademyStyles().stylePoppins(size: 12,color: Colors.white ),
-                            children: [
-                              WidgetSpan(
+              Container(
+                width: sizeW,
+                height: sizeH * 0.06,
+                color: AcademyColors.primary,
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Center(
+                        child: RichText(
+                        text: TextSpan(
+                          text: 'Please take ',
+                          style: AcademyStyles().stylePoppins(size: 12,color: Colors.white ),
+                          children: [
+                            WidgetSpan(
+                              child: InkWell(
+                                onTap: (){
+                                  Navigator.push(context,MaterialPageRoute<void>( builder: (context) => const QuizPage()),);
+                                },
                                 child: Container(
                                   width: sizeW * 0.12,
                                   decoration: BoxDecoration(
@@ -112,11 +113,16 @@ class _VideosPageState extends State<VideosPage> {
                                   ),
                                 ),
                               ),
-                              TextSpan(
-                                text: ' know more about the ',
-                                style: AcademyStyles().stylePoppins(size: 12,color: Colors.white),
-                              ),
-                              WidgetSpan(
+                            ),
+                            TextSpan(
+                              text: ' know more about the ',
+                              style: AcademyStyles().stylePoppins(size: 12,color: Colors.white),
+                            ),
+                            WidgetSpan(
+                              child: InkWell(
+                                onTap: (){
+                                  Navigator.push(context,MaterialPageRoute<void>( builder: (context) => const LeversPage()),);
+                                },
                                 child: Container(
                                   width: sizeW * 0.15,
                                   decoration: BoxDecoration(
@@ -134,13 +140,13 @@ class _VideosPageState extends State<VideosPage> {
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
-                      ),
+                            ),
+                          ],
                         ),
+                    ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
               const Tabbar(),
