@@ -11,6 +11,7 @@ import 'package:academybw/ui/menu/levers/levers_page.dart';
 import 'package:academybw/ui/menu/post/post_page.dart';
 import 'package:academybw/ui/menu/videos/videos_page.dart';
 import 'package:academybw/widgets_shared/circular_progress_colors.dart';
+import 'package:academybw/widgets_shared/dialog_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +28,7 @@ class _HomePageState extends State<HomePage> {
 
   late MenuProvider menuProvider;
   bool loadSignOut = false;
+  bool loadDelete = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -158,11 +160,18 @@ class _HomePageState extends State<HomePage> {
           titleDrawer(type: 1),
           divide,
           titleDrawer(type: 3),
-          loadSignOut ?
-          Container(
-            padding: EdgeInsets.symmetric(vertical: sizeH * 0.06),
+          loadDelete ?
+          SizedBox(
+            height: sizeH * 0.02,
             child: Center(
-              child: circularProgressColors(),
+              child: circularProgressColors(widthContainer2: sizeH * 0.02,widthContainer1: sizeW),
+            ),
+          ) : titleDrawer(type: 4),
+          loadSignOut ?
+          SizedBox(
+            height: sizeH * 0.02,
+            child: Center(
+              child: circularProgressColors(widthContainer2: sizeH * 0.02,widthContainer1: sizeW),
             ),
           ) : titleDrawer(type: 0),
           divide,
@@ -177,10 +186,12 @@ class _HomePageState extends State<HomePage> {
     if(type == 1){title = '20 Levers of growth (20 LOG)'; }
     if(type == 2){title = 'Settings'; }
     if(type == 3){title = 'Contact'; }
+    if(type == 4){title = 'Delete account'; }
 
     return InkWell(
       onTap: (){
         if(type == 0){ signOut(); }
+        if(type == 4){ deleteAccount(); }
         if(type == 1){
           Navigator.of(context).pop();
           Navigator.push(context,MaterialPageRoute<void>(
@@ -211,6 +222,20 @@ class _HomePageState extends State<HomePage> {
         (BuildContext context) => const AppState()));
 
     loadSignOut = false;
+    setState(() {});
+  }
+
+  Future deleteAccount() async{
+    loadDelete = true;
+    setState(() {});
+
+    if(await alertDeleteAccount(context)){
+      await finishApp();
+      Navigator.pushReplacement(context, MaterialPageRoute(builder:
+          (BuildContext context) => const AppState()));
+    }
+
+    loadDelete = false;
     setState(() {});
   }
 
