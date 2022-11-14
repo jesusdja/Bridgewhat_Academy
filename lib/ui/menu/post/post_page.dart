@@ -5,7 +5,9 @@ import 'package:academybw/main.dart';
 import 'package:academybw/ui/menu/post/provider/post_provider.dart';
 import 'package:academybw/widgets_shared/widgets_shared.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PostPage extends StatefulWidget {
   const PostPage({Key? key}) : super(key: key);
@@ -320,38 +322,31 @@ class _CardPostContainerState extends State<CardPostContainer> {
       margin: EdgeInsets.only(bottom: sizeH * 0.02),
       child: Column(
         children: [
+          SizedBox(width: sizeW * 0.1,),
           SizedBox(
             width: sizeW,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Text(title,style: style),
-                ),
-                SizedBox(width: sizeW * 0.1,),
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: sizeW * 0.03,vertical: sizeH * 0.005),
-                    decoration: const BoxDecoration(
-                      color: AcademyColors.colors_787878,
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: FittedBox(
-                      fit:BoxFit.contain,
-                      child: Row(
-                        children: [
-                          Text(likeSt,style: style2),
-                          Container(width: 10),
-                          Text(sharedSt,style: style2),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+            child: Container(
+              alignment: Alignment.centerRight,
+              margin: EdgeInsets.only(left: sizeW * 0.5),
+              padding: EdgeInsets.symmetric(horizontal: sizeW * 0.03,vertical: sizeH * 0.005),
+              decoration: const BoxDecoration(
+                color: AcademyColors.colors_787878,
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(likeSt,style: style2),
+                  Container(width: 10),
+                  Text(sharedSt,style: style2),
+                ],
+              ),
             ),
           ),
-          SizedBox(width: sizeW * 0.1,),
+          SizedBox(height: sizeH * 0.02,),
+          Text(title,style: style),
           textDescription(),
         ],
       ),
@@ -474,41 +469,40 @@ class _CardPostContainerState extends State<CardPostContainer> {
   Widget textDescription(){
 
     String description = post['description'] ?? '';
-
     Widget textMore = Container();
+    TextStyle styleDescription = AcademyStyles().styleLato(size: 12,color: AcademyColors.colors_787878);
 
-    if(description.length > 150){
-      bool isMoreActive = postProvider.postViewMoreDescription[post['id']!]!;
-      if(isMoreActive){
-        textMore = Text(description,style: AcademyStyles().styleLato(size: 12,color: AcademyColors.colors_787878),);
-      }else{
-        textMore =  InkWell(
-          onTap: (){
-            postProvider.viewContainerMoreDescriptionPost(idPost: post['id']);
-          },
-          child: SizedBox(
-            child: RichText(
-              text: TextSpan(
-                text: description.substring(0,150), // _snapshot.data['username']
-                style: AcademyStyles().styleLato(size: 12,color: AcademyColors.colors_787878),
-                children: <TextSpan>[
-                  TextSpan(
-                    text: '. . .  More',
-                    style: AcademyStyles().styleLato(size: 12,color: AcademyColors.primary),
-                  )
-                ],
-              ),
-            ),
-          ),
-        );
-      }
-    }else{
-      textMore = Text(description,style: AcademyStyles().styleLato(size: 12,color: AcademyColors.colors_787878),
-      textAlign: TextAlign.left,);
+    bool isMoreActive = postProvider.postViewMoreDescription[post['id']!]!;
+
+    if(description.length > 150 && !isMoreActive){
+      description = description.substring(0,150);
     }
 
+    textMore = SizedBox(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          // Text(description,style: styleDescription,),
+          Html(
+            data: description,
+            onLinkTap: (_url,context,mapSt,element) async {
+              try{
+                if (!await launchUrl(Uri.parse(_url!))) {
+                  throw 'Could not launch $_url';
+                }
+              }catch(_){}
 
-
+            },
+          ),
+          if(!isMoreActive)...[
+            InkWell(
+              child: Text('. . . More',style: AcademyStyles().styleLato(size: 12,color: AcademyColors.primary),),
+              onTap: ()=>postProvider.viewContainerMoreDescriptionPost(idPost: post['id']),
+            ),
+          ]
+        ],
+      ),
+    );
 
     return Container(
       width: sizeW,
