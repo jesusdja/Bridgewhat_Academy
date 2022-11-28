@@ -109,4 +109,18 @@ class HttpConnection{
     }
     return data;
   }
+
+  Future<Map<String,dynamic>> getPostLike({required String idPost}) async{
+    Map<String,dynamic> data = {};
+    headers['Authorization'] = getToken();
+    try{
+      final response = await _client.get(Uri.parse('interactivity/post/like/$idPost'),headers: headers);
+      if (response.statusCode == 200) {
+        data = jsonDecode(response.body);
+      }
+    }catch(e){
+      debugPrint('HttpConnection-login ${e.toString()}');
+    }
+    return data;
+  }
 }

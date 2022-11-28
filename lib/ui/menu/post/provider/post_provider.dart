@@ -18,8 +18,9 @@ class PostProvider extends ChangeNotifier {
 
     try{
       String pageNew = '';
-      if(dataAll.isEmpty){
+      if(dataAll.isEmpty || isInit){
         dataAll = await HttpConnection().getPostAll(pageNew: 'page=1');
+        listPost = []; postLikes = {}; postShared = {}; postViewMoreDescription = {};
         pageNew = 'page=1';
       }else if(!isInit){
         if(dataAll.containsKey('next_page_url') && dataAll['next_page_url'] != null){
@@ -35,7 +36,7 @@ class PostProvider extends ChangeNotifier {
         for (int x = 0; x < listPostData.length; x++){
           //var dataResponse = jsonDecode(listPostData[x]['response_data']);
           listPost.add(listPostData[x]);
-          postLikes[listPostData[x]['id']] = false;
+          postLikes[listPostData[x]['id']] = listPostData[x]['like'] == 1;
           postShared[listPostData[x]['id']] = false;
           postViewMoreDescription[listPostData[x]['id']] = false;
         }
@@ -50,7 +51,7 @@ class PostProvider extends ChangeNotifier {
     return result;
   }
 
-  void viewContainerLikePost({required int idPost}){
+  Future<void> viewContainerLikePost2({required int idPost}) async {
     bool oldValue = postLikes[idPost] ?? false;
     postLikes.forEach((key, value) {
       if(key != idPost){
@@ -59,6 +60,9 @@ class PostProvider extends ChangeNotifier {
         postLikes[key] = !oldValue;
       }
     });
+    if(idPost != 0){
+      await HttpConnection().getPostLike(idPost: idPost.toString());
+    }
     notifyListeners();
   }
 

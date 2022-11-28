@@ -4,6 +4,7 @@ import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
 import 'package:academybw/ui/menu/post/provider/post_provider.dart';
 import 'package:academybw/widgets_shared/widgets_shared.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
@@ -49,9 +50,7 @@ class _PostPageState extends State<PostPage> {
 
   initialData(){
     Future.delayed(const Duration(milliseconds: 100)).then((value){
-      if(postProvider.dataAll.isEmpty){
-        postProvider.getPosts(isInit: true);
-      }
+      postProvider.getPosts(isInit: true);
       postProvider.viewContainerLikePost(idPost: 0);
       postProvider.viewContainerSharedPost(idPost: 0);
     });
@@ -175,26 +174,25 @@ class _CardPostContainerState extends State<CardPostContainer> {
             ],
           ),
         ),
-        if(postSelectLike)...[
-          Container(
-            margin: EdgeInsets.only(top: sizeH * 0.3,right: sizeW * 0.05,left: sizeW * 0.25),
-            child: selectLike(),
-          )
-        ],
-        if(postSelectShared)...[
-          Container(
-            margin: EdgeInsets.only(top: sizeH * 0.3),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(),
-                ),
-                selectShared()
-              ],
-            ),
-          )
-        ],
-
+        // if(postSelectLike)...[
+        //   Container(
+        //     margin: EdgeInsets.only(top: sizeH * 0.3,right: sizeW * 0.05,left: sizeW * 0.25),
+        //     child: selectLike(),
+        //   )
+        // ],
+        // if(postSelectShared)...[
+        //   Container(
+        //     margin: EdgeInsets.only(top: sizeH * 0.3),
+        //     child: Row(
+        //       children: [
+        //         Expanded(
+        //           child: Container(),
+        //         ),
+        //         selectShared()
+        //       ],
+        //     ),
+        //   )
+        // ],
       ],
     );
   }
@@ -251,6 +249,12 @@ class _CardPostContainerState extends State<CardPostContainer> {
   }
 
   Widget cardPostImg(){
+
+    bool like = false;
+    if(postProvider.postLikes.containsKey(post['id'])){
+      like = postProvider.postLikes[post['id']]!;
+    }
+
     return Container(
       width: sizeW,
       height: sizeH * 0.22,
@@ -263,48 +267,50 @@ class _CardPostContainerState extends State<CardPostContainer> {
             fit: BoxFit.cover
         ),
       ),
-      // child: Stack(
-      //   children: [
-      //     // Align(
-      //     //   alignment: Alignment.bottomRight,
-      //     //   child: InkWell(
-      //     //     onTap: (){
-      //     //       postProvider.viewContainerLikePost(idPost: post['id']);
-      //     //     },
-      //     //     child: Container(
-      //     //       height: sizeH * 0.03,
-      //     //       width: sizeH * 0.03,
-      //     //       margin: EdgeInsets.only(bottom: sizeH * 0.015,right: sizeW * 0.1),
-      //     //       decoration: BoxDecoration(
-      //     //           image: DecorationImage(
-      //     //               image: Image.asset('assets/image/button_like.png').image,
-      //     //               fit: BoxFit.fitWidth
-      //     //           )
-      //     //       ),
-      //     //     ),
-      //     //   ),
-      //     // ),
-      //     // Align(
-      //     //   alignment: Alignment.bottomRight,
-      //     //   child: InkWell(
-      //     //     onTap: (){
-      //     //       postProvider.viewContainerSharedPost(idPost: post['id']);
-      //     //     },
-      //     //     child: Container(
-      //     //       margin: EdgeInsets.only(bottom: sizeH * 0.015,right: sizeW * 0.025),
-      //     //       height: sizeH * 0.03,
-      //     //       width: sizeH * 0.03,
-      //     //       decoration: BoxDecoration(
-      //     //           image: DecorationImage(
-      //     //               image: Image.asset('assets/image/button_shared.png').image,
-      //     //               fit: BoxFit.fitWidth
-      //     //           )
-      //     //       ),
-      //     //     ),
-      //     //   ),
-      //     // )
-      //   ],
-      // ),
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment.bottomRight,
+            child: InkWell(
+              onTap: (){
+                postProvider.viewContainerLikePost(idPost: post['id']);
+              },
+              child: Container(
+                height: sizeH * 0.032,
+                width: sizeH * 0.032,
+                margin: EdgeInsets.only(bottom: sizeH * 0.015,right: sizeW * 0.05),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                ),
+                child: Center(
+                  child: like ? Icon(CupertinoIcons.heart_solid,color: Colors.redAccent,size: sizeH * 0.022) :
+                  Icon(CupertinoIcons.heart,color: Colors.black,size: sizeH * 0.022),
+                ),
+              ),
+            ),
+          ),
+          // Align(
+          //   alignment: Alignment.bottomRight,
+          //   child: InkWell(
+          //     onTap: (){
+          //       postProvider.viewContainerSharedPost(idPost: post['id']);
+          //     },
+          //     child: Container(
+          //       margin: EdgeInsets.only(bottom: sizeH * 0.015,right: sizeW * 0.025),
+          //       height: sizeH * 0.03,
+          //       width: sizeH * 0.03,
+          //       decoration: BoxDecoration(
+          //           image: DecorationImage(
+          //               image: Image.asset('assets/image/button_shared.png').image,
+          //               fit: BoxFit.fitWidth
+          //           )
+          //       ),
+          //     ),
+          //   ),
+          // )
+        ],
+      ),
     );
   }
 
