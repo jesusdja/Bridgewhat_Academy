@@ -58,6 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                   hintText: 'E-mail',
                   labelStyle: styleTextField,
                   textInputType: TextInputType.emailAddress,
+                  textCapitalization: TextCapitalization.none,
                 ),
               ),
               SizedBox(height: sizeH * 0.025,),

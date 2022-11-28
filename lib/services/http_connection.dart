@@ -22,8 +22,8 @@ class HttpConnection{
         return true;
       }else{
         String errorText = 'Server connection error';
-        if(value.containsKey('error')){
-          errorText = value['error'];
+        if(value.containsKey('message') && value['message'].toString().isNotEmpty){
+          errorText = value['message'];
         }
         if(response.statusCode == 201 && value.containsKey('message')){
           errorText = 'the user has not been confirmed check your email';
