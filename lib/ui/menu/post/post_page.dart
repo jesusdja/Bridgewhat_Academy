@@ -157,8 +157,8 @@ class _CardPostContainerState extends State<CardPostContainer> {
 
     postProvider = Provider.of<PostProvider>(context);
 
-    bool postSelectLike = postProvider.postLikes[post['id']] ?? false;
-    bool postSelectShared = postProvider.postShared[post['id']] ?? false;
+    // bool postSelectLike = postProvider.postLikes[post['id']] ?? false;
+    // bool postSelectShared = postProvider.postShared[post['id']] ?? false;
 
     if(post['header_image'] == null) return Container();
 
@@ -323,6 +323,15 @@ class _CardPostContainerState extends State<CardPostContainer> {
     TextStyle style = AcademyStyles().styleLato(size: 12,color: Colors.black);
     TextStyle style2 = AcademyStyles().styleLato(size: 10,color: Colors.white);
 
+    int likes = 0;
+    if(post.containsKey('numberLikes') && post['numberLikes'] != null){
+      likes = post['numberLikes'] ?? 0;
+      if(post['like'] == 0 && postProvider.postLikes.containsKey(post['id']) && postProvider.postLikes[post['id']]!){
+        likes++;
+      }
+      likeSt = '$likes  likes';
+    }
+
     return Container(
       width: sizeW,
       margin: EdgeInsets.only(bottom: sizeH * 0.02),
@@ -476,7 +485,7 @@ class _CardPostContainerState extends State<CardPostContainer> {
 
     String description = post['description'] ?? '';
     Widget textMore = Container();
-    TextStyle styleDescription = AcademyStyles().styleLato(size: 12,color: AcademyColors.colors_787878);
+    // TextStyle styleDescription = AcademyStyles().styleLato(size: 12,color: AcademyColors.colors_787878);
 
     bool isMoreActive = postProvider.postViewMoreDescription[post['id']!]!;
 

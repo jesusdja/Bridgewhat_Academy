@@ -51,19 +51,20 @@ class PostProvider extends ChangeNotifier {
     return result;
   }
 
-  Future<void> viewContainerLikePost2({required int idPost}) async {
-    bool oldValue = postLikes[idPost] ?? false;
-    postLikes.forEach((key, value) {
-      if(key != idPost){
-        postLikes[key] = false;
-      }else{
-        postLikes[key] = !oldValue;
-      }
-    });
+  Future<void> viewContainerLikePost({required int idPost}) async {
+    postLikes[idPost] = postLikes[idPost] == null ? false : !postLikes[idPost]!;
+    // postLikes.forEach((key, value) {
+    //   if(key != idPost){
+    //     postLikes[key] = false;
+    //   }else{
+    //     postLikes[key] = !oldValue;
+    //   }
+    // });
+    notifyListeners();
     if(idPost != 0){
       await HttpConnection().getPostLike(idPost: idPost.toString());
+      notifyListeners();
     }
-    notifyListeners();
   }
 
   void viewContainerSharedPost({required int idPost}){
