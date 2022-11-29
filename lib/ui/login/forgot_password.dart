@@ -9,8 +9,9 @@ import 'package:academybw/widgets_shared/toast_widget.dart';
 import 'package:flutter/material.dart';
 
 class ForgotPass extends StatefulWidget {
-  const ForgotPass({Key? key, required this.email}) : super(key: key);
+  const ForgotPass({Key? key, required this.email, this.isLogin = true}) : super(key: key);
   final String email;
+  final bool isLogin;
 
   @override
   State<ForgotPass> createState() => _ForgotPassState();
@@ -60,7 +61,7 @@ class _ForgotPassState extends State<ForgotPass> {
               Container(
                 width: sizeW,
                 margin: EdgeInsets.symmetric(horizontal: sizeW * 0.1),
-                child: Text('We have sent an email to\nrecover your account',
+                child: Text('We have sent an email to\n${widget.isLogin ? 'recover' : 'modify'} your account',
                     style: AcademyStyles().styleLato(
                         color: AcademyColors.primary,size: sizeH * 0.022
                     ),textAlign: TextAlign.center),

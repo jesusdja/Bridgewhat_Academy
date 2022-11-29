@@ -214,6 +214,7 @@ class _LoginPageState extends State<LoginPage> {
         if(checkRemember){
           SharedPreferencesLocal.prefs.setBool('AcademyLogin',false);
         }
+        SharedPreferencesLocal.prefs.setString('AcademyEmail',controllerEmail.text);
         Navigator.pushReplacement(context, MaterialPageRoute(builder:
             (BuildContext context) => const HomePage()));
       }

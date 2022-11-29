@@ -1,7 +1,9 @@
 import 'package:academybw/config/academy_colors.dart';
 import 'package:academybw/config/academy_style.dart';
 import 'package:academybw/main.dart';
+import 'package:academybw/services/shared_preferences.dart';
 import 'package:academybw/ui/home/provider/menu_provider.dart';
+import 'package:academybw/ui/login/forgot_password.dart';
 import 'package:academybw/ui/menu/demo/demo_page_3.dart';
 import 'package:academybw/ui/menu/post/provider/post_provider.dart';
 import 'package:academybw/services/finish_app.dart';
@@ -160,6 +162,7 @@ class _HomePageState extends State<HomePage> {
           titleDrawer(type: 1),
           divide,
           titleDrawer(type: 3),
+          titleDrawer(type: 5),
           loadDelete ?
           SizedBox(
             height: sizeH * 0.02,
@@ -187,6 +190,7 @@ class _HomePageState extends State<HomePage> {
     if(type == 2){title = 'Settings'; }
     if(type == 3){title = 'Contact'; }
     if(type == 4){title = 'Delete account'; }
+    if(type == 5){title = 'Change password'; }
 
     return InkWell(
       onTap: (){
@@ -196,12 +200,17 @@ class _HomePageState extends State<HomePage> {
           Navigator.of(context).pop();
           Navigator.push(context,MaterialPageRoute<void>(
               builder: (context) => const LeversPage()),);
-
         }
         if(type == 3){
           Navigator.of(context).pop();
           Navigator.push(context,MaterialPageRoute<void>(
               builder: (context) => const SendEmail()),);
+        }
+        if(type == 5){
+          Navigator.of(context).pop();
+          Navigator.push(context, MaterialPageRoute(builder:
+            (BuildContext context) => ForgotPass(
+            email: SharedPreferencesLocal.prefs.getString('AcademyEmail') ?? '',isLogin: false),));
         }
       },
       child: Container(
